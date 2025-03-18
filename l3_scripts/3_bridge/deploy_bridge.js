@@ -27,21 +27,21 @@ const CONFIG = {
   N_BOTS: 10,
   // Replace with your own values after each deployment
   CONTRACTS: {
-    APPCHAIN_CORE_CONTRACT: "0x60ee7746b6ae0aea09b0924482f1740c192d66b9952519b36eca21e99b3dcf1",
-    L3_REGISTRY: "0x4407329ceb7c8ba43f74e9f89d84a7c44ec46835bbc5337aa82f0aa41ae1368",
+    APPCHAIN_CORE_CONTRACT: "",
+    L3_REGISTRY: "",
     // Contract addresses
-    APPCHAIN_BRIDGE: "0x8ff0d8c01af0b9e5ab904f0299e6ae3a94b28c680b821ab02b978447d2da67", // Update this after deployment
-    L2_BRIDGE: "0x422dd5fe05931e677c0dcbb74ea057874ba4035c5d5784ea626200b7cfc702",    // Update this after deployment
-    L2_ERC20: "0x6ef63128eb1f6489d2f0c2d68cdd29ea3ce63dd579012cbcbd0d3431fed2af",        // Update this after deployment
-    APPCHAIN_ERC20: "0x4e012a5bf5b415d05a44dfceb32e0f613093720542db47f7a187296702f8f34",        // Update this after deployment
+    APPCHAIN_BRIDGE: "", // Update this after deployment
+    L2_BRIDGE: "",    // Update this after deployment
+    L2_ERC20: "",        // Update this after deployment
+    APPCHAIN_ERC20: "",        // Update this after deployment
   },
 
   // Class hashes
   CLASS_HASHES: {
-    APPCHAIN_BRIDGE: "0xd0cdfaddbc999d606cf98ed5bb5812a07490fdc0ef947e0c8c0f3e41595aff", // Update this after declaration
-    L2_BRIDGE: "0x068fe0356504c739832891d82baad76d77081bddebc73507ed4132d7906bf154",     // Update this after declaration
-    L2_ERC20: "0x07174b1faca96d55df56277c24b047c8e8bffa3e28947c31039892228e46ce23",         // Update this after declaration
-    APPCHAIN_ERC20: "0x7174b1faca96d55df56277c24b047c8e8bffa3e28947c31039892228e46ce23",         // Update this after declaration
+    APPCHAIN_BRIDGE: "", // Update this after declaration
+    L2_BRIDGE: "",     // Update this after declaration
+    L2_ERC20: "",         // Update this after declaration
+    APPCHAIN_ERC20: "",         // Update this after declaration
   },
 
   SLEEP_TIMES: {
@@ -742,16 +742,16 @@ async function deployBots() {
     const tokenBridgeContract = new Contract(bridgeCls.abi, tokenBridge, acc_l2);
     
     // Approve token spending for all bots at once
-    // console.log(`Approving tokens for bot deployment...`);
+    console.log(`Approving tokens for bot deployment...`);
     
-    // const approveCall = gridyToken.populate('approve', {
-    //   spender: tokenBridge,
-    //   amount:  12n * 10n ** 18n
-    // });
+    const approveCall = gridyToken.populate('approve', {
+      spender: tokenBridge,
+      amount:  12n * 10n ** 18n
+    });
     
-    // let approveResult = await acc_l2.execute([approveCall]);
-    // console.log("Approval success!!", approveResult);
-    // await sleep(CONFIG.SLEEP_TIMES.EXTRA_LONG);
+    let approveResult = await acc_l2.execute([approveCall]);
+    console.log("Approval success!!", approveResult);
+    await sleep(CONFIG.SLEEP_TIMES.EXTRA_LONG);
     
     // Deploy each bot
     for (let i = 0; i < CONFIG.BOT_CONFIG.N_BOTS; i++) {
@@ -844,8 +844,6 @@ Available commands:
       case 7:
         await setERC20AppChain();
         break;
-      // setup ends here
-      // down below is a setup to get a working ERC20 token on L2 to test with Gridy
       case 8:
         await declareERC20L2();
         break;
@@ -862,6 +860,8 @@ Available commands:
         await getAppchainToken();
         break;
       case 13:
+      // setup ends here
+      // down below is a setup to get a working ERC20 token on L2 to test with Gridy
         await deployBots();
         break;
       default:

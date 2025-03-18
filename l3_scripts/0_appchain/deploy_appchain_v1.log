@@ -1,0 +1,42 @@
+(node:93853) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/dexterhv/Work/gridy/chain_2/madara-scripts/l3_scripts/0_appchain/deploy_appchain.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /Users/dexterhv/Work/gridy/chain_2/madara-scripts/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+Declaring contract...
+(node:93853) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+Contract declared with classHash = {
+  class_hash: '0x1716dc001bc7342d9159862ab29df0b0f6870e5b5fc92e19aac05e02f9f5430',
+  transaction_hash: '0x141f479992e82b5283f403f62bba357f11891cb2c8020dd27a0f48ba24d5e81'
+}
+Contract declared with class hash: 0x1716dc001bc7342d9159862ab29df0b0f6870e5b5fc92e19aac05e02f9f5430
+
+(node:94282) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/dexterhv/Work/gridy/chain_2/madara-scripts/l3_scripts/0_appchain/deploy_appchain.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /Users/dexterhv/Work/gridy/chain_2/madara-scripts/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+Deploying contract...
+Using class hash: 0x07e32e97ad7d1809358418ec553d61d0f537fba13d5b8ac3aa479ec9c632ef95
+Constructor args: [
+  '0x0467C4Dc308a65C3247B0907a9A0ceE780704863Bbe38938EeBE3Ab3be783FbA',
+  '0x0',
+  '0x0',
+  '0x7c6e710af5322fb47809cd955ef4834c37884da2a05cea00b68efd0ade0fa5d'
+]
+(node:94282) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+Deploying contract...
+Contract deployed at address: [ '0x60ee7746b6ae0aea09b0924482f1740c192d66b9952519b36eca21e99b3dcf1' ]
+Contract deployed at address: [ '0x60ee7746b6ae0aea09b0924482f1740c192d66b9952519b36eca21e99b3dcf1' ](node:95186) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/dexterhv/Work/gridy/chain_2/madara-scripts/l3_scripts/0_appchain/deploy_appchain.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /Users/dexterhv/Work/gridy/chain_2/madara-scripts/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+Setting program info for contract: 0x60ee7746b6ae0aea09b0924482f1740c192d66b9952519b36eca21e99b3dcf1
+Program info calldata:
+(node:95186) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+Program info set successfully. Transaction hash: 0x1b892ab63a3fe2a5f1747d34c134ac65b2abe721363c6d91a48e40c3e1acafb
+(node:95945) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/dexterhv/Work/gridy/chain_2/madara-scripts/l3_scripts/0_appchain/deploy_appchain.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /Users/dexterhv/Work/gridy/chain_2/madara-scripts/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+Setting facts registry for contract: 0x60ee7746b6ae0aea09b0924482f1740c192d66b9952519b36eca21e99b3dcf1
+(node:95945) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+Facts registry set successfully. Transaction hash: 0x4ce4ba2ae2b8fd4bde44f9d1fca23fab5cb0187a84d059cc6aae8afefe8b1fa
