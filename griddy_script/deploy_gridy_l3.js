@@ -9,37 +9,37 @@ const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 // Configuration constants
 const CONFIG = {
   RPC: {
-    NODE_URL: "http://localhost:9955"
+    NODE_URL: "http://localhost:9944"
   },
-  DEPLOYMENT_PER_SPAWNER: 50,
+  DEPLOYMENT_PER_SPAWNER: 88,
   MULTICALL_SIZE: 500,
   // MADARA DEVNET ACCOUNT #1 (SEQUENCER)
   SEQUENCER: {
-    ADDRESS: "0x4011e76c4b22b6fee0d43c5f73d638f257dd15a0207c6579d2ee912165746df",
-    PRIVATE_KEY: "0x6e646fd87e3229f1818a59628567c4fa1cb733187ca0c03b12da0e96c675827"
+    ADDRESS: "0x4482f92b9928cf03cb5b224292f470b00c2ac772a49422f9b51c507866d4708",
+    PRIVATE_KEY: "0x02f7337975003c45650dcc585830e8c2f7439815e98fe520180cace15f28436e"
   },
   // MADARA DEVNET ACCOUNT #2 (EXECUTOR / OWNER)
   EXECUTOR: {
-    ADDRESS: "0xe1b5fd817120e56df499fca5e27a945908b3561bf8695f8b7f0d69c71eee96",
-    PRIVATE_KEY: "0x11cfa20afec1ce73e933e5af2acafa7d303d0d55a07630ed343b9e6c7123eb4"
+    ADDRESS: "0x70c15b0773c640b0956ded07386b0f7e787bc0254babb006f43a84765a64099",
+    PRIVATE_KEY: "0x058ac3afb4ecbaff5bc29703f9f69ed779ac2c1879199e79ea6559d9fa9873ea"
   },
   GAME: {
     WIDTH: 1000,
     HEIGHT: 2000,
-    NUM_DIAMONDS: 300,
+    NUM_DIAMONDS: 7300,
     NUM_BOMBS:70,
     MINING_POINTS: 10,
     DIAMOND_VALUE : 5000,
     BOMB_VALUE: 666
   },
-  ASSETS_PATH: "./target/dev",
+  ASSETS_PATH: "./assets",
   CONTRACT_ADDRESSES: {
-    GAME: "0x75dbd3b28a5ae23e6e6a8fbf52da852d853412b7812226a9ebe16abfd3603eb",
+    GAME: "w",
     SPAWNERS: [
-      "0x74879cf9a9be1fba01ed6a4fc8f47b9ee0cf504a2154b5590fa8a3b5a5f42e7",
-      "0x3764cd9204ba6d8d499d8b446a6679a9d1df8899b63acae2a404c1a4a6887b8",
-      "0x4db8c72530b67ce907ac7b0538292591402640ddebc4307e7a1a9722e5c562e",
-      "0x6f757de37e5057dd753d6dd6a97b54503dbf57334ebd1a662287adea37742fe",
+      "0x4b1858b51b856878890a229a5865daf98e4c1743a2c33de2f6b018f60ecc169",
+      "0x228d6a466d4419d534b846852bcf11754dfc16f829b025ef42140bf111941e4",
+      "0x67d51141a48d68b52fcdec65ea23311752242fa4946373f9b4e5a226a498313",
+      "0xa9cc2ca22eb0c308ec5768b1685fa48bc58f568eecc2650360ced961776aed",
     ],
     BOTS : [
       "0x1fe1f1662662e42a50804dfeabed3c2dda9a1bd84fc7c7a2433d0f11fbb71c",
@@ -225,7 +225,10 @@ class StarknetDeployer {
     const declareResponse = await this.account.declare({
       contract: contract.sierra,
       casm: contract.casm,
-    });
+    },
+    { maxFee: 0}
+
+  );
     console.log("Contract declared with classHash =", declareResponse.class_hash);
     return declareResponse;
   }
@@ -286,27 +289,27 @@ class StarknetDeployer {
       num_diamond_calls++;
     }
 
-    for (let i = 0; i < num_diamond_calls; i++) {
-      const diamondsChunk = diamonds.slice(i * CONFIG.MULTICALL_SIZE, (i + 1) * CONFIG.MULTICALL_SIZE);
-      const diamondCalls = diamondsChunk.map(diamond => {
-        return gameContract.populate("update_block_points", [
-          diamond.id,
-          diamond.points
-        ]);
-      });
-      const estimatedFee = await this.account.estimateInvokeFee(diamondCalls);
+    // for (let i = 0; i < num_diamond_calls; i++) {
+    //   const diamondsChunk = diamonds.slice(i * CONFIG.MULTICALL_SIZE, (i + 1) * CONFIG.MULTICALL_SIZE);
+    //   const diamondCalls = diamondsChunk.map(diamond => {
+    //     return gameContract.populate("update_block_points", [
+    //       diamond.id,
+    //       diamond.points
+    //     ]);
+    //   });
+    //   const estimatedFee = await this.account.estimateInvokeFee(diamondCalls);
 
-      const { transaction_hash } = await this.account.execute(
-        diamondCalls,
-        undefined,
-        {
-          maxFee: estimatedFee.suggestedMaxFee
-        }
-      );
+    //   const { transaction_hash } = await this.account.execute(
+    //     diamondCalls,
+    //     undefined,
+    //     {
+    //       maxFee: 0n
+    //     }
+    //   );
 
-      const receipt = await this.account.waitForTransaction(transaction_hash);
-      console.log("Diamonds slice ", i * CONFIG.MULTICALL_SIZE , "to ", (i + 1) * CONFIG.MULTICALL_SIZE, " updated! with transaction hash: ", receipt.transaction_hash);
-    }
+    //   const receipt = await this.account.waitForTransaction(transaction_hash);
+    //   console.log("Diamonds slice ", i * CONFIG.MULTICALL_SIZE , "to ", (i + 1) * CONFIG.MULTICALL_SIZE, " updated! with transaction hash: ", receipt.transaction_hash);
+    // }
 
     // call contract's update_block_points in a multicall set of  500 only bombs
     let num_bomb_calls = (bombs.length / CONFIG.MULTICALL_SIZE) >> 0;
@@ -328,7 +331,7 @@ class StarknetDeployer {
         bombCalls,
         undefined,
         {
-          maxFee: estimatedFee.suggestedMaxFee
+          maxFee: 0n
         }
       );
 
@@ -344,7 +347,9 @@ class StarknetDeployer {
         contract: this.contracts.game.sierra,
         casm: this.contracts.game.casm,
         constructorCalldata: gameCalldata,
-      });
+      },
+      { maxFee: 0 }
+    );
       const receipt = await this.account.waitForTransaction(declareAndDeployResponse.deploy.transaction_hash);
       console.log('Contract Address:', declareAndDeployResponse.deploy.contract_address);
       console.log('Transaction Hash:', declareAndDeployResponse.deploy.transaction_hash);
@@ -424,7 +429,7 @@ class StarknetDeployer {
         callsChunk,
         undefined,
         {
-          maxFee: estimatedFee.suggestedMaxFee
+          maxFee: 0n
         }
       );
       const receipt = await this.account.waitForTransaction(transaction_hash);
@@ -490,7 +495,7 @@ class StarknetDeployer {
       deployCall,
       undefined,
       {
-        maxFee: estimatedFee.suggestedMaxFee
+        maxFee: 0n
       }
     );
 
@@ -539,7 +544,7 @@ class StarknetDeployer {
             [calls[i]],
             undefined,
             {
-              maxFee: 420n,
+              maxFee: 0n,
               nonce
             }
           );
@@ -587,7 +592,7 @@ class StarknetDeployer {
       disableCall,
       undefined,
       {
-        maxFee: estimatedFee.suggestedMaxFee
+        maxFee: 0n
       }
     );
 
@@ -610,7 +615,7 @@ class StarknetDeployer {
       enableCall,
       undefined,
       {
-        maxFee: estimatedFee.suggestedMaxFee
+        maxFee: 0n
       }
     );
 
@@ -651,7 +656,7 @@ class DeploymentCLI {
     try {
       switch (input) {
         case '-1':
-          await this.declareAndDeployGameContract();
+          await this.getBlockTxns();
           break;
         case '0':
           await this.declareGame();
@@ -721,13 +726,9 @@ class DeploymentCLI {
 
 
   async getBlockTxns() {
-    console.log('\n📦 Getting Block Transactions...')
-    let x = await this.deployer.getBlockTxns();
-    console.log('✅ Block Transactions fetched successfully!');
+    const botClassHash = await this.deployer.getGameClassHash();
+    console.log("Bot Class Hash: ", botClassHash);
   }
-
-
-
 
   async updateBlockPoints() {
     console.log('\n📦 Adding Block Points...');

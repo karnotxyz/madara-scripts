@@ -1,28 +1,42 @@
 import * as ethers from "ethers";
 import * as starknet from "starknet";
 
+// Deploys account on L3 using UDC
+
 // Configuration object replacing CLI arguments
 const CONFIG = {
-  eth_rpc_url: "http://localhost:8545",  // Replace with your Ethereum RPC URL
-  starknet_rpc_url: "http://localhost:9955", // Replace with your StarkNet RPC URL
-  l1_bridge_address: "0x8a791620dd6260079bf849dc5567adc3f2fdc318",  // Replace with your bridge contract address
-  eth_token_address: "0x49d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7",  // Replace with your ETH token address
-  num_accounts: 20,  // Number of accounts to create
-  eth_private_key : "0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80", // Replace with your Ethereum private key
+  l2_rpc_url: "https://starknet-sepolia.g.alchemy.com/v2/gbyYKt74AtTbRcgTSFP45xXuFUFdTH3D",  
+  l3_rpc_url: "http://localhost:9944",
+  token_address: "0x049d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7", // Address of token being bridged
+  l2_account_address : "0x0467C4Dc308a65C3247B0907a9A0ceE780704863Bbe38938EeBE3Ab3be783FbA",
+  l2_private_key : "0x02d7c1cdf03eaf767dd920b478b90067320c52bcd450f6c77a1057740486f4db", 
+  l3_account_address : "0x4fe5eea46caa0a1f344fafce82b39d66b552f00d3cd12e89073ef4b4ab37860",
+  l3_private_key : "0xabcd", 
   oz_account_cairo_1_class_hash : "0x1484c93b9d6cf61614d698ed069b3c6992c32549194fc3465258c2194734189", // Replace with your OZ account class hash
+  num_accounts: 1,  // Number of accounts to create
 };
 
 class AccountManager {
-  constructor(eth_rpc_url, starknet_rpc_url) {
-    // Initialize providers
-    this.eth_provider = new ethers.JsonRpcProvider(eth_rpc_url);
-    this.wallet = new ethers.Wallet(
-      CONFIG.eth_private_key,
-      this.eth_provider
-    );
-    this.starknet_provider = new starknet.RpcProvider({
-      nodeUrl: starknet_rpc_url,
+  constructor(l2_rpc_url, l3_rpc_url) {
+    // L2
+    this.l2_provider = new starknet.RpcProvider({
+      nodeUrl: l2_rpc_url,
     });
+    this.l2_account = new starknet.Account(
+      this.l2_provider,
+      CONFIG.l2_account_address,
+      CONFIG.l2_private_key
+    );
+
+    // L3
+    this.l3_provider = new starknet.RpcProvider({
+      nodeUrl: l3_rpc_url,
+    });
+    this.l3_account = new Account(
+      this.l3_provider,
+      CONFIG.l3_account_address,
+      CONFIG.l3_private_key
+    );
   }
 
   async getAppChainBalance(address, eth_token_address) {
@@ -159,8 +173,8 @@ async function main() {
       // Generate account keys
       const accountKeys = manager.generateAccountKeys();
 
-      // Bridge funds to the account
-      await manager.bridgeToChain(CONFIG.l1_bridge_address, accountKeys.address, CONFIG.eth_token_address);
+      // // Bridge funds to the account
+      // await manager.bridgeToChain(CONFIG.l1_bridge_address, accountKeys.address, CONFIG.eth_token_address);
 
       // Deploy the account
       await manager.deployAccount(accountKeys);

@@ -18,8 +18,9 @@ pub const PROGRAM_OUTPUT_FILE_NAME: &str = "program_output.txt";
 
 pub const ACCOUNT_ADDRESS: &str =
     "0x0467C4Dc308a65C3247B0907a9A0ceE780704863Bbe38938EeBE3Ab3be783FbA";
-pub const PRIVATE_KEY: &str = "";
-pub const RPC_URL: &str = "";
+pub const PRIVATE_KEY: &str = "0x02d7c1cdf03eaf767dd920b478b90067320c52bcd450f6c77a1057740486f4db";
+pub const RPC_URL: &str =
+    "https://starknet-sepolia.g.alchemy.com/v2/gbyYKt74AtTbRcgTSFP45xXuFUFdTH3D";
 pub const CORE_CONTRACT_ADDRESS: &str =
     "0x07f3e6Cc108184631e2D9bDB7f3c2de1363531A398304Dcf5BFaE490EE2a3cdc";
 

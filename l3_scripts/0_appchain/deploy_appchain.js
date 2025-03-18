@@ -1,33 +1,46 @@
 import { Account, json, RpcProvider, CallData, hash, cairo, Contract } from "starknet";
 import fs from "fs";
-import path from "path";
+
+/// This script is used to deploy a Piltover Appchain contract on Starknet Sepolia.
+
 
 // Configuration object with all hardcoded values
 const CONFIG = {
+  // Default contract address if already declared/deployed yet
+  defaultContractAddress: "0x01cbf25676e8d3214baed30caecdb17051a13e6e0000a4854fa80cb844f6ad87",
+  defaultClassHash: "0x07e32e97ad7d1809358418ec553d61d0f537fba13d5b8ac3aa479ec9c632ef95",
+
   // Provider configs
   provider: {
-    nodeUrl: "",
+    nodeUrl: "https://starknet-sepolia.g.alchemy.com/v2/yUgd-DT4wZ1xtr46xo5yj4FpJEa47r9T",
   },
   
   // Account configs
   account: {
     address: "0x0467C4Dc308a65C3247B0907a9A0ceE780704863Bbe38938EeBE3Ab3be783FbA",
-    privateKey: "",
+    privateKey: "0x02d7c1cdf03eaf767dd920b478b90067320c52bcd450f6c77a1057740486f4db",
   },
   
   // Contract paths
   contractPaths: {
-    sierra: "/Users/dexterhv/Work/gridy/chain/scripts/assets/piltover_appchain.contract_class.json",
-    casm: "/Users/dexterhv/Work/gridy/chain/scripts/assets/piltover_appchain.compiled_contract_class.json",
+    sierra: "./assets/piltover_appchain.contract_class.json",
+    casm: "./assets/piltover_appchain.compiled_contract_class.json",
   },
   
-  // Constructor arguments
+  // Constructor arguments for 0th block
   constructorArgs: [
     "0x0467C4Dc308a65C3247B0907a9A0ceE780704863Bbe38938EeBE3Ab3be783FbA", // owner
-    "0x31d38a4b09ff7f66d4aa61e7aaee7512666b72117ad29dfade7eec3e47f0370", // previous state_root
-    "0x01c5", // block_number
-    "0x350afb99db0c05f5df09d4fbec3de0024671bd681dead31a1c1153312462fa7" // block_hash
+    "0x0", // previous state_root
+    "0x0", // block_number
+    "0x7c6e710af5322fb47809cd955ef4834c37884da2a05cea00b68efd0ade0fa5d" // block_hash
   ],
+  
+  // constructorArgs: [
+  //   "0x0467C4Dc308a65C3247B0907a9A0ceE780704863Bbe38938EeBE3Ab3be783FbA", // owner
+  //   "0x5a5438ef85edfc378cd8b972de012955b56608e64be6a7feb88078c6af7f304", // previous state_root
+  //   "0x01c2", // block_number
+  //   "0x5a534e22c45c4fe34c1ea26533aa62177a906f531978e51bf191ce83a7869d0" // block_hash
+  // ],
   
   // Program info arguments
   programInfo: {
@@ -40,18 +53,12 @@ const CONFIG = {
     // https://docs.herodotus.cloud/atlantic/dynamic#double-verification-for-integrity-compatibility
     layout_bridge_program_hash: "0x193641eb151b0f41674641089952e60bc3aded26e3cf42793655c562b8c3aa0" // layout_bridge_program_hash
   },
-  
 
   // Facts registry arguments
   factsRegistry: [
     "0x04ce7851f00b6c3289674841fd7a1b96b6fd41ed1edc248faccd672c26371b8c"
   ],
   
-  // Default contract address if not declared/deployed yet
-  defaultContractAddress: "0x07f3e6Cc108184631e2D9bDB7f3c2de1363531A398304Dcf5BFaE490EE2a3cdc",
-  
-  // Wait time between operations in milliseconds
-  waitTime: 10000
 };
 
 // Initialize provider
@@ -73,7 +80,6 @@ const initAccount = (provider) => {
 // Load contract files
 const loadContracts = () => {
   try {
-    
     const sierra = json.parse(fs.readFileSync(CONFIG.contractPaths.sierra).toString("ascii"));
     const casm = json.parse(fs.readFileSync(CONFIG.contractPaths.casm).toString("ascii"));
     return { sierra, casm };
@@ -91,8 +97,8 @@ const declareContract = async (account, sierra, casm) => {
       contract: sierra,
       casm: casm,
     });
-    console.log('Contract declared with classHash =', declareResponse.class_hash);
-    await account.provider.waitForTransaction(declareResponse.transaction_hash);
+    console.log('Contract declared with classHash =', declareResponse);
+    await account.waitForTransaction(declareResponse.transaction_hash);
     return declareResponse.class_hash;
   } catch (err) {
     console.error("Contract declaration failed or already declared:", err.message);
@@ -118,12 +124,16 @@ const deployContract = async (account, sierra, classHash = null) => {
     
     console.log("Constructor args:", CONFIG.constructorArgs);
     
+    // use estimated fee
     const deployResult = await account.deploy({
       classHash: contractClassHash,
       constructorCalldata: CONFIG.constructorArgs,
+      // max possible fee
+      maxFee: "0x3f4c3b2e1d8",
     });
+    console.log("Deploying contract...");
 
-    await account.provider.waitForTransaction(deployResult.transaction_hash);
+    await account.waitForTransaction(deployResult.transaction_hash);
     console.log("Contract deployed at address:", deployResult.contract_address);
     return deployResult.contract_address;
   } catch (err) {
@@ -141,15 +151,13 @@ const setProgramInfo = async (account, contractAddress) => {
     contract.connect(account);
     
     console.log("Program info calldata:");
-
     // const myCall = contract.populate('set_program_info', CONFIG.programInfo);
-
     // console.log("Program info calldata:", myCall.calldata);
     
     const res = await contract.set_program_info(CONFIG.programInfo);
     console.log("Program info set successfully. Transaction hash:", res.transaction_hash);
     
-    await account.provider.waitForTransaction(res.transaction_hash);
+    await account.waitForTransaction(res.transaction_hash);
     return res.transaction_hash;
   } catch (err) {
     console.error("Error setting program info:", err.message);
@@ -170,7 +178,7 @@ const setFactsRegistry = async (account, contractAddress) => {
     const res = await contract.set_facts_registry(myCall.calldata);
     console.log("Facts registry set successfully. Transaction hash:", res.transaction_hash);
     
-    await account.provider.waitForTransaction(res.transaction_hash);
+    await account.waitForTransaction(res.transaction_hash);
     return res.transaction_hash;
   } catch (err) {
     console.error("Error setting facts registry:", err.message);
@@ -178,12 +186,6 @@ const setFactsRegistry = async (account, contractAddress) => {
   }
 };
 
-
-// Wait for specified time
-const wait = async (ms = CONFIG.waitTime) => {
-  console.log(`Waiting for ${ms / 1000} seconds...`);
-  return new Promise(resolve => setTimeout(resolve, ms));
-};
 
 // Display usage information
 const displayUsage = () => {
@@ -193,13 +195,6 @@ const displayUsage = () => {
   console.log("  1: Deploy Contract");
   console.log("  2: Set Program Info");
   console.log("  3: Set Facts Registry");
-  console.log("\nExamples:");
-  console.log("  node script.js 0                    # Declare contract");
-  console.log("  node script.js 1                    # Deploy contract");
-  console.log("  node script.js 2                    # Set program info using default contract address");
-  console.log("  node script.js 2 0x123abc           # Set program info for specific contract address");
-  console.log("  node script.js 3                    # Set facts registry using default contract address");
-  console.log("  node script.js 3 0x123abc           # Set facts registry for specific contract address");
 };
 
 // Main function
@@ -236,8 +231,7 @@ async function main() {
         
       case 1:
         // Deploy contract
-        classHash = "0x07e32e97ad7d1809358418ec553d61d0f537fba13d5b8ac3aa479ec9c632ef95";
-        deployedAddress = await deployContract(account, sierra, classHash);
+        deployedAddress = await deployContract(account, sierra, CONFIG.defaultClassHash);
         console.log("Contract deployed at address:", deployedAddress);
         // Save the contract address to a file for future reference
         fs.writeFileSync("contract_address.txt", deployedAddress);

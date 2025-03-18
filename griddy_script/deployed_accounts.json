@@ -1,0 +1,86 @@
+[
+  {
+    "privateKey": "0x024b692184064d7fda834f8e1b6c01c09979d174276ae99bed0f7038e65c1315",
+    "publicKey": "0x3e53747b5250a8fff8987b1be0fe26d7fee9ae37102af238ca227d9e8b7b4c4",
+    "predictedAddress": "0x4daa42ca723a5b0f5aaa51e9fc415c5da41bfb27985e9645c48eb0ab3e7c15e",
+    "actualAddress": "0x69bb719197d5ef76fe9041f3e12b99d952f86f9abbff4f3ca228fff07f2329f",
+    "salt": "0x34d2f31a762b1",
+    "classHash": "0x1484c93b9d6cf61614d698ed069b3c6992c32549194fc3465258c2194734189",
+    "transactionHash": "0x43ce28bf0e9abddb7c2353f349e20201116c0b31c75cfeb85b0011a5ddd7965",
+    "network": "http://localhost:9944",
+    "accountIndex": 1,
+    "deployedAt": "2025-03-09T17:07:29.900Z"
+  },
+  {
+    "privateKey": "0x07d672148cd9718cb3b46d2e202068c3f76aa2b8cddc52b87be42bd70517c291",
+    "publicKey": "0x658a0b32cffe69461979c79da43f307ff1a148fb1baa3874e65ad8dbfdee84a",
+    "predictedAddress": "0x2324b87f98ee9d9297426a213f80c593216f8e39c28f8ec9f5fe9e9862e3633",
+    "actualAddress": "0x4d8bf42e279f4128b7fd635fe45435163a26a807e1ab7f4db9343955690cb2b",
+    "salt": "0x1e1bf97556d161",
+    "classHash": "0x1484c93b9d6cf61614d698ed069b3c6992c32549194fc3465258c2194734189",
+    "transactionHash": "0x33a52ddb10ad35a3d64357ae9064abe22d1b376452727864caa5d11f04497af",
+    "network": "http://localhost:9944",
+    "accountIndex": 2,
+    "deployedAt": "2025-03-09T17:07:29.905Z"
+  },
+  {
+    "privateKey": "0x01bc75bb9f7e46354cd7f48939477bced3829f38ba76b89d079afda344fa7528",
+    "publicKey": "0x1615aaf3a96895272ebbe1ade38138a6cadb747a808221c36e257919eeefd51",
+    "predictedAddress": "0x78e210ed87d67b47590353d21de823537c9b58b82316c1638d24a4d36dd1b36",
+    "actualAddress": "0x2251fce85ca3f5a0a19a717bb67e9a90c05f7465e7c2b349b502753bf09c070",
+    "salt": "0x95f942812997f",
+    "classHash": "0x1484c93b9d6cf61614d698ed069b3c6992c32549194fc3465258c2194734189",
+    "transactionHash": "0x115b9feb308dbf6084e262adf013c0f485be1d9e8c88ebc69bef4bbc014cf7",
+    "network": "http://localhost:9944",
+    "accountIndex": 3,
+    "deployedAt": "2025-03-09T17:07:29.905Z"
+  },
+  {
+    "privateKey": "0x0091b8920841a75a5f159fe1b02b5b7b56b3bd05d4ae6e69d2fcd133bae33644",
+    "publicKey": "0x2606726d0d2bd2f5d89973bfb534d15df009211613d30074a6903181ba43074",
+    "predictedAddress": "0x40e041cd74c910f94aace4b74922e533e8fce9c82427303ccad0e000c729531",
+    "actualAddress": "0x6cc82913d7c35c332298c20e57bff36bc7df01c1383d6f29367a6b6fa3b13ea",
+    "salt": "0x17bbff41ff3377",
+    "classHash": "0x1484c93b9d6cf61614d698ed069b3c6992c32549194fc3465258c2194734189",
+    "transactionHash": "0x7a5d62e983bfb0615a538650bae30b23b23d9f2bc7c62564d1e2736635bd7d0",
+    "network": "http://localhost:9944",
+    "accountIndex": 4,
+    "deployedAt": "2025-03-09T17:07:29.905Z"
+  },
+  {
+    "privateKey": "0x05943598b292f2f080aa0034e536dc1192ea4b72cecec40d0551e68136c9e0fd",
+    "publicKey": "0x21e8a34331a0fe04897e3c86f6905738a4c3c921682c690c16bae334cb1ffde",
+    "predictedAddress": "0x7333496c391a906a177fb68c60b92c00516dd9025be94736cf012dbed013fec",
+    "actualAddress": "0x30cf6bd0176555b5d23e047ce16e66117e8a438fc4dc88d3add728e629d5d85",
+    "salt": "0x1da359068e7a2f",
+    "classHash": "0x1484c93b9d6cf61614d698ed069b3c6992c32549194fc3465258c2194734189",
+    "transactionHash": "0x646d90f871cf66839013247e20a5399d32c9c48bedadd8453141133614281c0",
+    "network": "http://localhost:9944",
+    "accountIndex": 5,
+    "deployedAt": "2025-03-09T17:07:29.905Z"
+  },
+  {
+    "privateKey": "0x0236d0fe8ab84ab5b3edc7e026fccb70b50f5ea9e26238474cc39d6cb0183f9c",
+    "publicKey": "0x565617e8f0bebc2e6cb74014dfc9cb297006a118e1194e8b4a8443760c62f62",
+    "predictedAddress": "0x6cae34d551a9b81862b511b2d382369d7477d184dae55913459a947e56c6158",
+    "actualAddress": "0x23e4699d3fac46ca65f946d181fa2b8a6f56508e91a78610031422e4d516e40",
+    "salt": "0x7631fdaf7792b",
+    "classHash": "0x1484c93b9d6cf61614d698ed069b3c6992c32549194fc3465258c2194734189",
+    "transactionHash": "0x576ce30c5481fbe8a560a47d0ef5eed5d46b0cc6b71f6035e96ea759dfe456",
+    "network": "http://localhost:9944",
+    "accountIndex": 6,
+    "deployedAt": "2025-03-09T17:07:29.905Z"
+  },
+  {
+    "privateKey": "0x05737b84972742590edb6fa1a6296d4cd378c956e1900cb14fbda7360dccc7c6",
+    "publicKey": "0x6f0d21913ba85c47c10f05ce83ef38e381e1456ba568e148cdb819ef2517752",
+    "predictedAddress": "0x1c99214f17877a294c2b8daf1d48137c02df4550c53d0a236b8f13b56ca935a",
+    "actualAddress": "0x3994e8756b803e147beed79601dc39289764f5446c919a089ae7d9394432f53",
+    "salt": "0xe2e46a9dc1a27",
+    "classHash": "0x1484c93b9d6cf61614d698ed069b3c6992c32549194fc3465258c2194734189",
+    "transactionHash": "0xf1196fd209fcd31b33d0aa19f806b181179f677a243afe7236cb80652f28c6",
+    "network": "http://localhost:9944",
+    "accountIndex": 7,
+    "deployedAt": "2025-03-09T17:07:29.905Z"
+  }
+]
