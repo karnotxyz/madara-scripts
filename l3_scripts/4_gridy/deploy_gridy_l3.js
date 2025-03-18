@@ -16,8 +16,8 @@ const CONFIG = {
   MULTICALL_SIZE: 500,
   // MADARA DEVNET ACCOUNT #1 (SEQUENCER)
   SEQUENCER: {
-    ADDRESS: "0x69bb719197d5ef76fe9041f3e12b99d952f86f9abbff4f3ca228fff07f2329f",
-    PRIVATE_KEY: "0x024b692184064d7fda834f8e1b6c01c09979d174276ae99bed0f7038e65c1315"
+    ADDRESS: "0x432b55bb8353e05b5e773318861f28450e0ff831d30fe72ccab78187c590e05",
+    PRIVATE_KEY: "0x03460d6ff1991cb61f6155b179a51bf7d9f4210262e846cee15c4fca0d6e9025"
   },
   L2_ACCOUNT: {
     ADDRESS: "0x0467C4Dc308a65C3247B0907a9A0ceE780704863Bbe38938EeBE3Ab3be783FbA",
@@ -25,8 +25,8 @@ const CONFIG = {
   },
   // MADARA DEVNET ACCOUNT #2 (EXECUTOR / OWNER)
   EXECUTOR: {
-    ADDRESS: "0x4d8bf42e279f4128b7fd635fe45435163a26a807e1ab7f4db9343955690cb2b",
-    PRIVATE_KEY: "0x07d672148cd9718cb3b46d2e202068c3f76aa2b8cddc52b87be42bd70517c291"
+    ADDRESS: "0x405e9a036e38f3101237c3a6c65b33426ca1e567fd760fd0e3f9ce5377b2f30",
+    PRIVATE_KEY: "0x028b60407d6311f3eaf82e73e5a7e049e84b74aac2a67d5fcd452ddafcb06492"
   },
   GAME: {
     WIDTH: 1000,
@@ -37,18 +37,19 @@ const CONFIG = {
     DIAMOND_VALUE: 5000,
     BOMB_VALUE: 666,
     BOOT_AMOUNT: 10n ** 15n,
-    CURRENCY: "0x49bb21141e3404774882a696bcce0553cb44a394843d9c8bd98f32cbad7db82", // my game token l3 address
+    // my game token l3 address
+    CURRENCY: "0x4e012a5bf5b415d05a44dfceb32e0f613093720542db47f7a187296702f8f34", 
   },
-  ASSETS_PATH: "./target/dev/",
+  ASSETS_PATH: "./assets/",
   CONTRACT_ADDRESSES: {
-    GAME: "0x4d5f0a7249bd36c0b8ed5ea0b172b52727a8b96f15f75258cec454f0c7b2152",
-    BRIDGE: "0x680c4cd19f9bfece1df9e870fab1cb6d92bd7b68f2f3084d17bf44ac6cea0ad",
-    L3_REGISTRY: "0x7c19a46b7dfc5e2a2697934f5eaa62e3ab86dc6242e569cc1e7882d467f2944",
+    L2_BRIDGE: "0x422dd5fe05931e677c0dcbb74ea057874ba4035c5d5784ea626200b7cfc702",
+    GAME: "0x61dabf5527d64169587abaf0aaf489dd49e542defed2ee962e6c96fb6b64618",
+    L3_REGISTRY: "0x4407329ceb7c8ba43f74e9f89d84a7c44ec46835bbc5337aa82f0aa41ae1368",
     SPAWNERS: [
-      "0x3994e8756b803e147beed79601dc39289764f5446c919a089ae7d9394432f53",
-      "0x23e4699d3fac46ca65f946d181fa2b8a6f56508e91a78610031422e4d516e40",
-      "0x30cf6bd0176555b5d23e047ce16e66117e8a438fc4dc88d3add728e629d5d85",
-      "0x6cc82913d7c35c332298c20e57bff36bc7df01c1383d6f29367a6b6fa3b13ea",
+      "0x61bcf2cfcbf3893eb4d82c51b26881377d24a24e2ef16dada6979f227955701",
+      "0x2aaa7d3608724da993ee4876628c88286efdc82a6066feaf3ffb39a2fb5460c",
+      "0x2a9043db66a4ad10997b04ab1432bb2880b79b571239dbe35761737684663a1",
+      "0x43062518806f9f67e66765619fcee6d7fbca41e3a8cf0ebc23e4adb9eed19e2",
     ],
     BOTS: [
       "0x1fe1f1662662e42a50804dfeabed3c2dda9a1bd84fc7c7a2433d0f11fbb71c",
@@ -458,7 +459,7 @@ class StarknetDeployer {
     const declareAndDeployResponse = await this.l2_account.declareAndDeploy({
       contract: this.contracts.l2Registry.sierra,
       casm: this.contracts.l2Registry.casm,
-      constructorCalldata: [CONFIG.CONTRACT_ADDRESSES.BRIDGE, CONFIG.CONTRACT_ADDRESSES.L3_REGISTRY],
+      constructorCalldata: [CONFIG.CONTRACT_ADDRESSES.L2_BRIDGE, CONFIG.CONTRACT_ADDRESSES.L3_REGISTRY],
     });
     const receipt = await this.l2_account.waitForTransaction(declareAndDeployResponse.deploy.transaction_hash);
     console.log('Transaction Hash:', declareAndDeployResponse.deploy.transaction_hash);
@@ -841,6 +842,7 @@ class StarknetDeployer {
 }
 
 
+
 class DeploymentCLI {
   constructor() {
     this.deployer = new StarknetDeployer();
@@ -852,79 +854,72 @@ class DeploymentCLI {
 
   async showMenu() {
     console.log('\n🚀 Starknet Deployment Menu\n');
-    console.log('1. Declare and Deploy L2 Registry Contract');
+    console.log('-2. Declare Game Contract');
+    console.log('-1. Deploy Game Contract');
+    console.log('1. Declare and Deploy Game Contract');
     console.log('2. Declare and Deploy L3 Registry Contract');
-    console.log('3. Declare and Deploy Game Contract');
-    console.log('4. Declare Game Contract');
-    console.log('5. Deploy Game Contract');
-    console.log('6. Add Block Points to Game Contract');
-    console.log('7. Enable Game Contract');
-    console.log('8. Declare Bot Contract');
-    console.log('9. Deploy Multiple Bots');
-    console.log('10. Call Mine');
-    console.log('11. Get Class Hash');
-    console.log('12. Disable Game Contract');
-    console.log('13. Check is bot alive');
-    console.log('14. Set Game Currency');
-    console.log('15. Upgrade Game Contract');
-    console.log('16. Update Boot amount');
-    console.log('17. Exit');
-  
-    console.log('\nSelect an option (1-17):');
+    console.log('3. Declare and Deploy L2 Registry Contract');
+    console.log('4. Update Block Points');
+    console.log('5. Set Game Currency');
+    console.log('6. Enable Game');
+    console.log('7. Declare Bot');
+    console.log('8. Deploy Multiple Bots');
+    console.log('9. Call Mine');
+    console.log('10. Get Class Hash');
+    console.log('11. Disable Game');
+    console.log('12. Call Is Bot Alive');
+    console.log('13. Exit');
+    
+    console.log('\nSelect an option (1-13):');
   }
 
   async handleUserInput(input) {
     try {
       switch (input) {
+        case '-2':
+          await this.declareGame();
+          break;
+        case '-1':
+          await this.deployGame();
+          break;
         case '1':
-          await this.declareAndDeployL2RegistryContract();
+          await this.declareAndDeployGameContract();
           break;
         case '2':
           await this.declareAndDeployL3RegistryContract();
           break;
         case '3':
-          await this.declareAndDeployGameContract();
+          await this.declareAndDeployL2RegistryContract();
           break;
         case '4':
-          await this.declareGame();
-          break;
-        case '5':
-          await this.deployGame();
-          break;
-        case '6':
           await this.updateBlockPoints();
           break;
-        case '7':
-          await this.enableGame();
-          break;
-        case '8':
-          await this.declareBot();
-          break;
-        case '9':
-          await this.deployMultipleBots();
-          break;
-        case '10':
-          await this.callMine();
-          break;
-        case '11':
-          await this.getClassHash();
-          break;
-        case '12':
-          await this.disableGame();
-          break;
-        case '13':
-          await this.callIsBotAlive();
-          break;
-        case '14':
+        case '5':
           await this.setGameCurrency();
           break;
-        case '15':
-          await this.upgradeGameContract();
+        case '6':
+          await this.enableGame();
           break;
-        case '16':
-          await this.updateBootAmount();
+        case '7':
+          await this.declareBot();
           break;
-        case '17':
+        // Extension
+        case '8':
+          await this.deployMultipleBots();
+          break;
+        case '9':
+          await this.callMine();
+          break;
+        case '10':
+          await this.getClassHash();
+          break;
+        case '11':
+          await this.disableGame();
+          break;
+        case '12':
+          await this.callIsBotAlive();
+          break;
+        case '13':
           console.log('\nExiting...');
           this.rl.close();
           process.exit(0);
@@ -1074,6 +1069,7 @@ class DeploymentCLI {
   }
 
 }
+
 
 // Replace the original main function with this:
 async function main() {

@@ -2,13 +2,13 @@ import { Account, json, RpcProvider, CallData, hash, cairo, Contract } from "sta
 import fs from "fs";
 
 /// This script is used to deploy a Piltover Appchain contract on Starknet Sepolia.
-
+/// IMP! Make sure to update the contract address and class hash in the CONFIG object if already declared/deployed.
 
 // Configuration object with all hardcoded values
 const CONFIG = {
-  // Default contract address if already declared/deployed yet
-  defaultContractAddress: "0x01cbf25676e8d3214baed30caecdb17051a13e6e0000a4854fa80cb844f6ad87",
-  defaultClassHash: "0x07e32e97ad7d1809358418ec553d61d0f537fba13d5b8ac3aa479ec9c632ef95",
+  // Default contract address if already declared/deployed 
+  defaultContractAddress: "0x60ee7746b6ae0aea09b0924482f1740c192d66b9952519b36eca21e99b3dcf1",
+  defaultClassHash: "0x1716dc001bc7342d9159862ab29df0b0f6870e5b5fc92e19aac05e02f9f5430",
 
   // Provider configs
   provider: {
@@ -97,7 +97,7 @@ const declareContract = async (account, sierra, casm) => {
       contract: sierra,
       casm: casm,
     });
-    console.log('Contract declared with classHash =', declareResponse);
+    console.log('Declare Response', declareResponse);
     await account.waitForTransaction(declareResponse.transaction_hash);
     return declareResponse.class_hash;
   } catch (err) {
@@ -226,15 +226,13 @@ async function main() {
       case 0:
         // Declare contract
         classHash = await declareContract(account, sierra, casm);
-        console.log("Contract declared with class hash:", classHash);
+        console.log("Appchain Piltover declared at: ", classHash);
         break;
         
       case 1:
         // Deploy contract
         deployedAddress = await deployContract(account, sierra, CONFIG.defaultClassHash);
-        console.log("Contract deployed at address:", deployedAddress);
-        // Save the contract address to a file for future reference
-        fs.writeFileSync("contract_address.txt", deployedAddress);
+        console.log("Appchain Piltover deployed at: ", deployedAddress);
         break;
         
       case 2:

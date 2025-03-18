@@ -7,7 +7,7 @@ const path = require('path');
 // ContractLoader class to load contract artifacts
 class ContractLoader {
   static loadContract(contractName) {
-    const basePath = path.join(CONFIG.ASSETS_BASE_PATH, `gridy_${contractName}`);
+    const basePath = path.join(CONFIG.ASSETS_BASE_PATH, `${contractName}`);
     return {
       sierra: JSON.parse(fs.readFileSync(`${basePath}.contract_class.json`).toString("ascii")),
       casm: JSON.parse(fs.readFileSync(`${basePath}.compiled_contract_class.json`).toString("ascii"))
@@ -22,41 +22,28 @@ const Layer = {
   L3: "L3"
 };
 
-// Load all contract artifacts
-let contractArtifacts = {};
-try {
-  contractArtifacts = {
-    appchain_bridge: ContractLoader.loadContract('appchain_bridge'),
-    token_bridge_l3: ContractLoader.loadContract('token_bridge_l3'),
-    token_bridge_l2: ContractLoader.loadContract('token_bridge_l2'),
-    erc20_l3: ContractLoader.loadContract('erc20_l3'),
-    erc20_l2: ContractLoader.loadContract('erc20_l2')
-  };
-  console.log("Loaded contract artifacts successfully");
-} catch (error) {
-  console.warn("Could not preload contract artifacts. They will be loaded on demand:", error.message);
-}
-
 // Configuration object for all hardcoded values and contract addresses
 const CONFIG = {
+  N_BOTS: 10,
   // Replace with your own values after each deployment
   CONTRACTS: {
+    APPCHAIN_CORE_CONTRACT: "0x60ee7746b6ae0aea09b0924482f1740c192d66b9952519b36eca21e99b3dcf1",
+    L3_REGISTRY: "0x4407329ceb7c8ba43f74e9f89d84a7c44ec46835bbc5337aa82f0aa41ae1368",
     // Contract addresses
-    APPCHAIN_STARKNET_BRIDGE: "", // Update this after deployment
-    TOKEN_BRIDGE_STARKGATE: "",   // Update this after deployment
-    TOKEN_BRIDGE_STARKNET: "",    // Update this after deployment
-    ERC20_STARKNET_L2: "",        // Update this after deployment
-    ERC20_STARKNET_L3: "",        // Update this after deployment
-    
-    // Class hashes
-    CLASS_HASHES: {
-      APPCHAIN_STARKNET_BRIDGE: "", // Update this after declaration
-      TOKEN_BRIDGE_STARKGATE: "",    // Update this after declaration
-      TOKEN_BRIDGE_STARKNET: "",     // Update this after declaration
-      ERC20_STARKNET_L2: "",         // Update this after declaration
-      ERC20_STARKNET_L3: "",         // Update this after declaration
-    }
+    APPCHAIN_BRIDGE: "0x8ff0d8c01af0b9e5ab904f0299e6ae3a94b28c680b821ab02b978447d2da67", // Update this after deployment
+    L2_BRIDGE: "0x422dd5fe05931e677c0dcbb74ea057874ba4035c5d5784ea626200b7cfc702",    // Update this after deployment
+    L2_ERC20: "0x6ef63128eb1f6489d2f0c2d68cdd29ea3ce63dd579012cbcbd0d3431fed2af",        // Update this after deployment
+    APPCHAIN_ERC20: "0x4e012a5bf5b415d05a44dfceb32e0f613093720542db47f7a187296702f8f34",        // Update this after deployment
   },
+
+  // Class hashes
+  CLASS_HASHES: {
+    APPCHAIN_BRIDGE: "0xd0cdfaddbc999d606cf98ed5bb5812a07490fdc0ef947e0c8c0f3e41595aff", // Update this after declaration
+    L2_BRIDGE: "0x068fe0356504c739832891d82baad76d77081bddebc73507ed4132d7906bf154",     // Update this after declaration
+    L2_ERC20: "0x07174b1faca96d55df56277c24b047c8e8bffa3e28947c31039892228e46ce23",         // Update this after declaration
+    APPCHAIN_ERC20: "0x7174b1faca96d55df56277c24b047c8e8bffa3e28947c31039892228e46ce23",         // Update this after declaration
+  },
+
   SLEEP_TIMES: {
     SHORT: 1000,
     MEDIUM: 2000,
@@ -69,10 +56,15 @@ const CONFIG = {
     NAME: "Gridy Token",
     SYMBOL: "GRD",
     DECIMALS: 18,
-    INITIAL_SUPPLY: BigInt(10000) * BigInt(10) ** BigInt(18),
+    INITIAL_SUPPLY: BigInt(100000) * BigInt(10) ** BigInt(18),
     DEPOSIT_AMOUNT: BigInt(10) * BigInt(10) ** BigInt(18)
   },
-  ASSETS_BASE_PATH: "./assets"
+  ASSETS_BASE_PATH: "./assets",
+
+  BOT_CONFIG : {
+    N_BOTS: 23,
+    TOKENS_PER_BOT: 100,
+  }
 };
 
 // Helper function to sleep
@@ -87,9 +79,11 @@ async function getAccount(layer) {
     if (!privateKey || !accountAddress) {
       throw new Error("Missing L2 account configuration in .env file");
     }
-    
-    const provider = getProvider(layer);
-    return new Account(provider, accountAddress, privateKey);
+    return new Account(
+      new RpcProvider({ nodeUrl: process.env.NODE_L2_URL })
+      , accountAddress, privateKey, undefined,
+      "0x3");
+
   } else if (layer === Layer.L3) {
     const privateKey = process.env.PRIVATE_KEY_L3;
     const accountAddress = process.env.ACCOUNT_L3_ADDRESS;
@@ -98,8 +92,10 @@ async function getAccount(layer) {
       throw new Error("Missing L3 account configuration in .env file");
     }
     
-    const provider = getProvider(layer);
-    return new Account(provider, accountAddress, privateKey);
+    return new Account(
+      new RpcProvider({ nodeUrl: process.env.APPCHAIN_RPC_URL })
+      , accountAddress, privateKey,  undefined,
+      "0x3");
   }
   throw new Error(`Unsupported layer: ${layer}`);
 }
@@ -114,35 +110,33 @@ async function getProvider(layer) {
   } else if (layer === Layer.L3) {
     // L3 provider configuration (appchain)
     return new RpcProvider({
-      nodeUrl: process.env.APPCHAIN_RPC_URL || 'http://localhost:9545'
+      nodeUrl: process.env.APPCHAIN_RPC_URL || 'http://localhost:9944'
     });
   }
   throw new Error(`Unsupported layer: ${layer}`);
 }
 
-async function declareContract(contractKey, layer) {
-  console.log(`Declaring ${contractKey} on ${layer}...`);
+async function declareL2Contract(contractKey) {
+  console.log(`Declaring ${contractKey} on ${Layer.L2}...`);
   
   try {
-    const account = await getAccount(layer);
-    
+    const account = await getAccount(Layer.L2);
     // Get contract artifact
     let contractArtifact;
     try {
-      contractArtifact = contractArtifacts[contractKey] || 
-        ContractLoader.loadContract(contractKey);
+      contractArtifact = ContractLoader.loadContract(contractKey);
     } catch (error) {
       console.error(`Error loading contract artifact for ${contractKey}:`, error);
       throw error;
     }
-    
     // Declare the contract
     const { class_hash } = await account.declare({
       contract: contractArtifact.sierra,
       casm: contractArtifact.casm
-    });
+    }
+  );
     
-    console.log(`Contract ${contractKey} declared successfully on ${layer}`);
+    console.log(`Contract ${contractKey} declared successfully on ${Layer.L2}`);
     return class_hash;
   } catch (error) {
     console.error(`Error declaring contract ${contractKey}:`, error);
@@ -150,23 +144,107 @@ async function declareContract(contractKey, layer) {
   }
 }
 
-async function deployContract(contractKey, classHash, constructorCalldata, layer) {
-  console.log(`Deploying ${contractKey} on ${layer} with class hash ${classHash}...`);
+
+async function declareL3Contract(contractKey) {
+  console.log(`Declaring ${contractKey} on ${Layer.L3}...`);
   
   try {
-    const account = await getAccount(layer);
+    const account = await getAccount(Layer.L3);
+    // Get contract artifact
+    let contractArtifact;
+    try {
+      contractArtifact = ContractLoader.loadContract(contractKey);
+    } catch (error) {
+      console.error(`Error loading contract artifact for ${contractKey}:`, error);
+      throw error;
+    }
+    // Declare the contract
+    const { class_hash } = await account.declare({
+      contract: contractArtifact.sierra,
+      casm: contractArtifact.casm
+    },
+    { 
+      maxFee: 0,
+      resourceBounds : {
+        l1_gas : {
+          max_amount: "0x0",
+          max_price_per_unit: "0x0"
+        },
+        l2_gas: {
+          max_amount: "0x0",
+          max_price_per_unit: "0x0"
+        }
+      }
+    }
+  
+  );
+    
+    console.log(`Contract ${contractKey} declared successfully on ${Layer.L3}`);
+    return class_hash;
+  } catch (error) {
+    console.error(`Error declaring contract ${contractKey}:`, error);
+    throw error;
+  }
+}
+
+async function deployL2Contract(contractKey, classHash, constructorCalldata) {
+  console.log(`Deploying ${contractKey} on ${Layer.L2} with class hash ${classHash} `);
+  
+  try {
+    const account = await getAccount(Layer.L2);
     
     // Deploy the contract
     const deploymentResult = await account.deploy({
       classHash: classHash,
       constructorCalldata: constructorCalldata,
-      salt: randomSalt() // Generate a random salt for unique address
-    });
+    }
+  );
     
     // Wait for transaction to be accepted
     await account.waitForTransaction(deploymentResult.transaction_hash);
     
-    console.log(`Contract ${contractKey} deployed successfully on ${layer}`);
+    console.log(`Contract ${contractKey} deployed successfully on ${Layer.L2}`);
+    return { 
+      address: deploymentResult.contract_address,
+      transaction_hash: deploymentResult.transaction_hash 
+    };
+  } catch (error) {
+    console.error(`Error deploying contract ${contractKey}:`, error);
+    throw error;
+  }
+}
+
+
+async function deployL3Contract(contractKey, classHash, constructorCalldata) {
+  console.log(`Deploying ${contractKey} on ${Layer.L3} with class hash ${classHash} `);
+  
+  try {
+    const account = await getAccount(Layer.L3);
+    
+    // Deploy the contract
+    const deploymentResult = await account.deploy({
+      classHash: classHash,
+      constructorCalldata: constructorCalldata,
+    },
+    { 
+      maxFee: 0,
+      resourceBounds : {
+        l1_gas : {
+          max_amount: "0x0",
+          max_price_per_unit: "0x0"
+        },
+        l2_gas: {
+          max_amount: "0x0",
+          max_price_per_unit: "0x0"
+        }
+      }
+    }
+  );
+    
+    // Wait for transaction to be accepted
+    await account.waitForTransaction(deploymentResult.transaction_hash);
+    
+    console.log(`Contract ${contractKey} deployed successfully on ${Layer.L3}`);
     return { 
       address: deploymentResult.contract_address,
       transaction_hash: deploymentResult.transaction_hash 
@@ -185,14 +263,13 @@ function randomSalt() {
 // Function implementations
 async function declareAppchainBridge() {
   console.log("Declaring Appchain Bridge...");
-  const classHash = await declareContract("appchain_bridge", Layer.L3);
+  const classHash = await declareL3Contract("starkgate_contracts_TokenBridge");
   console.log("Appchain core contract declared successfully with class hash:", classHash);
   
   // Update the CONFIG with the new class hash
   console.log(`
 -----------------------------------------------
-UPDATE YOUR CONFIG FILE WITH THIS CLASS HASH:
-CONFIG.CONTRACTS.CLASS_HASHES.APPCHAIN_STARKNET_BRIDGE = "${classHash}";
+UPDATE YOUR CONFIG FILE WITH THIS CLASS HASH: "${classHash}";
 -----------------------------------------------
   `);
   
@@ -201,77 +278,27 @@ CONFIG.CONTRACTS.CLASS_HASHES.APPCHAIN_STARKNET_BRIDGE = "${classHash}";
 
 async function deployAppchainBridge() {
   console.log("Deploying Appchain Bridge...");
-  const acc_l3 = await getAccount(Layer.L3);
-  
-  if (!CONFIG.CONTRACTS.CLASS_HASHES.APPCHAIN_STARKNET_BRIDGE) {
-    console.error("ERROR: Class hash for APPCHAIN_STARKNET_BRIDGE not found in CONFIG. Run declareAppchainBridge first.");
+  if (!CONFIG.CLASS_HASHES.APPCHAIN_BRIDGE) {
+    console.error("ERROR: Class hash for APPCHAIN_BRIDGE not found in CONFIG. Run declareAppchainBridge first.");
     return;
   }
   
-  const contract = await deployContract(
-    "appchain_starknet_bridge",
-    CONFIG.CONTRACTS.CLASS_HASHES.APPCHAIN_STARKNET_BRIDGE,
+  const contract = await deployL3Contract(
+    "starkgate_contracts_TokenBridge",
+    CONFIG.CLASS_HASHES.APPCHAIN_BRIDGE,
     [
-      acc_l3.address, // owner
-      1, // state_root,
-      1, // block_number,
-      1, // block_hash
+      process.env.ACCOUNT_L3_ADDRESS, // owner
+      "10"
     ], 
-    Layer.L3
   );
 
-  console.log("Appchain core contract deployed successfully at:", contract.address);
+  console.log("Appchain bridge deployed successfully at:", contract.address);
   
   // Update the CONFIG with the new contract address
   console.log(`
 -----------------------------------------------
 UPDATE YOUR CONFIG FILE WITH THIS CONTRACT ADDRESS:
-CONFIG.CONTRACTS.APPCHAIN_STARKNET_BRIDGE = "${contract.address}";
------------------------------------------------
-  `);
-  
-  await sleep(CONFIG.SLEEP_TIMES.MEDIUM);
-}
-
-async function declareL3Bridge() {
-  console.log("Declaring L3 TokenBridge...");
-  const classHash = await declareContract("token_bridge_l3", Layer.L3);
-  
-  console.log("TokenBridge declared successfully with class hash:", classHash);
-  
-  // Update the CONFIG with the new class hash
-  console.log(`
------------------------------------------------
-UPDATE YOUR CONFIG FILE WITH THIS CLASS HASH:
-CONFIG.CONTRACTS.CLASS_HASHES.TOKEN_BRIDGE_STARKGATE = "${classHash}";
------------------------------------------------
-  `);
-  
-  await sleep(CONFIG.SLEEP_TIMES.MEDIUM);
-}
-
-async function deployL3Bridge() {
-  console.log("Deploying L3 TokenBridge...");
-  
-  if (!CONFIG.CONTRACTS.CLASS_HASHES.TOKEN_BRIDGE_STARKGATE) {
-    console.error("ERROR: Class hash for TOKEN_BRIDGE_STARKGATE not found in CONFIG. Run declareL3Bridge first.");
-    return;
-  }
-  
-  const contract = await deployContract(
-    "TokenBridge_starkgate_contracts",
-    CONFIG.CONTRACTS.CLASS_HASHES.TOKEN_BRIDGE_STARKGATE,
-    [process.env.ACCOUNT_L3_ADDRESS, "10"],
-    Layer.L3
-  );
-  
-  console.log("L3 TokenBridge deployed successfully at:", contract.address);
-  
-  // Update the CONFIG with the new contract address
-  console.log(`
------------------------------------------------
-UPDATE YOUR CONFIG FILE WITH THIS CONTRACT ADDRESS:
-CONFIG.CONTRACTS.TOKEN_BRIDGE_STARKGATE = "${contract.address}";
+CONFIG.CONTRACTS.APPCHAIN_BRIDGE = "${contract.address}";
 -----------------------------------------------
   `);
   
@@ -280,7 +307,7 @@ CONFIG.CONTRACTS.TOKEN_BRIDGE_STARKGATE = "${contract.address}";
 
 async function declareL2Bridge() {
   console.log("Declaring L2 TokenBridge...");
-  const classHash = await declareContract("token_bridge_l2", Layer.L2);
+  const classHash = await declareL2Contract("L2_BRIDGE_TokenBridge");
   
   console.log("L2 TokenBridge declared successfully with class hash:", classHash);
   
@@ -288,7 +315,7 @@ async function declareL2Bridge() {
   console.log(`
 -----------------------------------------------
 UPDATE YOUR CONFIG FILE WITH THIS CLASS HASH:
-CONFIG.CONTRACTS.CLASS_HASHES.TOKEN_BRIDGE_STARKNET = "${classHash}";
+CONFIG.CLASS_HASHES.L2_BRIDGE = "${classHash}";
 -----------------------------------------------
   `);
   
@@ -298,30 +325,24 @@ CONFIG.CONTRACTS.CLASS_HASHES.TOKEN_BRIDGE_STARKNET = "${classHash}";
 async function deployL2Bridge() {
   console.log("Deploying L2 TokenBridge...");
   
-  if (!CONFIG.CONTRACTS.CLASS_HASHES.TOKEN_BRIDGE_STARKNET) {
-    console.error("ERROR: Class hash for TOKEN_BRIDGE_STARKNET not found in CONFIG. Run declareL2Bridge first.");
+  if (!CONFIG.CLASS_HASHES.L2_BRIDGE) {
+    console.error("ERROR: Class hash for L2_BRIDGE not found in CONFIG. Run declareL2Bridge first.");
     return;
   }
   
-  if (!CONFIG.CONTRACTS.TOKEN_BRIDGE_STARKGATE) {
-    console.error("ERROR: L3 TokenBridge address not found in CONFIG. Run deployL3Bridge first.");
-    return;
-  }
-  
-  if (!CONFIG.CONTRACTS.APPCHAIN_STARKNET_BRIDGE) {
+  if (!CONFIG.CONTRACTS.APPCHAIN_BRIDGE) {
     console.error("ERROR: Appchain Bridge address not found in CONFIG. Run deployAppchainBridge first.");
     return;
   }
   
-  const contract = await deployContract(
-    "TokenBridge_starknet_bridge",
-    CONFIG.CONTRACTS.CLASS_HASHES.TOKEN_BRIDGE_STARKNET,
+  const contract = await deployL2Contract(
+    "L2_BRIDGE_TokenBridge",
+    CONFIG.CLASS_HASHES.L2_BRIDGE,
     [
-      CONFIG.CONTRACTS.TOKEN_BRIDGE_STARKGATE,
-      CONFIG.CONTRACTS.APPCHAIN_STARKNET_BRIDGE,
+      CONFIG.CONTRACTS.APPCHAIN_BRIDGE,
+      CONFIG.CONTRACTS.APPCHAIN_CORE_CONTRACT,
       process.env.ACCOUNT_L2_ADDRESS
     ],
-    Layer.L2
   );
   
   console.log("L2 TokenBridge deployed successfully at:", contract.address);
@@ -330,7 +351,7 @@ async function deployL2Bridge() {
   console.log(`
 -----------------------------------------------
 UPDATE YOUR CONFIG FILE WITH THIS CONTRACT ADDRESS:
-CONFIG.CONTRACTS.TOKEN_BRIDGE_STARKNET = "${contract.address}";
+CONFIG.CONTRACTS.L2_BRIDGE = "${contract.address}";
 -----------------------------------------------
   `);
 }
@@ -339,13 +360,13 @@ async function configureAppchainBridge() {
   console.log("Configuring Appchain Bridge...");
   const acc_l3 = await getAccount(Layer.L3);
   
-  if (!CONFIG.CONTRACTS.TOKEN_BRIDGE_STARKGATE) {
-    console.error("ERROR: L3 TokenBridge address not found in CONFIG. Run deployL3Bridge first.");
+  if (!CONFIG.CONTRACTS.APPCHAIN_BRIDGE) {
+    console.error("ERROR: APPCHAIN_BRIDGE address not found in CONFIG. Run deployAppchainBridge first.");
     return;
   }
   
   try {
-    const appchainBridge = CONFIG.CONTRACTS.TOKEN_BRIDGE_STARKGATE;
+    const appchainBridge = CONFIG.CONTRACTS.APPCHAIN_BRIDGE;
     const cls = await acc_l3.getClassAt(appchainBridge);
     const appchainBridgeContract = new Contract(cls.abi, appchainBridge, acc_l3);
 
@@ -354,7 +375,21 @@ async function configureAppchainBridge() {
       const call = appchainBridgeContract.populate('register_app_role_admin', {
         account: acc_l3.address
       });
-      await acc_l3.execute([call], { maxFee: 0 });
+      await acc_l3.execute([call], 
+        { 
+          maxFee: 0,
+          resourceBounds : {
+            l1_gas : {
+              max_amount: "0x0",
+              max_price_per_unit: "0x0"
+            },
+            l2_gas: {
+              max_amount: "0x0",
+              max_price_per_unit: "0x0"
+            }
+          }
+        }
+      );
       console.log("App role admin set successfully!!");
       await sleep(CONFIG.SLEEP_TIMES.EXTRA_LONG);
     }
@@ -364,7 +399,21 @@ async function configureAppchainBridge() {
       const call = appchainBridgeContract.populate('register_app_governor', {
         account: acc_l3.address
       });
-      await acc_l3.execute([call], { maxFee: 0 });
+      await acc_l3.execute([call], 
+        { 
+          maxFee: 0,
+          resourceBounds : {
+            l1_gas : {
+              max_amount: "0x0",
+              max_price_per_unit: "0x0"
+            },
+            l2_gas: {
+              max_amount: "0x0",
+              max_price_per_unit: "0x0"
+            }
+          }
+        }
+      );
       console.log("App governor set successfully!!");
       await sleep(CONFIG.SLEEP_TIMES.EXTRA_LONG);
     }
@@ -374,7 +423,21 @@ async function configureAppchainBridge() {
       const call = appchainBridgeContract.populate('set_l2_token_governance', {
         l2_token_governance: acc_l3.address
       });
-      await acc_l3.execute([call], { maxFee: 0 });
+      await acc_l3.execute([call],
+        { 
+          maxFee: 0,
+          resourceBounds : {
+            l1_gas : {
+              max_amount: "0x0",
+              max_price_per_unit: "0x0"
+            },
+            l2_gas: {
+              max_amount: "0x0",
+              max_price_per_unit: "0x0"
+            }
+          }
+        }
+      );
       console.log("L2 Governance set successfully!!");
       await sleep(CONFIG.SLEEP_TIMES.EXTRA_LONG);
     }
@@ -386,29 +449,43 @@ async function configureAppchainBridge() {
 }
 
 async function setL2Bridge() {
-  console.log("Setting L2 Bridge on L3 contract...");
+  console.log("Setting L2 Bridge on Appchain contract...");
   const acc_l3 = await getAccount(Layer.L3);
   
-  if (!CONFIG.CONTRACTS.TOKEN_BRIDGE_STARKNET) {
+  if (!CONFIG.CONTRACTS.L2_BRIDGE) {
     console.error("ERROR: L2 TokenBridge address not found in CONFIG. Run deployL2Bridge first.");
     return;
   }
   
-  if (!CONFIG.CONTRACTS.TOKEN_BRIDGE_STARKGATE) {
-    console.error("ERROR: L3 TokenBridge address not found in CONFIG. Run deployL3Bridge first.");
+  if (!CONFIG.CONTRACTS.APPCHAIN_BRIDGE) {
+    console.error("ERROR: Appchain TokenBridge address not found in CONFIG. Run deployAppchainBridge first.");
     return;
   }
   
   try {
-    const tokenBridge = CONFIG.CONTRACTS.TOKEN_BRIDGE_STARKNET;
-    const appchainBridge = CONFIG.CONTRACTS.TOKEN_BRIDGE_STARKGATE;
+    const starknetBridge = CONFIG.CONTRACTS.L2_BRIDGE;
+    const appchainBridge = CONFIG.CONTRACTS.APPCHAIN_BRIDGE;
     const cls = await acc_l3.getClassAt(appchainBridge);
     const appchainBridgeContract = new Contract(cls.abi, appchainBridge, acc_l3);
 
     const call = appchainBridgeContract.populate('set_l1_bridge', {
-      l1_bridge_address: tokenBridge
+      l1_bridge_address: starknetBridge
     });
-    await acc_l3.execute([call], { maxFee: 0 });
+    await acc_l3.execute([call], 
+      { 
+        maxFee: 0,
+        resourceBounds : {
+          l1_gas : {
+            max_amount: "0x0",
+            max_price_per_unit: "0x0"
+          },
+          l2_gas: {
+            max_amount: "0x0",
+            max_price_per_unit: "0x0"
+          }
+        }
+      }
+    );
     console.log("L2 bridge set successfully!!");
     await sleep(CONFIG.SLEEP_TIMES.SHORT);
   } catch (error) {
@@ -416,9 +493,9 @@ async function setL2Bridge() {
   }
 }
 
-async function declareERC20L3() {
-  console.log("Declaring ERC20 on L3...");
-  const classHash = await declareContract("erc20_l3", Layer.L3);
+async function declareERC20AppChain() {
+  console.log("Declaring ERC20 on AppChain...");
+  const classHash = await declareL3Contract("L2_BRIDGE_ERC20");
   
   console.log("ERC20 L3 declared successfully with class hash:", classHash);
   
@@ -426,37 +503,51 @@ async function declareERC20L3() {
   console.log(`
 -----------------------------------------------
 UPDATE YOUR CONFIG FILE WITH THIS CLASS HASH:
-CONFIG.CONTRACTS.CLASS_HASHES.ERC20_STARKNET_L3 = "${classHash}";
+CONFIG.CLASS_HASHES.APPCHAIN_ERC20 = "${classHash}";
 -----------------------------------------------
   `);
   
   await sleep(CONFIG.SLEEP_TIMES.LONG);
 }
 
-async function setERC20L3() {
+async function setERC20AppChain() {
   console.log("Setting ERC20 class hash on L3...");
   const acc_l3 = await getAccount(Layer.L3);
   
-  if (!CONFIG.CONTRACTS.CLASS_HASHES.ERC20_STARKNET_L3) {
-    console.error("ERROR: ERC20 L3 class hash not found in CONFIG. Run declareERC20L3 first.");
+  if (!CONFIG.CLASS_HASHES.APPCHAIN_ERC20) {
+    console.error("ERROR: ERC20 L3 class hash not found in CONFIG. Run declareERC20AppChain first.");
     return;
   }
   
-  if (!CONFIG.CONTRACTS.TOKEN_BRIDGE_STARKGATE) {
+  if (!CONFIG.CONTRACTS.APPCHAIN_BRIDGE) {
     console.error("ERROR: L3 TokenBridge address not found in CONFIG. Run deployL3Bridge first.");
     return;
   }
   
   try {
-    const appchainBridge = CONFIG.CONTRACTS.TOKEN_BRIDGE_STARKGATE;
+    const appchainBridge = CONFIG.CONTRACTS.APPCHAIN_BRIDGE;
     const cls = await acc_l3.getClassAt(appchainBridge);
     const appchainBridgeContract = new Contract(cls.abi, appchainBridge, acc_l3);
 
-    const class_hash = CONFIG.CONTRACTS.CLASS_HASHES.ERC20_STARKNET_L3;
+    const class_hash = CONFIG.CLASS_HASHES.APPCHAIN_ERC20;
     const call = appchainBridgeContract.populate('set_erc20_class_hash', {
       erc20_class_hash: class_hash
     });
-    let result = await acc_l3.execute([call], { maxFee: 0 });
+    let result = await acc_l3.execute([call], 
+      { 
+        maxFee: 0,
+        resourceBounds : {
+          l1_gas : {
+            max_amount: "0x0",
+            max_price_per_unit: "0x0"
+          },
+          l2_gas: {
+            max_amount: "0x0",
+            max_price_per_unit: "0x0"
+          }
+        }
+      }
+    );
     console.log("ERC20 class_hash set successfully!!", result);
     await sleep(CONFIG.SLEEP_TIMES.EXTRA_LONG);
   } catch (error) {
@@ -466,7 +557,7 @@ async function setERC20L3() {
 
 async function declareERC20L2() {
   console.log("Declaring ERC20 on L2...");
-  const classHash = await declareContract("erc20_l2", Layer.L2);
+  const classHash = await declareL2Contract("L2_BRIDGE_ERC20");
   
   console.log("ERC20 L2 declared successfully with class hash:", classHash);
   
@@ -474,7 +565,7 @@ async function declareERC20L2() {
   console.log(`
 -----------------------------------------------
 UPDATE YOUR CONFIG FILE WITH THIS CLASS HASH:
-CONFIG.CONTRACTS.CLASS_HASHES.ERC20_STARKNET_L2 = "${classHash}";
+CONFIG.CLASS_HASHES.L2_ERC20 = "${classHash}";
 -----------------------------------------------
   `);
   
@@ -483,16 +574,15 @@ CONFIG.CONTRACTS.CLASS_HASHES.ERC20_STARKNET_L2 = "${classHash}";
 
 async function deployERC20L2() {
   console.log("Deploying ERC20 on L2...");
-  const acc_l2 = await getAccount(Layer.L2);
   
-  if (!CONFIG.CONTRACTS.CLASS_HASHES.ERC20_STARKNET_L2) {
+  if (!CONFIG.CLASS_HASHES.L2_ERC20) {
     console.error("ERROR: ERC20 L2 class hash not found in CONFIG. Run declareERC20L2 first.");
     return;
   }
   
-  const contract = await deployContract(
-    "ERC20_starknet_bridge",
-    CONFIG.CONTRACTS.CLASS_HASHES.ERC20_STARKNET_L2,
+  const contract = await deployL2Contract(
+    "L2_BRIDGE_ERC20",
+    CONFIG.CLASS_HASHES.L2_ERC20,
     [
       byteArray.byteArrayFromString(CONFIG.TOKEN.NAME), // name
       byteArray.byteArrayFromString(CONFIG.TOKEN.SYMBOL), // symbol
@@ -503,8 +593,7 @@ async function deployERC20L2() {
       process.env.ACCOUNT_L2_ADDRESS, // l2_token_governance 
       process.env.ACCOUNT_L2_ADDRESS, // permitted_minter 
       0, // upgrade delay
-    ],
-    Layer.L2
+    ]
   );
   
   console.log("ERC20 L2 deployed successfully at:", contract.address);
@@ -513,7 +602,7 @@ async function deployERC20L2() {
   console.log(`
 -----------------------------------------------
 UPDATE YOUR CONFIG FILE WITH THIS CONTRACT ADDRESS:
-CONFIG.CONTRACTS.ERC20_STARKNET_L2 = "${contract.address}";
+CONFIG.CONTRACTS.L2_ERC20 = "${contract.address}";
 -----------------------------------------------
   `);
   
@@ -524,19 +613,19 @@ async function enrollTokenL2() {
   console.log("Enrolling token on L2...");
   const acc_l2 = await getAccount(Layer.L2);
   
-  if (!CONFIG.CONTRACTS.ERC20_STARKNET_L2) {
+  if (!CONFIG.CONTRACTS.L2_ERC20) {
     console.error("ERROR: ERC20 L2 contract address not found in CONFIG. Run deployERC20L2 first.");
     return;
   }
   
-  if (!CONFIG.CONTRACTS.TOKEN_BRIDGE_STARKNET) {
+  if (!CONFIG.CONTRACTS.L2_BRIDGE) {
     console.error("ERROR: L2 TokenBridge address not found in CONFIG. Run deployL2Bridge first.");
     return;
   }
   
   try {
-    const gridTokenAddress = CONFIG.CONTRACTS.ERC20_STARKNET_L2;
-    const tokenBridge = CONFIG.CONTRACTS.TOKEN_BRIDGE_STARKNET;
+    const gridTokenAddress = CONFIG.CONTRACTS.L2_ERC20;
+    const tokenBridge = CONFIG.CONTRACTS.L2_BRIDGE;
 
     const cls = await acc_l2.getClassAt(tokenBridge);
     const tokenBridgeContract = new Contract(cls.abi, tokenBridge, acc_l2);
@@ -556,19 +645,19 @@ async function activateTokenL2() {
   console.log("Activating token on L2...");
   const acc_l2 = await getAccount(Layer.L2);
   
-  if (!CONFIG.CONTRACTS.ERC20_STARKNET_L2) {
+  if (!CONFIG.CONTRACTS.L2_ERC20) {
     console.error("ERROR: ERC20 L2 contract address not found in CONFIG. Run deployERC20L2 first.");
     return;
   }
   
-  if (!CONFIG.CONTRACTS.TOKEN_BRIDGE_STARKNET) {
+  if (!CONFIG.CONTRACTS.L2_BRIDGE) {
     console.error("ERROR: L2 TokenBridge address not found in CONFIG. Run deployL2Bridge first.");
     return;
   }
   
   try {
-    const gridTokenAddress = CONFIG.CONTRACTS.ERC20_STARKNET_L2;
-    const tokenBridge = CONFIG.CONTRACTS.TOKEN_BRIDGE_STARKNET;
+    const gridTokenAddress = CONFIG.CONTRACTS.L2_ERC20;
+    const tokenBridge = CONFIG.CONTRACTS.L2_BRIDGE;
     
     const cls = await acc_l2.getClassAt(tokenBridge);
     const tokenBridgeContract = new Contract(cls.abi, tokenBridge, acc_l2);
@@ -584,6 +673,122 @@ async function activateTokenL2() {
     console.error("Error activating token:", error);
   }
 }
+
+async function getAppchainToken() {
+  console.log("Getting Token on Appchain...");
+  const acc_l3 = await getAccount(Layer.L3);
+  
+  if (!CONFIG.CONTRACTS.L2_ERC20) {
+    console.error("ERROR: ERC20 L2 contract address not found in CONFIG. Run deployERC20L2 first.");
+    return;
+  }
+  
+  if (!CONFIG.CONTRACTS.APPCHAIN_BRIDGE) {
+    console.error("ERROR: Appchain Bridge address not found in CONFIG. Run deployL2Bridge first.");
+    return;
+  }
+  
+  try {
+    const gridyTokenAddress = CONFIG.CONTRACTS.L2_ERC20;
+    const appchainBridge = CONFIG.CONTRACTS.APPCHAIN_BRIDGE;
+
+    const appchainBridgeCls = await acc_l3.getClassAt(appchainBridge);
+    const appchainBridgeContract = new Contract(appchainBridgeCls.abi, appchainBridge, acc_l3);
+
+    const correspondingToken = await appchainBridgeContract.call('get_l2_token', [gridyTokenAddress]);
+
+    if (correspondingToken != 0n) {
+      const correspondingTokenAddress = num.toHex(correspondingToken);
+      console.log("Corresponding appchain token address:", correspondingTokenAddress);
+     
+    } else {
+      console.log("No corresponding L3 token found for this L2 token");
+      return 0n;
+    }
+  } catch (error) {
+    console.error("Error activating token:", error);
+  }
+}
+
+async function deployBots() {
+  console.log(`Deploying ${CONFIG.N_BOTS} bots...`);
+  
+  if (!CONFIG.CONTRACTS.L2_ERC20) {
+    console.error("ERROR: ERC20 L2 contract address not found in CONFIG. Run deployERC20L2 first.");
+    return;
+  }
+  
+  if (!CONFIG.CONTRACTS.L2_BRIDGE) {
+    console.error("ERROR: L2 TokenBridge address not found in CONFIG. Run deployL2Bridge first.");
+    return;
+  }
+  
+  if (!CONFIG.CONTRACTS.L3_REGISTRY) {
+    console.error("ERROR: L3 Registry address not found in CONFIG. Update CONFIG.CONTRACTS.L3_REGISTRY first.");
+    return;
+  }
+  
+  try {
+    const acc_l2 = await getAccount(Layer.L2);
+    const gridyTokenAddress = CONFIG.CONTRACTS.L2_ERC20;
+    const tokenBridge = CONFIG.CONTRACTS.L2_BRIDGE;
+    const l3Registry = CONFIG.CONTRACTS.L3_REGISTRY;
+    
+    // Get token and bridge contracts
+    const gridCls = await acc_l2.getClassAt(gridyTokenAddress);
+    const gridyToken = new Contract(gridCls.abi, gridyTokenAddress, acc_l2);
+    
+    const bridgeCls = await acc_l2.getClassAt(tokenBridge);
+    const tokenBridgeContract = new Contract(bridgeCls.abi, tokenBridge, acc_l2);
+    
+    // Approve token spending for all bots at once
+    // console.log(`Approving tokens for bot deployment...`);
+    
+    // const approveCall = gridyToken.populate('approve', {
+    //   spender: tokenBridge,
+    //   amount:  12n * 10n ** 18n
+    // });
+    
+    // let approveResult = await acc_l2.execute([approveCall]);
+    // console.log("Approval success!!", approveResult);
+    // await sleep(CONFIG.SLEEP_TIMES.EXTRA_LONG);
+    
+    // Deploy each bot
+    for (let i = 0; i < CONFIG.BOT_CONFIG.N_BOTS; i++) {
+      console.log(`Deploying bot ${i+1} of ${CONFIG.BOT_CONFIG.N_BOTS}...`);
+      
+      // Create a unique bot ID based on timestamp and index
+      const botId = `0x${(Date.now() + i).toString(16)}`;
+      
+      const depositCall = tokenBridgeContract.populate('deposit_with_message', {
+        token: gridyTokenAddress,
+        amount:  11n ** 15n,
+        appchain_recipient: l3Registry,
+        message: [
+          acc_l2.address, // Player L2 address
+          i
+        ]
+      });
+      
+      let depositResult = await acc_l2.execute([depositCall]);
+      console.log(`Bot ${i+1} deployed successfully with ID ${botId} at location`, depositResult);
+      
+      // Wait between bot deployments to avoid transaction collisions
+      if (i < CONFIG.BOT_CONFIG.N_BOTS - 1) {
+        console.log(`Waiting before deploying next bot...`);
+        await sleep(CONFIG.SLEEP_TIMES.VERY_LONG);
+      }
+    }
+    
+    console.log(`All ${CONFIG.BOT_CONFIG.N_BOTS} bots deployed successfully!`);
+  } catch (error) {
+    console.error("Error deploying bots:", error);
+  }
+}
+
+
+
+
 
 // Main function to handle CLI command
 async function main() {
@@ -622,40 +827,42 @@ Available commands:
         await deployAppchainBridge();
         break;
       case 2:
-        await declareL3Bridge();
-        break;
-      case 3:
-        await deployL3Bridge();
-        break;
-      case 4:
         await declareL2Bridge();
         break;
-      case 5:
+      case 3:
         await deployL2Bridge();
         break;
-      case 6:
+      case 4:
         await configureAppchainBridge();
         break;
-      case 7:
+      case 5:
         await setL2Bridge();
         break;
+      case 6:
+        await declareERC20AppChain();
+        break;
+      case 7:
+        await setERC20AppChain();
+        break;
+      // setup ends here
+      // down below is a setup to get a working ERC20 token on L2 to test with Gridy
       case 8:
-        await declareERC20L3();
-        break;
-      case 9:
-        await setERC20L3();
-        break;
-      case 10:
         await declareERC20L2();
         break;
-      case 11:
+      case 9:
         await deployERC20L2();
         break;
-      case 12:
+      case 10:
         await enrollTokenL2();
         break;
-      case 13:
+      case 11:
         await activateTokenL2();
+        break;
+      case 12:
+        await getAppchainToken();
+        break;
+      case 13:
+        await deployBots();
         break;
       default:
         console.error("Invalid command number. Run without arguments to see usage.");

@@ -8,7 +8,9 @@ const CONFIG = {
   // Network URL of the appchain
   nodeUrl: "http://localhost:9944",
   // Deployer account settings (the account that will pay for deployments)
+  // devnet.json
   deployerPrivateKey: "0xabcd",
+  // addresses.json
   deployerAddress: "0x4fe5eea46caa0a1f344fafce82b39d66b552f00d3cd12e89073ef4b4ab37860",
   // UDC settings
   udcAddress: "0x41a78e741e5af2fec34b695679bc6891742439f7afb8484ecd7766661ad02bf",
@@ -138,7 +140,6 @@ async function deployMultipleAccounts() {
     
     // Get the UDC contract
     const Bridgecls = await provider.getClassAt(CONFIG.udcAddress);
-    console.log("UDC class hash:", Bridgecls);
     
     // Create UDC contract instance
     const udcContract = new Contract(Bridgecls.abi, CONFIG.udcAddress, provider);
