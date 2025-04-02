@@ -27,9 +27,9 @@ const CONFIG = {
     WIDTH: 1000,
     HEIGHT: 2000,
     NUM_DIAMONDS: 300,
-    NUM_BOMBS:70,
+    NUM_BOMBS: 70,
     MINING_POINTS: 10,
-    DIAMOND_VALUE : 5000,
+    DIAMOND_VALUE: 5000,
     BOMB_VALUE: 666
   },
   ASSETS_PATH: "./target/dev",
@@ -41,7 +41,7 @@ const CONFIG = {
       "0x4db8c72530b67ce907ac7b0538292591402640ddebc4307e7a1a9722e5c562e",
       "0x6f757de37e5057dd753d6dd6a97b54503dbf57334ebd1a662287adea37742fe",
     ],
-    BOTS : [
+    BOTS: [
       "0x1fe1f1662662e42a50804dfeabed3c2dda9a1bd84fc7c7a2433d0f11fbb71c",
       "0x0599cc2f0a03ad3d44e8d10c745c8e4043a6ff861f726a0f8717ce7994afbed2",
       "0x03dfc4b55b90feee57b56af63405715be8f2ee2f5449a992dc7b67d3ae1ac9eb",
@@ -53,18 +53,18 @@ const CONFIG = {
 
 
 function shuffle(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
-    }
-    return array;
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
 }
 
 function generateRandomNumbers(width, height, count) {
   // Validate input
   const maxPossible = width * height;
   if (count > maxPossible) {
-      throw new Error(`Cannot generate ${count} unique numbers within range of ${maxPossible}`);
+    throw new Error(`Cannot generate ${count} unique numbers within range of ${maxPossible}`);
   }
 
   // Create array of all possible numbers
@@ -72,8 +72,8 @@ function generateRandomNumbers(width, height, count) {
 
   // Shuffle array using Fisher-Yates algorithm
   for (let i = allNumbers.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [allNumbers[i], allNumbers[j]] = [allNumbers[j], allNumbers[i]];
+    const j = Math.floor(Math.random() * (i + 1));
+    [allNumbers[i], allNumbers[j]] = [allNumbers[j], allNumbers[i]];
   }
 
   // Get our random numbers
@@ -82,13 +82,13 @@ function generateRandomNumbers(width, height, count) {
   // Extra validation to guarantee uniqueness
   const uniqueSet = new Set(result);
   if (uniqueSet.size !== count) {
-      throw new Error('Internal error: Generated numbers are not unique');
+    throw new Error('Internal error: Generated numbers are not unique');
   }
 
   // Validate range
   const inRange = result.every(num => num >= 0 && num < maxPossible);
   if (!inRange) {
-      throw new Error('Internal error: Generated numbers outside valid range');
+    throw new Error('Internal error: Generated numbers outside valid range');
   }
 
   console.log("Bots will start from points : ", result);
@@ -177,7 +177,7 @@ class GridUtils {
 
   static generateLocations() {
     const result = generateGamePoints(CONFIG.GAME.WIDTH, CONFIG.GAME.HEIGHT, CONFIG.GAME.NUM_DIAMONDS, CONFIG.GAME.NUM_BOMBS);
-    console.log("Lengths:  " , result.diamond_locations.length, result.bomb_locations.length);
+    console.log("Lengths:  ", result.diamond_locations.length, result.bomb_locations.length);
     return {
       diamonds: result.diamond_locations.map(loc => ({
         id: this.coordinatesToBlockId(loc),
@@ -244,18 +244,18 @@ class StarknetDeployer {
       mining_points: CONFIG.GAME.MINING_POINTS,
       grid_width: CONFIG.GAME.WIDTH,
       grid_height: CONFIG.GAME.HEIGHT,
-      total_diamonds_and_bombs : (CONFIG.GAME.NUM_DIAMONDS + CONFIG.GAME.NUM_BOMBS),
-      sequencer : CONFIG.SEQUENCER.ADDRESS,
+      total_diamonds_and_bombs: (CONFIG.GAME.NUM_DIAMONDS + CONFIG.GAME.NUM_BOMBS),
+      sequencer: CONFIG.SEQUENCER.ADDRESS,
     });
   }
 
-  async getBlockTxns(){
+  async getBlockTxns() {
     let x = this.provider.getEvents({
       from_block: {
-        block_number : 450 
+        block_number: 450
       },
-      to_block:  {
-        block_number : 451 
+      to_block: {
+        block_number: 451
       },
       address: CONFIG.CONTRACT_ADDRESSES.GAME,
       keys: [["0xd5efc9cfb6a4f6bb9eae0ce39d32480473877bb3f7a4eaa3944c881a2c8d25"]],
@@ -265,7 +265,7 @@ class StarknetDeployer {
     }).catch((error) => {
       console.log("Error: ", error);
     });
-  return x;
+    return x;
   }
 
 
@@ -305,7 +305,7 @@ class StarknetDeployer {
       );
 
       const receipt = await this.account.waitForTransaction(transaction_hash);
-      console.log("Diamonds slice ", i * CONFIG.MULTICALL_SIZE , "to ", (i + 1) * CONFIG.MULTICALL_SIZE, " updated! with transaction hash: ", receipt.transaction_hash);
+      console.log("Diamonds slice ", i * CONFIG.MULTICALL_SIZE, "to ", (i + 1) * CONFIG.MULTICALL_SIZE, " updated! with transaction hash: ", receipt.transaction_hash);
     }
 
     // call contract's update_block_points in a multicall set of  500 only bombs
@@ -333,23 +333,23 @@ class StarknetDeployer {
       );
 
       const receipt = await this.account.waitForTransaction(transaction_hash);
-      console.log("Bomb slice ", i * CONFIG.MULTICALL_SIZE , "to ", (i + 1) * CONFIG.MULTICALL_SIZE, " updated! with transaction hash: ", receipt.transaction_hash);
+      console.log("Bomb slice ", i * CONFIG.MULTICALL_SIZE, "to ", (i + 1) * CONFIG.MULTICALL_SIZE, " updated! with transaction hash: ", receipt.transaction_hash);
 
     }
   }
 
   async declareAndDeployGameContract() {
-      const gameCalldata = await this.prepareGameConstructorCalldata();
-      const declareAndDeployResponse = await this.account.declareAndDeploy({
-        contract: this.contracts.game.sierra,
-        casm: this.contracts.game.casm,
-        constructorCalldata: gameCalldata,
-      });
-      const receipt = await this.account.waitForTransaction(declareAndDeployResponse.deploy.transaction_hash);
-      console.log('Contract Address:', declareAndDeployResponse.deploy.contract_address);
-      console.log('Transaction Hash:', declareAndDeployResponse.deploy.transaction_hash);
-      return receipt;
-    }
+    const gameCalldata = await this.prepareGameConstructorCalldata();
+    const declareAndDeployResponse = await this.account.declareAndDeploy({
+      contract: this.contracts.game.sierra,
+      casm: this.contracts.game.casm,
+      constructorCalldata: gameCalldata,
+    });
+    const receipt = await this.account.waitForTransaction(declareAndDeployResponse.deploy.transaction_hash);
+    console.log('Contract Address:', declareAndDeployResponse.deploy.contract_address);
+    console.log('Transaction Hash:', declareAndDeployResponse.deploy.transaction_hash);
+    return receipt;
+  }
 
   async declareGameContract() {
     const declareResponse = await this.declareContract(this.contracts.game);
@@ -359,7 +359,7 @@ class StarknetDeployer {
   async deployGameContract() {
     const gameCalldata = await this.prepareGameConstructorCalldata();
     const deployResponse = await this.account.deploy({
-      classHash : await this.getGameClassHash(),
+      classHash: await this.getGameClassHash(),
       constructorCalldata: gameCalldata,
     });
     const receipt = await this.account.waitForTransaction(deployResponse.transaction_hash);
@@ -428,7 +428,7 @@ class StarknetDeployer {
         }
       );
       const receipt = await this.account.waitForTransaction(transaction_hash);
-      console.log("Bot deployment chunk ", i * CONFIG.MULTICALL_SIZE , "to ", (i + 1) * CONFIG.MULTICALL_SIZE, " submitted! with transaction hash: ", transaction_hash);
+      console.log("Bot deployment chunk ", i * CONFIG.MULTICALL_SIZE, "to ", (i + 1) * CONFIG.MULTICALL_SIZE, " submitted! with transaction hash: ", transaction_hash);
     }
     return;
   }
@@ -442,8 +442,8 @@ class StarknetDeployer {
 
     const deployCall = [
       gameContract.populate("mine", [
-      CONFIG.CONTRACT_ADDRESSES.BOTS[0],
-      cairo.felt(1)
+        CONFIG.CONTRACT_ADDRESSES.BOTS[0],
+        cairo.felt(1)
       ]),
       gameContract.populate("mine", [
         CONFIG.CONTRACT_ADDRESSES.BOTS[1],
@@ -464,7 +464,7 @@ class StarknetDeployer {
       gameContract.populate("mine", [
         CONFIG.CONTRACT_ADDRESSES.BOTS[0],
         cairo.felt(6)
-        ]),
+      ]),
       gameContract.populate("mine", [
         CONFIG.CONTRACT_ADDRESSES.BOTS[1],
         cairo.felt(7)
@@ -481,7 +481,7 @@ class StarknetDeployer {
         CONFIG.CONTRACT_ADDRESSES.BOTS[4],
         cairo.felt(10)
       ])
-      ];
+    ];
 
     const estimatedFee = await this.account.estimateInvokeFee(deployCall);
     con
@@ -498,21 +498,21 @@ class StarknetDeployer {
     return { transaction_hash, receipt };
   }
 
- 
-  async  batchMine() {
+
+  async batchMine() {
     const gameContract = new Contract(
       this.contracts.game.sierra.abi,
       CONFIG.CONTRACT_ADDRESSES.GAME,
       this.provider
     );
-  
+
     // Get the starting nonce as string
     const startNonce = await this.account.getNonce();
     const startNonceNumber = parseInt(startNonce);
-  
+
     // Array to store all transaction promises
     const transactionPromises = [];
-  
+
     const botsLength = CONFIG.CONTRACT_ADDRESSES.BOTS.length;
     let calls = [];
     // Use traditional for loop for better nonce control
@@ -520,7 +520,7 @@ class StarknetDeployer {
 
       // Cycle through bots 0-4
       const botIndex = i;
-      
+
       const call = gameContract.populate("mine", [
         CONFIG.CONTRACT_ADDRESSES.BOTS[botIndex],
         cairo.felt(i * 7)
@@ -531,20 +531,20 @@ class StarknetDeployer {
 
     for (let i = 0; i < botsLength; i++) {
       await sleep(2);
-  
+
       const nonce = (startNonceNumber + i).toString();
-  
+
       // Create transaction promise
-          const _ = this.account.execute(
-            [calls[i]],
-            undefined,
-            {
-              maxFee: 420n,
-              nonce
-            }
-          );
+      const _ = this.account.execute(
+        [calls[i]],
+        undefined,
+        {
+          maxFee: 420n,
+          nonce
+        }
+      );
     }
-  
+
     return
   }
 
