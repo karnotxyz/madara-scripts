@@ -9,7 +9,7 @@ const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 // Configuration constants
 const CONFIG = {
   RPC: {
-    NODE_L3_URL: "https://madara-l2-l3.karnot.xyz/",
+    NODE_L3_URL: "https://madara-l2-l3.karnot.xyz",
     NODE_L2_URL: "https://starknet-sepolia.g.alchemy.com/v2/yUgd-DT4wZ1xtr46xo5yj4FpJEa47r9T"
   },
   DEPLOYMENT_PER_SPAWNER: 1,
@@ -31,9 +31,9 @@ const CONFIG = {
   GAME: {
     WIDTH: 1000,
     HEIGHT: 2000,
-    NUM_DIAMONDS: 400,
-    NUM_BOMBS: 70,
-    MINING_POINTS: 10,
+    NUM_DIAMONDS: 1000,
+    NUM_BOMBS: 700,
+    MINING_POINTS: 0,
     DIAMOND_VALUE: 5000,
     BOMB_VALUE: 666,
     BOOT_AMOUNT: 10n ** 15n,
@@ -43,8 +43,8 @@ const CONFIG = {
   ASSETS_PATH: "./assets/",
   CONTRACT_ADDRESSES: {
     L2_BRIDGE: "0x422dd5fe05931e677c0dcbb74ea057874ba4035c5d5784ea626200b7cfc702",
-    GAME: "0x750b93b692d94b3aa1b48ecec13541c50386d047a41193a721e48ba2a132515",
-    L3_REGISTRY: "0x23b0052e5e47b8d94ef37350a02dba867cef6b2ee2bee6eea363103df04dc18",
+    GAME: "0x6b712055b925c1ccebc72eafa251754c809176a497220d025a68dceeebf3f63",
+    L3_REGISTRY: "0x522e05107498977d25355b696157b8a91ff32f782f40512bded82f9140d4565",
     APPCHAIN_BRIDGE: "0x8ff0d8c01af0b9e5ab904f0299e6ae3a94b28c680b821ab02b978447d2da67",
     SPAWNERS: [
       "0x61bcf2cfcbf3893eb4d82c51b26881377d24a24e2ef16dada6979f227955701",
@@ -209,7 +209,7 @@ class StarknetDeployer {
       // feeMarginPercentage : {
       // l1BoundMaxAmount: 0 ,
       // l1BoundMaxPricePerUnit: 0 ,
-      // maxFee: 0 
+      // maxFee: 0
       // },
     });
     this.l3_account = new Account(
@@ -252,7 +252,7 @@ class StarknetDeployer {
   }
 
   async declareContract(contract) {
-    const declareResponse = await this.l3_account.declare({
+    const declareResponse = await this.l2_account.declare({
       contract: contract.sierra,
       casm: contract.casm,
     },
@@ -433,7 +433,7 @@ class StarknetDeployer {
     const declareAndDeployResponse = await this.l3_account.declareAndDeploy({
       contract: this.contracts.l3Registry.sierra,
       casm: this.contracts.l3Registry.casm,
-      constructorCalldata: [CONFIG.CONTRACT_ADDRESSES.GAME],
+      constructorCalldata: [CONFIG.CONTRACT_ADDRESSES.GAME, CONFIG.SEQUENCER.ADDRESS],
     },
       {
         maxFee: 0,
@@ -460,7 +460,7 @@ class StarknetDeployer {
     const declareAndDeployResponse = await this.l2_account.declareAndDeploy({
       contract: this.contracts.l2Registry.sierra,
       casm: this.contracts.l2Registry.casm,
-      constructorCalldata: [CONFIG.CONTRACT_ADDRESSES.L2_BRIDGE, CONFIG.CONTRACT_ADDRESSES.L3_REGISTRY],
+      constructorCalldata: [CONFIG.CONTRACT_ADDRESSES.L2_BRIDGE, CONFIG.CONTRACT_ADDRESSES.L3_REGISTRY, CONFIG.L2_ACCOUNT.ADDRESS],
     });
     const receipt = await this.l2_account.waitForTransaction(declareAndDeployResponse.deploy.transaction_hash);
     console.log('Transaction Hash:', declareAndDeployResponse.deploy.transaction_hash);
@@ -469,7 +469,7 @@ class StarknetDeployer {
   }
 
   async declareGameContract() {
-    const declareResponse = await this.declareContract(this.contracts.game);
+    const declareResponse = await this.declareContract(this.contracts.l2Registry);
     return declareResponse;
   }
 
@@ -745,6 +745,48 @@ class StarknetDeployer {
   }
 
 
+  async updateGameAddressOnL3Registry() {
+    const l3_registry = new Contract(
+      this.contracts.l3Registry.sierra.abi,
+      CONFIG.CONTRACT_ADDRESSES.L3_REGISTRY,
+      this.provider
+    );
+    const updateCall = l3_registry.populate("set_gridy_address", [CONFIG.CONTRACT_ADDRESSES.GAME]);
+
+    const { transaction_hash } = await this.l3_account.execute(
+      updateCall,
+      undefined,
+      {
+        maxFee: 0n
+      }
+    );
+
+    const receipt = await this.l3_account.waitForTransaction(transaction_hash);
+    return { transaction_hash, receipt };
+  }
+
+
+  async upgradeL3Registry() {
+    const l3_registry = new Contract(
+      this.contracts.l3Registry.sierra.abi,
+      CONFIG.CONTRACT_ADDRESSES.L3_REGISTRY,
+      this.l3_account
+    );
+    const upgradeCall = l3_registry.populate("upgrade", ["0x3a3ecd5711ec18803b6bf8297feb5b9320dafd10a78f7451b40dba841fb86ce"]);
+
+    const { transaction_hash } = await this.l3_account.execute(
+      upgradeCall,
+      undefined,
+      {
+        maxFee: 0n
+      }
+    );
+
+    const receipt = await this.l3_account.waitForTransaction(transaction_hash);
+    return { transaction_hash, receipt };
+  }
+
+
   async enableGameContract() {
     const gameContract = new Contract(
       this.contracts.game.sierra.abi,
@@ -928,17 +970,19 @@ class DeploymentCLI {
     console.log('4. Update Block Points');
     console.log('5. Set Game Currency');
     console.log('6. Enable Game');
-    console.log('7. Declare Bot');
-    console.log('8. Deploy Multiple Bots');
-    console.log('9. Call Mine');
-    console.log('10. Get Class Hash');
-    console.log('11. Disable Game');
-    console.log('12. Call Is Bot Alive');
-    console.log('13. Exit');
-    console.log('14. Upgrade Game Contract');
-    console.log('15. Set Appchain Bridge');
-    console.log('16. Withdraw Game Currency');
-    console.log('\nSelect an option (1-16):');
+    console.log('7. Update Game Address on L3 Registry');
+    console.log('8. Upgrade L3 Registry');
+    console.log('9. Declare Bot');
+    console.log('10. Upgrade Game Contract');
+    console.log('11. Set Appchain Bridge');
+    console.log('12. Withdraw Game Currency');
+    console.log('13. Deploy Multiple Bots');
+    console.log('14. Call Mine');
+    console.log('15. Get Class Hash');
+    console.log('16. Disable Game');
+    console.log('17. Call Is Bot Alive');
+    console.log('18. Exit');
+
   }
 
   async handleUserInput(input) {
@@ -969,36 +1013,42 @@ class DeploymentCLI {
           await this.enableGame();
           break;
         case '7':
-          await this.declareBot();
+          await this.updateGameAddressOnL3Registry();
           break;
         case '8':
-          await this.deployMultipleBots();
+          await this.upgradeL3Registry();
           break;
         case '9':
-          await this.callMine();
+          await this.declareBot();
           break;
         case '10':
-          await this.getClassHash();
+          await this.upgradeGameContract();
           break;
         case '11':
-          await this.disableGame();
+          await this.setAppchainBridge();
           break;
         case '12':
-          await this.callIsBotAlive();
+          await this.withdrawGameCurrency();
           break;
         case '13':
+          await this.deployMultipleBots();
+          break;
+        case '14':
+          await this.callMine();
+          break;
+        case '15':
+          await this.getClassHash();
+          break;
+        case '16':
+          await this.disableGame();
+          break;
+        case '17':
+          await this.callIsBotAlive();
+          break;
+        case '18':
           console.log('\nExiting...');
           this.rl.close();
           process.exit(0);
-          break;
-        case '14':
-          await this.upgradeGameContract();
-          break;
-        case '15':
-          await this.setAppchainBridge();
-          break;
-        case '16':
-          await this.withdrawGameCurrency();
           break;
         default:
           console.log('\n❌ Invalid option. Please try again.');
@@ -1068,6 +1118,20 @@ class DeploymentCLI {
     console.log('\n🔓 Enabling Game Contract...');
     const result = await this.deployer.enableGameContract();
     console.log('✅ Game Contract enabled successfully!');
+    console.log('Transaction Hash:', result.transaction_hash);
+  }
+
+  async updateGameAddressOnL3Registry() {
+    console.log('\n📝 Updating Game Address on L3 Registry...');
+    const result = await this.deployer.updateGameAddressOnL3Registry();
+    console.log('✅ Game Address updated successfully!');
+    console.log('Transaction Hash:', result.transaction_hash);
+  }
+
+  async upgradeL3Registry() {
+    console.log('\n📝 Upgrading L3 Registry...');
+    const result = await this.deployer.upgradeL3Registry();
+    console.log('✅ L3 Registry upgraded successfully!');
     console.log('Transaction Hash:', result.transaction_hash);
   }
 

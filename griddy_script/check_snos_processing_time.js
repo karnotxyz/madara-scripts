@@ -1,7 +1,11 @@
 const { MongoClient } = require('mongodb');
 
 // Replace with your actual MongoDB connection string
-const uri = "";
+const uri = "mongodb+srv://heemank:GVyh8eWjV6GvyyPU@cluster0.fnbwa.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+
+// Define internal_id filter range (set to null to disable filtering)
+const MIN_INTERNAL_ID = null;  // Set minimum internal_id to filter
+const MAX_INTERNAL_ID = null;  // Set maximum internal_id to filter
 
 // Calculate processing time for completed SnosRun jobs
 async function calculateProcessingTimes() {
@@ -11,17 +15,32 @@ async function calculateProcessingTimes() {
     await client.connect();
     console.log("Connected to MongoDB");
     
-    const database = client.db("l3_support_v5");
+    const database = client.db("new_gridy_v3_local");
     const collection = database.collection("jobs");
     
-    // Query for all completed SnosRun jobs
+    // Base query for completed SnosRun jobs
     const query = {
-      job_type: "SnosRun",
+      job_type: "ProofCreation",
       status: "Completed"
     };
     
+    // Add internal_id filtering if specified
+    if (MIN_INTERNAL_ID !== null || MAX_INTERNAL_ID !== null) {
+      query.internal_id = {};
+      
+      if (MIN_INTERNAL_ID !== null) {
+        // Using $gte to find IDs greater than or equal to MIN_INTERNAL_ID
+        query.internal_id.$gte = MIN_INTERNAL_ID.toString();
+      }
+      
+      if (MAX_INTERNAL_ID !== null) {
+        // Using $lte to find IDs less than or equal to MAX_INTERNAL_ID
+        query.internal_id.$lte = MAX_INTERNAL_ID.toString();
+      }
+    }
+    
     const jobs = await collection.find(query).toArray();
-    console.log(`Found ${jobs.length} completed SnosRun jobs`);
+    console.log(`Found ${jobs.length} completed SnosRun jobs within specified ID range`);
     
     // Calculate processing time for each job
     const processingTimes = jobs.map(job => {
@@ -54,19 +73,23 @@ async function calculateProcessingTimes() {
     });
     
     // Calculate statistics
-    const totalJobs = processingTimes.length;
-    const totalProcessingTime = processingTimes.reduce((acc, job) => acc + job.processing_time_ms, 0);
-    const averageProcessingTime = totalProcessingTime / totalJobs;
-    
-    // Find min and max
-    const minJob = processingTimes.reduce((min, job) => job.processing_time_ms < min.processing_time_ms ? job : min, processingTimes[0]);
-    const maxJob = processingTimes.reduce((max, job) => job.processing_time_ms > max.processing_time_ms ? job : max, processingTimes[0]);
-    
-    console.log("\nSummary Statistics:");
-    console.log(`Total Jobs: ${totalJobs}`);
-    console.log(`Average Processing Time: ${(averageProcessingTime / 1000).toFixed(2)} seconds`);
-    console.log(`Fastest Job: Internal ID ${minJob.internal_id} (${(minJob.processing_time_seconds).toFixed(2)} seconds)`);
-    console.log(`Slowest Job: Internal ID ${maxJob.internal_id} (${(maxJob.processing_time_seconds).toFixed(2)} seconds)`);
+    if (processingTimes.length > 0) {
+      const totalJobs = processingTimes.length;
+      const totalProcessingTime = processingTimes.reduce((acc, job) => acc + job.processing_time_ms, 0);
+      const averageProcessingTime = totalProcessingTime / totalJobs;
+      
+      // Find min and max
+      const minJob = processingTimes.reduce((min, job) => job.processing_time_ms < min.processing_time_ms ? job : min, processingTimes[0]);
+      const maxJob = processingTimes.reduce((max, job) => job.processing_time_ms > max.processing_time_ms ? job : max, processingTimes[0]);
+      
+      console.log("\nSummary Statistics:");
+      console.log(`Total Jobs: ${totalJobs}`);
+      console.log(`Average Processing Time: ${(averageProcessingTime / 1000).toFixed(2)} seconds`);
+      console.log(`Fastest Job: Internal ID ${minJob.internal_id} (${(minJob.processing_time_seconds).toFixed(2)} seconds)`);
+      console.log(`Slowest Job: Internal ID ${maxJob.internal_id} (${(maxJob.processing_time_seconds).toFixed(2)} seconds)`);
+    } else {
+      console.log("\nNo jobs found matching the criteria. Cannot calculate statistics.");
+    }
     
   } catch (error) {
     console.error("Error connecting to MongoDB:", error);
