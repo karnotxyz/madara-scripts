@@ -21,7 +21,7 @@ async function verifyPendingJobs() {
 
     // Query to find all jobs with specified job_type and status
     const query = {
-      job_type: 'ProofCreation',
+      job_type: 'ProofRegistration',
       status: 'PendingVerification'
     };
 
@@ -37,7 +37,7 @@ async function verifyPendingJobs() {
 
       try {
         // Call the verification endpoint using fetch
-        const verificationUrl = `http://localhost:3000/jobs/${jobId}/verify`;
+        const verificationUrl = `http://localhost:3003/jobs/${jobId}/verify`;
         console.log(`Verifying job ${jobId} at ${verificationUrl}`);
 
         const response = await fetch(verificationUrl, {
