@@ -29,12 +29,15 @@ const CONFIG = {
     PRIVATE_KEY: "0x028b60407d6311f3eaf82e73e5a7e049e84b74aac2a67d5fcd452ddafcb06492"
   },
   GAME: {
-    WIDTH: 1000,
-    HEIGHT: 2000,
-    NUM_DIAMONDS: 1000,
-    NUM_BOMBS: 700,
+    WIDTH: 1728,
+    HEIGHT: 10000,
+    // NUM_DIAMONDS: 1000,
+    NUM_DIAMONDS: 1,
+    // NUM_BOMBS: 4800,
+    NUM_BOMBS: 0,
     MINING_POINTS: 0,
-    DIAMOND_VALUE: 5000,
+    // DIAMOND_VALUE: 1,
+    DIAMOND_VALUE: 300,
     BOMB_VALUE: 666,
     BOOT_AMOUNT: 10n ** 15n,
     // my game token l3 address
@@ -43,7 +46,7 @@ const CONFIG = {
   ASSETS_PATH: "./assets/",
   CONTRACT_ADDRESSES: {
     L2_BRIDGE: "0x422dd5fe05931e677c0dcbb74ea057874ba4035c5d5784ea626200b7cfc702",
-    GAME: "0x6b712055b925c1ccebc72eafa251754c809176a497220d025a68dceeebf3f63",
+    GAME: "0x1aadf1cedc9965cb2126f3c8945a6a388538f087dd21174aa61a302f94522f5",
     L3_REGISTRY: "0x522e05107498977d25355b696157b8a91ff32f782f40512bded82f9140d4565",
     APPCHAIN_BRIDGE: "0x8ff0d8c01af0b9e5ab904f0299e6ae3a94b28c680b821ab02b978447d2da67",
     SPAWNERS: [
@@ -134,8 +137,13 @@ function generateGamePoints(width, height, diamondsCount, bombCount) {
   const diamondLocations = [];
   while (diamondLocations.length < diamondsCount) {
     // Generate random x and y coordinates (0-based)
-    const x = getRandomInt(0, width - 1);
-    const y = getRandomInt(0, height - 1);
+    // const x = getRandomInt(0, width - 1);
+    // const y = getRandomInt(0, height - 1);
+
+
+    // [ 1096, 6498 ], [ 933, 4972 ],  [ 755, 6993 ]
+    const x = 755;
+    const y = 6993;
     const pointStr = pointToString([x, y]);
 
     // Only add point if it hasn't been used yet
@@ -214,8 +222,8 @@ class StarknetDeployer {
     });
     this.l3_account = new Account(
       this.provider,
-      CONFIG.EXECUTOR.ADDRESS,
-      CONFIG.EXECUTOR.PRIVATE_KEY,
+      CONFIG.SEQUENCER.ADDRESS,
+      CONFIG.SEQUENCER.PRIVATE_KEY,
       undefined,
       "0x3"
     );
@@ -252,7 +260,7 @@ class StarknetDeployer {
   }
 
   async declareContract(contract) {
-    const declareResponse = await this.l2_account.declare({
+    const declareResponse = await this.l3_account.declare({
       contract: contract.sierra,
       casm: contract.casm,
     },
@@ -275,6 +283,20 @@ class StarknetDeployer {
     return declareResponse;
   }
 
+  // #[constructor]
+  // fn constructor(
+  //     ref self: ContractState,
+  //     executor: ContractAddress,
+  //     bot_contract_class_hash: ClassHash,
+  //     bomb_value: u128,
+  //     diamond_points: u128,
+  //     mining_points: u128,
+  //     grid_width: u128,
+  //     grid_height: u128,
+  //     total_diamonds_and_bombs: u128,
+  //     sequencer: ContractAddress,
+  //     boot_amount: felt252,
+  // ) {
   async prepareGameConstructorCalldata() {
     const botClassHash = await this.getBotClassHash();
     const gameClassHash = await this.getGameClassHash();
@@ -283,9 +305,10 @@ class StarknetDeployer {
 
     const callData = new CallData(this.contracts.game.sierra.abi);
     return callData.compile("constructor", {
-      executor: CONFIG.EXECUTOR.ADDRESS,
+      executor: CONFIG.SEQUENCER.ADDRESS,
       bot_contract_class_hash: botClassHash,
       bomb_value: CONFIG.GAME.BOMB_VALUE,
+      diamond_points: CONFIG.GAME.DIAMOND_VALUE,
       mining_points: CONFIG.GAME.MINING_POINTS,
       grid_width: CONFIG.GAME.WIDTH,
       grid_height: CONFIG.GAME.HEIGHT,
@@ -404,11 +427,13 @@ class StarknetDeployer {
 
   async declareAndDeployGameContract() {
     const gameCalldata = await this.prepareGameConstructorCalldata();
-    const declareAndDeployResponse = await this.l3_account.declareAndDeploy({
-      contract: this.contracts.game.sierra,
-      casm: this.contracts.game.casm,
-      constructorCalldata: gameCalldata,
-    },
+    const gameClassHash = await this.getGameClassHash();
+    console.log("Game Class Hash in declareAndDeployGameContract: ", gameClassHash);
+    const declareAndDeployResponse = await this.l3_account.deploy(
+      {
+        classHash: gameClassHash,
+        constructorCalldata: gameCalldata,
+      },
       {
         maxFee: 0,
         resourceBounds: {
@@ -423,9 +448,9 @@ class StarknetDeployer {
         }
       }
     );
-    const receipt = await this.l3_account.waitForTransaction(declareAndDeployResponse.deploy.transaction_hash);
-    console.log('Contract Address:', declareAndDeployResponse.deploy.contract_address);
-    console.log('Transaction Hash:', declareAndDeployResponse.deploy.transaction_hash);
+    const receipt = await this.l3_account.waitForTransaction(declareAndDeployResponse.transaction_hash);
+    console.log('Contract Address:', declareAndDeployResponse.contract_address);
+    console.log('Transaction Hash:', declareAndDeployResponse.transaction_hash);
     return receipt;
   }
 
@@ -469,7 +494,7 @@ class StarknetDeployer {
   }
 
   async declareGameContract() {
-    const declareResponse = await this.declareContract(this.contracts.l2Registry);
+    const declareResponse = await this.declareContract(this.contracts.game);
     return declareResponse;
   }
 
@@ -757,7 +782,18 @@ class StarknetDeployer {
       updateCall,
       undefined,
       {
-        maxFee: 0n
+        maxFee: 0n,
+        resourceBounds: {
+          l1_gas: {
+            max_amount: "0x0",
+            max_price_per_unit: "0x0"
+          },
+          l2_gas: {
+            max_amount: "0x0",
+            max_price_per_unit: "0x0"
+          }
+        }
+
       }
     );
 
@@ -1158,7 +1194,7 @@ class DeploymentCLI {
 
   async withdrawGameCurrency() {
     console.log('\n💰 Withdrawing Game Currency...');
-    
+
     // Prompt for recipient address
     const recipientAddress = await new Promise((resolve) => {
       this.rl.question('Enter recipient address (or press Enter for default L2 account): ', (answer) => {
@@ -1246,3 +1282,7 @@ main().catch((error) => {
   console.error('Fatal error:', error);
   process.exit(1);
 });
+
+
+
+// [ 1096, 6498 ], [ 933, 4972 ],  [ 755, 6993 ]
