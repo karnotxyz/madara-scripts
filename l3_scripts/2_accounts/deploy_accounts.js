@@ -6,7 +6,7 @@ import fs from "fs";
 // Configuration object for all settings
 const CONFIG = {
   // Network URL of the appchain
-  nodeUrl: "http://localhost:9944",
+  nodeUrl: "https://madara-l2-l3.karnot.xyz",
   // Deployer account settings (the account that will pay for deployments)
   // devnet.json
   deployerPrivateKey: "0xabcd",
@@ -22,7 +22,7 @@ const CONFIG = {
   // Number of accounts to deploy
   numAccounts: 7,
   // File to save account information
-  outputFilePath: "./deployed_accounts.json",
+  outputFilePath: "./deployed_accounts_3.json",
   // Whether to append to existing file or create a new one
   appendToFile: false
 };

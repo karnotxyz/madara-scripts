@@ -4,7 +4,7 @@ const { MongoClient } = require('mongodb');
 
 // MongoDB connection string - replace with your actual connection string
 const uri = 'mongodb+srv://heemank:GVyh8eWjV6GvyyPU@cluster0.fnbwa.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
-const dbName = 'stress_test';
+const dbName = 'stress_test_proving';
 const collectionName = 'jobs'; // Assuming the collection name is 'jobs'
 
 // Function to fetch jobs and trigger verification
@@ -21,7 +21,7 @@ async function verifyPendingJobs() {
 
     // Query to find all jobs with specified job_type and status
     const query = {
-      job_type: 'ProofRegistration',
+      job_type: 'ProofCreation',
       status: 'PendingVerification'
     };
 

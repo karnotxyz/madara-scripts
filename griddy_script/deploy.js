@@ -9,44 +9,50 @@ const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 // Configuration constants
 const CONFIG = {
   RPC: {
-    NODE_URL: "http://localhost:9955"
+    NODE_URL: "http://localhost:9944"
   },
-  DEPLOYMENT_PER_SPAWNER: 50,
+  DEPLOYMENT_PER_SPAWNER: 2,
   MULTICALL_SIZE: 500,
   // MADARA DEVNET ACCOUNT #1 (SEQUENCER)
   SEQUENCER: {
-    ADDRESS: "0x4011e76c4b22b6fee0d43c5f73d638f257dd15a0207c6579d2ee912165746df",
-    PRIVATE_KEY: "0x6e646fd87e3229f1818a59628567c4fa1cb733187ca0c03b12da0e96c675827"
+    ADDRESS: "0x6a80e88f7b1b6f5881ca195cf086ee0c4d04d7f4f08132a2f928727c10b9835",
+    PRIVATE_KEY: "0x600fb50c28326eb96ca8919caca0ec23fc3672081c22873a3431f2314144315"
   },
   // MADARA DEVNET ACCOUNT #2 (EXECUTOR / OWNER)
   EXECUTOR: {
-    ADDRESS: "0xe1b5fd817120e56df499fca5e27a945908b3561bf8695f8b7f0d69c71eee96",
-    PRIVATE_KEY: "0x11cfa20afec1ce73e933e5af2acafa7d303d0d55a07630ed343b9e6c7123eb4"
+    ADDRESS: "0x6a80e88f7b1b6f5881ca195cf086ee0c4d04d7f4f08132a2f928727c10b9835",
+    PRIVATE_KEY: "0x600fb50c28326eb96ca8919caca0ec23fc3672081c22873a3431f2314144315"
   },
   GAME: {
     WIDTH: 1000,
     HEIGHT: 2000,
-    NUM_DIAMONDS: 300,
-    NUM_BOMBS: 70,
-    MINING_POINTS: 10,
+    NUM_DIAMONDS: 1000,
+    NUM_BOMBS: 0,
+    MINING_POINTS: 0,
     DIAMOND_VALUE: 5000,
     BOMB_VALUE: 666
   },
-  ASSETS_PATH: "./target/dev",
+  ASSETS_PATH: "./assets",
   CONTRACT_ADDRESSES: {
-    GAME: "0x75dbd3b28a5ae23e6e6a8fbf52da852d853412b7812226a9ebe16abfd3603eb",
+    GAME: "0x115139eaecaef315be1016192fb8bb90a0858c40fec31ed16ee359613f1437f",
     SPAWNERS: [
-      "0x74879cf9a9be1fba01ed6a4fc8f47b9ee0cf504a2154b5590fa8a3b5a5f42e7",
-      "0x3764cd9204ba6d8d499d8b446a6679a9d1df8899b63acae2a404c1a4a6887b8",
-      "0x4db8c72530b67ce907ac7b0538292591402640ddebc4307e7a1a9722e5c562e",
-      "0x6f757de37e5057dd753d6dd6a97b54503dbf57334ebd1a662287adea37742fe",
+      "0x34012e3d77be3edfefa5e63e240a00c9b9f76b2d8503bf18fcf65ceeec68301",
+      "0x100f7f17b659d998efd3e20e65c0312393a41384110bda74e9019572083da51",
+      "0x77ea8c1b92d97961e30aa86b10c609b24b56f9595c6053e0aa1420b9dd0c67",
+      "0x2205fb59dd919d37dbb266f242f31caad704130c6e5c770277bd2dcfd314157",
+      "0x3d9ea30790c4689c67cafc2965ea7725f68f1e4cf06047319bd0ffdf673af12",
     ],
     BOTS: [
-      "0x1fe1f1662662e42a50804dfeabed3c2dda9a1bd84fc7c7a2433d0f11fbb71c",
-      "0x0599cc2f0a03ad3d44e8d10c745c8e4043a6ff861f726a0f8717ce7994afbed2",
-      "0x03dfc4b55b90feee57b56af63405715be8f2ee2f5449a992dc7b67d3ae1ac9eb",
-      "0x016943f8cc5b19cbd7640a8944ebeffa4f55fc5fd9bf95b50cfc339e326f6680",
-      "0x0289aef1020c7327e2fc44041627164a03e0d79ac94f33ec36d7a9bd76fded20",
+      "0x274aace8eb5e9bae0fccb855a05963dcc01cb58114e1aa7b2f2587c24d7d4cd",
+      "0x665979c4927b957b6d9599621b813071919cfb9f277a7fb122b16940c0d93bf",
+      "0x28bc1227a785763d749c61424d240267267449a217f460ec6c61e6917399cdf",
+      "0x21478ab3313614d4e11fff3a68cc38f6661a4ae7b4ac8849982df83818e87c",
+      "0x98a2e8a32dc8a2e55cba9d18967a06b3bff28fe90fbc14854b8cf97706bc4d",
+      "0x1839a167076b711235f30c2391fcb7c3b7a71845171c87d428e2af9cf268e9f",
+      "0x2e309a09f60e4388bba8121615372858e0f506b09151f5d7230d9330806b40b",
+      "0x370ac7f510b7b1d64fd7322f788802ce8fb4e6254c55487e6ed2aa9c4bdf482",
+      "0x7eccaa54e9190db4db1f1ed546b57f679c0639ff0af74abe91399b7bcb31484",
+      "0x7257c9f40f0fa8b1c31bd8818f0a3fa60433fb695dac8cf59d46601b212783b",
     ],
   },
 };
@@ -340,6 +346,8 @@ class StarknetDeployer {
 
   async declareAndDeployGameContract() {
     const gameCalldata = await this.prepareGameConstructorCalldata();
+    // console.log("Game constructor calldata:", gameCalldata);
+    // console.log("Game constructor calldata:", this.contracts.game.sierra, this.contracts.game.casm,  );
     const declareAndDeployResponse = await this.account.declareAndDeploy({
       contract: this.contracts.game.sierra,
       casm: this.contracts.game.casm,
