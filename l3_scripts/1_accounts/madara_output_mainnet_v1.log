@@ -1,0 +1,1007 @@
+warning: patch for `starknet_api` uses the features mechanism. default-features and features will not take effect because the patch dependency does not support this mechanism
+   Compiling mc-db v0.8.0 (/Users/dexterhv/Work/gridy/chain_2/madara/madara/crates/client/db)
+warning: unused variable: `layer`
+  --> madara/crates/client/analytics/src/lib.rs:53:13
+   |
+53 |         let layer = OpenTelemetryTracingBridge::new(&logger_provider);
+   |             ^^^^^ help: if this is intentional, prefix it with an underscore: `_layer`
+   |
+   = note: `#[warn(unused_variables)]` on by default
+
+warning: `mc-analytics` (lib) generated 1 warning
+   Compiling mc-block-import v0.8.0 (/Users/dexterhv/Work/gridy/chain_2/madara/madara/crates/client/block_import)
+   Compiling mc-exec v0.8.0 (/Users/dexterhv/Work/gridy/chain_2/madara/madara/crates/client/exec)
+   Compiling mc-mempool v0.8.0 (/Users/dexterhv/Work/gridy/chain_2/madara/madara/crates/client/mempool)
+   Compiling mp-gateway v0.8.0 (/Users/dexterhv/Work/gridy/chain_2/madara/madara/crates/primitives/gateway)
+   Compiling mc-devnet v0.8.0 (/Users/dexterhv/Work/gridy/chain_2/madara/madara/crates/client/devnet)
+warning: unused import: `mc_exec::ExecutionContext`
+  --> madara/crates/client/mempool/src/lib.rs:12:5
+   |
+12 | use mc_exec::ExecutionContext;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: `#[warn(unused_imports)]` on by default
+
+warning: unused variable: `pending_block_info`
+   --> madara/crates/client/mempool/src/lib.rs:145:13
+    |
+145 |         let pending_block_info = if let Some(block) = self.backend.get_block_info(&DbBlockId::Pending)? {
+    |             ^^^^^^^^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_pending_block_info`
+    |
+    = note: `#[warn(unused_variables)]` on by default
+
+warning: unused variable: `deploy_account_tx_hash`
+   --> madara/crates/client/mempool/src/lib.rs:164:13
+    |
+164 |         let deploy_account_tx_hash = if let Transaction::AccountTransaction(AccountTransaction::Invoke(tx)) = &tx {
+    |             ^^^^^^^^^^^^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_deploy_account_tx_hash`
+
+   Compiling mc-settlement-client v0.8.0 (/Users/dexterhv/Work/gridy/chain_2/madara/madara/crates/client/settlement_client)
+   Compiling mc-block-production v0.8.0 (/Users/dexterhv/Work/gridy/chain_2/madara/madara/crates/client/block_production)
+   Compiling mc-gateway-client v0.8.0 (/Users/dexterhv/Work/gridy/chain_2/madara/madara/crates/client/gateway/client)
+   Compiling mc-rpc v0.8.0 (/Users/dexterhv/Work/gridy/chain_2/madara/madara/crates/client/rpc)
+warning: `mc-mempool` (lib) generated 3 warnings (run `cargo fix --lib -p mc-mempool` to apply 1 suggestion)
+   Compiling mc-gateway-server v0.8.0 (/Users/dexterhv/Work/gridy/chain_2/madara/madara/crates/client/gateway/server)
+   Compiling mc-sync v0.8.0 (/Users/dexterhv/Work/gridy/chain_2/madara/madara/crates/client/sync)
+   Compiling madara v0.8.0 (/Users/dexterhv/Work/gridy/chain_2/madara/madara/crates/node)
+    Finished `release` profile [optimized] target(s) in 26.02s
+     Running `target/release/madara --name madara --base-path ../madara-db-mainner --rpc-port 9944 --rpc-cors '*' --rpc-external --rpc-admin --sequencer --chain-config-path configs/presets/devnet.yaml --feeder-gateway-enable --gateway-enable --gateway-external --gateway-port 8080 --no-l1-sync --strk-gas-price 0 --strk-blob-gas-price 0 --gas-price 0 --blob-gas-price 0`
+[2025-04-13 06:10:55:246] [INFO] 🥷 Madara Node
+[2025-04-13 06:10:55:246] [INFO] ✌️  Version 0.8.0-d2b0ea703d9
+[2025-04-13 06:10:55:246] [INFO] 💁 Support URL: https://github.com/madara-alliance/madara/issues
+[2025-04-13 06:10:55:246] [INFO] 🏷 Node Name: madara
+[2025-04-13 06:10:55:246] [INFO] 👤 Role: Sequencer
+[2025-04-13 06:10:55:246] [INFO] 🌐 Network: Madara (chain id `MADARA_DEVNET`)
+[2025-04-13 06:10:55:250] [INFO] 💻 Operating system: MacOS 15.3.2
+[2025-04-13 06:10:55:250] [INFO] 💻 CPU architecture: arm64
+[2025-04-13 06:10:55:250] [INFO] 💻 CPU: Apple M3 Pro
+[2025-04-13 06:10:55:250] [INFO] 💻 CPU cores: 11
+[2025-04-13 06:10:55:250] [INFO] 💻 Memory: 18432MB
+[2025-04-13 06:10:55:250] [INFO] 💻 Kernel: 24.3.0
+[2025-04-13 06:10:55:250] [INFO] 💾 Opening database at: ../madara-db-mainner
+[2025-04-13 06:10:55:268] [INFO] 🛰️ Using feeder gateway URL: http://localhost:8080/feeder_gateway/
+[2025-04-13 06:10:55:269] [INFO] ⛏️  Starting block production at block #7
+[2025-04-13 06:10:55:269] [INFO] 🌐 Gateway endpoint started at 0.0.0.0:8080
+[2025-04-13 06:10:55:269] [INFO] 📱 Running JSON-RPC (Admin) server at 127.0.0.1:9943 (allowed origins=["*"])
+[2025-04-13 06:10:55:269] [INFO] 📱 Running JSON-RPC server at 0.0.0.0:9944 (allowed origins=["*"])
+[2025-04-13 06:10:56:278] [INFO] >>> Time taken to run store_block: 6
+[2025-04-13 06:10:56:278] [INFO] >>> Time taken to get game_metadata : 0
+[2025-04-13 06:10:56:278] [INFO] >>> Time taken to get bot_addresses : 0
+[2025-04-13 06:10:56:278] [INFO] >>> game total diamonds 1000
+[2025-04-13 06:10:56:278] [INFO] >>> game current diamonds mined 0
+[2025-04-13 06:10:56:278] [INFO] >>> bot addresses length || TPS 0
+[2025-04-13 06:10:56:278] [INFO] >>> current active bots length 0
+[2025-04-13 06:10:56:278] [INFO] >>> No bots to execute transactions
+[2025-04-13 06:10:57:272] [INFO] >>> Time taken to run store_block: 1
+[2025-04-13 06:10:57:272] [INFO] >>> Time taken to get game_metadata : 0
+[2025-04-13 06:10:57:272] [INFO] >>> Time taken to get bot_addresses : 0
+[2025-04-13 06:10:57:272] [INFO] >>> game total diamonds 1000
+[2025-04-13 06:10:57:272] [INFO] >>> game current diamonds mined 0
+[2025-04-13 06:10:57:272] [INFO] >>> bot addresses length || TPS 0
+[2025-04-13 06:10:57:272] [INFO] >>> current active bots length 0
+[2025-04-13 06:10:57:272] [INFO] >>> No bots to execute transactions
+[2025-04-13 06:10:57:311] [INFO] [ HTTP ] starknet_V0_8_0_getClassAt 200 6836 bytes - 581 ms
+[2025-04-13 06:10:57:355] [INFO] [ HTTP ] starknet_V0_8_0_getNonce 200 39 bytes - 198 ms
+[2025-04-13 06:10:57:356] [INFO] [ HTTP ] starknet_V0_8_0_chainId 200 64 bytes - 15 ms
+[2025-04-13 06:10:57:358] [INFO] [ HTTP ] starknet_V0_8_0_getClassAt 200 146871 bytes - 1193 ms
+[2025-04-13 06:10:57:383] [INFO] [ HTTP ] starknet_V0_8_0_addInvokeTransaction 200 122 bytes - 679 ms
+[2025-04-13 06:10:58:291] [INFO] 🧮 Executed and added 1 transaction(s) to the pending block at height 7 - 20.381958ms
+[2025-04-13 06:10:58:294] [INFO] >>> Time taken to run store_block: 3
+[2025-04-13 06:10:58:294] [INFO] >>> Time taken to get game_metadata : 0
+[2025-04-13 06:10:58:294] [INFO] >>> Time taken to get bot_addresses : 0
+[2025-04-13 06:10:58:294] [INFO] >>> game total diamonds 1000
+[2025-04-13 06:10:58:294] [INFO] >>> game current diamonds mined 0
+[2025-04-13 06:10:58:294] [INFO] >>> bot addresses length || TPS 0
+[2025-04-13 06:10:58:294] [INFO] >>> current active bots length 0
+[2025-04-13 06:10:58:294] [INFO] >>> No bots to execute transactions
+[2025-04-13 06:10:59:277] [INFO] >>> Time taken to run store_block: 5
+[2025-04-13 06:10:59:277] [INFO] >>> Time taken to get game_metadata : 0
+[2025-04-13 06:10:59:277] [INFO] >>> Time taken to get bot_addresses : 0
+[2025-04-13 06:10:59:277] [INFO] >>> game total diamonds 1000
+[2025-04-13 06:10:59:277] [INFO] >>> game current diamonds mined 0
+[2025-04-13 06:10:59:277] [INFO] >>> bot addresses length || TPS 0
+[2025-04-13 06:10:59:277] [INFO] >>> current active bots length 0
+[2025-04-13 06:10:59:277] [INFO] >>> No bots to execute transactions
+[2025-04-13 06:11:00:278] [INFO] >>> Time taken to run store_block: 6
+[2025-04-13 06:11:00:278] [INFO] >>> Time taken to get game_metadata : 0
+[2025-04-13 06:11:00:278] [INFO] >>> Time taken to get bot_addresses : 0
+[2025-04-13 06:11:00:278] [INFO] >>> game total diamonds 1000
+[2025-04-13 06:11:00:278] [INFO] >>> game current diamonds mined 0
+[2025-04-13 06:11:00:278] [INFO] >>> bot addresses length || TPS 0
+[2025-04-13 06:11:00:278] [INFO] >>> current active bots length 0
+[2025-04-13 06:11:00:278] [INFO] >>> No bots to execute transactions
+[2025-04-13 06:11:01:278] [INFO] >>> Time taken to run store_block: 5
+[2025-04-13 06:11:01:278] [INFO] >>> Time taken to get game_metadata : 0
+[2025-04-13 06:11:01:278] [INFO] >>> Time taken to get bot_addresses : 0
+[2025-04-13 06:11:01:278] [INFO] >>> game total diamonds 1000
+[2025-04-13 06:11:01:278] [INFO] >>> game current diamonds mined 0
+[2025-04-13 06:11:01:278] [INFO] >>> bot addresses length || TPS 0
+[2025-04-13 06:11:01:278] [INFO] >>> current active bots length 0
+[2025-04-13 06:11:01:278] [INFO] >>> No bots to execute transactions
+[2025-04-13 06:11:02:279] [INFO] >>> Time taken to run store_block: 6
+[2025-04-13 06:11:02:279] [INFO] >>> Time taken to get game_metadata : 0
+[2025-04-13 06:11:02:279] [INFO] >>> Time taken to get bot_addresses : 0
+[2025-04-13 06:11:02:279] [INFO] >>> game total diamonds 1000
+[2025-04-13 06:11:02:279] [INFO] >>> game current diamonds mined 0
+[2025-04-13 06:11:02:279] [INFO] >>> bot addresses length || TPS 0
+[2025-04-13 06:11:02:279] [INFO] >>> current active bots length 0
+[2025-04-13 06:11:02:279] [INFO] >>> No bots to execute transactions
+[2025-04-13 06:11:02:390] [INFO] [ HTTP ] starknet_V0_8_0_getTransactionStatus 200 101 bytes - 254 ms
+[2025-04-13 06:11:02:395] [INFO] [ HTTP ] starknet_V0_8_0_getTransactionReceipt 200 1174 bytes - 271 ms
+[2025-04-13 06:11:03:281] [INFO] >>> Time taken to run store_block: 8
+[2025-04-13 06:11:03:281] [INFO] >>> Time taken to get game_metadata : 0
+[2025-04-13 06:11:03:281] [INFO] >>> Time taken to get bot_addresses : 0
+[2025-04-13 06:11:03:281] [INFO] >>> game total diamonds 1000
+[2025-04-13 06:11:03:281] [INFO] >>> game current diamonds mined 0
+[2025-04-13 06:11:03:281] [INFO] >>> bot addresses length || TPS 0
+[2025-04-13 06:11:03:281] [INFO] >>> current active bots length 0
+[2025-04-13 06:11:03:281] [INFO] >>> No bots to execute transactions
+[2025-04-13 06:11:04:277] [INFO] >>> Time taken to run store_block: 5
+[2025-04-13 06:11:04:277] [INFO] >>> Time taken to get game_metadata : 0
+[2025-04-13 06:11:04:277] [INFO] >>> Time taken to get bot_addresses : 0
+[2025-04-13 06:11:04:277] [INFO] >>> game total diamonds 1000
+[2025-04-13 06:11:04:277] [INFO] >>> game current diamonds mined 0
+[2025-04-13 06:11:04:277] [INFO] >>> bot addresses length || TPS 0
+[2025-04-13 06:11:04:277] [INFO] >>> current active bots length 0
+[2025-04-13 06:11:04:277] [INFO] >>> No bots to execute transactions
+[2025-04-13 06:11:05:279] [INFO] >>> Time taken to run store_block: 7
+[2025-04-13 06:11:05:279] [INFO] >>> Time taken to get game_metadata : 0
+[2025-04-13 06:11:05:279] [INFO] >>> Time taken to get bot_addresses : 0
+[2025-04-13 06:11:05:279] [INFO] >>> game total diamonds 1000
+[2025-04-13 06:11:05:279] [INFO] >>> game current diamonds mined 0
+[2025-04-13 06:11:05:279] [INFO] >>> bot addresses length || TPS 0
+[2025-04-13 06:11:05:279] [INFO] >>> current active bots length 0
+[2025-04-13 06:11:05:279] [INFO] >>> No bots to execute transactions
+[2025-04-13 06:11:06:276] [INFO] >>> Time taken to run store_block: 5
+[2025-04-13 06:11:06:276] [INFO] >>> Time taken to get game_metadata : 0
+[2025-04-13 06:11:06:276] [INFO] >>> Time taken to get bot_addresses : 0
+[2025-04-13 06:11:06:276] [INFO] >>> game total diamonds 1000
+[2025-04-13 06:11:06:276] [INFO] >>> game current diamonds mined 0
+[2025-04-13 06:11:06:276] [INFO] >>> bot addresses length || TPS 0
+[2025-04-13 06:11:06:276] [INFO] >>> current active bots length 0
+[2025-04-13 06:11:06:276] [INFO] >>> No bots to execute transactions
+[2025-04-13 06:11:07:278] [INFO] >>> Time taken to run store_block: 5
+[2025-04-13 06:11:07:278] [INFO] >>> Time taken to get game_metadata : 0
+[2025-04-13 06:11:07:278] [INFO] >>> Time taken to get bot_addresses : 0
+[2025-04-13 06:11:07:278] [INFO] >>> game total diamonds 1000
+[2025-04-13 06:11:07:278] [INFO] >>> game current diamonds mined 0
+[2025-04-13 06:11:07:278] [INFO] >>> bot addresses length || TPS 0
+[2025-04-13 06:11:07:278] [INFO] >>> current active bots length 0
+[2025-04-13 06:11:07:278] [INFO] >>> No bots to execute transactions
+[2025-04-13 06:11:07:426] [INFO] [ HTTP ] starknet_V0_8_0_getNonce 200 39 bytes - 124 ms
+[2025-04-13 06:11:07:458] [INFO] [ HTTP ] starknet_V0_8_0_addInvokeTransaction 200 122 bytes - 460 ms
+[2025-04-13 06:11:08:282] [INFO] 🧮 Executed and added 1 transaction(s) to the pending block at height 7 - 10.266417ms
+[2025-04-13 06:11:08:291] [INFO] >>> Time taken to run store_block: 8
+[2025-04-13 06:11:08:291] [INFO] >>> Time taken to get game_metadata : 0
+[2025-04-13 06:11:08:291] [INFO] >>> Time taken to get bot_addresses : 0
+[2025-04-13 06:11:08:291] [INFO] >>> game total diamonds 1000
+[2025-04-13 06:11:08:291] [INFO] >>> game current diamonds mined 0
+[2025-04-13 06:11:08:291] [INFO] >>> bot addresses length || TPS 0
+[2025-04-13 06:11:08:291] [INFO] >>> current active bots length 0
+[2025-04-13 06:11:08:291] [INFO] >>> No bots to execute transactions
+[2025-04-13 06:11:09:280] [INFO] >>> Time taken to run store_block: 7
+[2025-04-13 06:11:09:280] [INFO] >>> Time taken to get game_metadata : 0
+[2025-04-13 06:11:09:280] [INFO] >>> Time taken to get bot_addresses : 0
+[2025-04-13 06:11:09:280] [INFO] >>> game total diamonds 1000
+[2025-04-13 06:11:09:280] [INFO] >>> game current diamonds mined 0
+[2025-04-13 06:11:09:280] [INFO] >>> bot addresses length || TPS 0
+[2025-04-13 06:11:09:280] [INFO] >>> current active bots length 0
+[2025-04-13 06:11:09:280] [INFO] >>> No bots to execute transactions
+[2025-04-13 06:11:10:277] [INFO] >>> Time taken to run store_block: 5
+[2025-04-13 06:11:10:278] [INFO] >>> Time taken to get game_metadata : 0
+[2025-04-13 06:11:10:278] [INFO] >>> Time taken to get bot_addresses : 0
+[2025-04-13 06:11:10:278] [INFO] >>> game total diamonds 1000
+[2025-04-13 06:11:10:278] [INFO] >>> game current diamonds mined 0
+[2025-04-13 06:11:10:278] [INFO] >>> bot addresses length || TPS 0
+[2025-04-13 06:11:10:278] [INFO] >>> current active bots length 0
+[2025-04-13 06:11:10:278] [INFO] >>> No bots to execute transactions
+[2025-04-13 06:11:11:280] [INFO] >>> Time taken to run store_block: 8
+[2025-04-13 06:11:11:280] [INFO] >>> Time taken to get game_metadata : 0
+[2025-04-13 06:11:11:280] [INFO] >>> Time taken to get bot_addresses : 0
+[2025-04-13 06:11:11:280] [INFO] >>> game total diamonds 1000
+[2025-04-13 06:11:11:280] [INFO] >>> game current diamonds mined 0
+[2025-04-13 06:11:11:280] [INFO] >>> bot addresses length || TPS 0
+[2025-04-13 06:11:11:280] [INFO] >>> current active bots length 0
+[2025-04-13 06:11:11:280] [INFO] >>> No bots to execute transactions
+[2025-04-13 06:11:12:279] [INFO] >>> Time taken to run store_block: 8
+[2025-04-13 06:11:12:279] [INFO] >>> Time taken to get game_metadata : 0
+[2025-04-13 06:11:12:279] [INFO] >>> Time taken to get bot_addresses : 0
+[2025-04-13 06:11:12:279] [INFO] >>> game total diamonds 1000
+[2025-04-13 06:11:12:280] [INFO] >>> game current diamonds mined 0
+[2025-04-13 06:11:12:280] [INFO] >>> bot addresses length || TPS 0
+[2025-04-13 06:11:12:280] [INFO] >>> current active bots length 0
+[2025-04-13 06:11:12:280] [INFO] >>> No bots to execute transactions
+[2025-04-13 06:11:12:466] [INFO] [ HTTP ] starknet_V0_8_0_getTransactionStatus 200 102 bytes - 246 ms
+[2025-04-13 06:11:12:472] [INFO] [ HTTP ] starknet_V0_8_0_getTransactionReceipt 200 1174 bytes - 145 ms
+[2025-04-13 06:11:13:276] [INFO] >>> Time taken to run store_block: 4
+[2025-04-13 06:11:13:276] [INFO] >>> Time taken to get game_metadata : 0
+[2025-04-13 06:11:13:276] [INFO] >>> Time taken to get bot_addresses : 0
+[2025-04-13 06:11:13:276] [INFO] >>> game total diamonds 1000
+[2025-04-13 06:11:13:276] [INFO] >>> game current diamonds mined 0
+[2025-04-13 06:11:13:276] [INFO] >>> bot addresses length || TPS 0
+[2025-04-13 06:11:13:276] [INFO] >>> current active bots length 0
+[2025-04-13 06:11:13:276] [INFO] >>> No bots to execute transactions
+[2025-04-13 06:11:14:279] [INFO] >>> Time taken to run store_block: 7
+[2025-04-13 06:11:14:279] [INFO] >>> Time taken to get game_metadata : 0
+[2025-04-13 06:11:14:279] [INFO] >>> Time taken to get bot_addresses : 0
+[2025-04-13 06:11:14:279] [INFO] >>> game total diamonds 1000
+[2025-04-13 06:11:14:279] [INFO] >>> game current diamonds mined 0
+[2025-04-13 06:11:14:279] [INFO] >>> bot addresses length || TPS 0
+[2025-04-13 06:11:14:279] [INFO] >>> current active bots length 0
+[2025-04-13 06:11:14:279] [INFO] >>> No bots to execute transactions
+[2025-04-13 06:11:15:292] [INFO] ⛏️  Closed block #7 with 2 transactions - 21.334709ms
+[2025-04-13 06:11:17:274] [INFO] >>> Time taken to run store_block: 2
+[2025-04-13 06:11:17:274] [INFO] >>> Time taken to get game_metadata : 0
+[2025-04-13 06:11:17:274] [INFO] >>> Time taken to get bot_addresses : 0
+[2025-04-13 06:11:17:274] [INFO] >>> game total diamonds 1000
+[2025-04-13 06:11:17:274] [INFO] >>> game current diamonds mined 0
+[2025-04-13 06:11:17:274] [INFO] >>> bot addresses length || TPS 0
+[2025-04-13 06:11:17:274] [INFO] >>> current active bots length 0
+[2025-04-13 06:11:17:274] [INFO] >>> No bots to execute transactions
+[2025-04-13 06:11:17:489] [INFO] [ HTTP ] starknet_V0_8_0_getNonce 200 40 bytes - 149 ms
+[2025-04-13 06:11:17:514] [INFO] [ HTTP ] starknet_V0_8_0_addInvokeTransaction 200 123 bytes - 497 ms
+[2025-04-13 06:11:18:278] [INFO] 🧮 Executed and added 1 transaction(s) to the pending block at height 8 - 7.602667ms
+[2025-04-13 06:11:18:281] [INFO] >>> Time taken to run store_block: 3
+[2025-04-13 06:11:18:281] [INFO] >>> Time taken to get game_metadata : 0
+[2025-04-13 06:11:18:281] [INFO] >>> Time taken to get bot_addresses : 0
+[2025-04-13 06:11:18:281] [INFO] >>> game total diamonds 1000
+[2025-04-13 06:11:18:281] [INFO] >>> game current diamonds mined 0
+[2025-04-13 06:11:18:281] [INFO] >>> bot addresses length || TPS 0
+[2025-04-13 06:11:18:281] [INFO] >>> current active bots length 0
+[2025-04-13 06:11:18:281] [INFO] >>> No bots to execute transactions
+[2025-04-13 06:11:19:274] [INFO] >>> Time taken to run store_block: 2
+[2025-04-13 06:11:19:274] [INFO] >>> Time taken to get game_metadata : 0
+[2025-04-13 06:11:19:274] [INFO] >>> Time taken to get bot_addresses : 0
+[2025-04-13 06:11:19:274] [INFO] >>> game total diamonds 1000
+[2025-04-13 06:11:19:274] [INFO] >>> game current diamonds mined 0
+[2025-04-13 06:11:19:274] [INFO] >>> bot addresses length || TPS 0
+[2025-04-13 06:11:19:274] [INFO] >>> current active bots length 0
+[2025-04-13 06:11:19:274] [INFO] >>> No bots to execute transactions
+[2025-04-13 06:11:20:273] [INFO] >>> Time taken to run store_block: 2
+[2025-04-13 06:11:20:273] [INFO] >>> Time taken to get game_metadata : 0
+[2025-04-13 06:11:20:273] [INFO] >>> Time taken to get bot_addresses : 0
+[2025-04-13 06:11:20:273] [INFO] >>> game total diamonds 1000
+[2025-04-13 06:11:20:273] [INFO] >>> game current diamonds mined 0
+[2025-04-13 06:11:20:273] [INFO] >>> bot addresses length || TPS 0
+[2025-04-13 06:11:20:273] [INFO] >>> current active bots length 0
+[2025-04-13 06:11:20:273] [INFO] >>> No bots to execute transactions
+[2025-04-13 06:11:21:274] [INFO] >>> Time taken to run store_block: 2
+[2025-04-13 06:11:21:274] [INFO] >>> Time taken to get game_metadata : 0
+[2025-04-13 06:11:21:274] [INFO] >>> Time taken to get bot_addresses : 0
+[2025-04-13 06:11:21:274] [INFO] >>> game total diamonds 1000
+[2025-04-13 06:11:21:274] [INFO] >>> game current diamonds mined 0
+[2025-04-13 06:11:21:274] [INFO] >>> bot addresses length || TPS 0
+[2025-04-13 06:11:21:274] [INFO] >>> current active bots length 0
+[2025-04-13 06:11:21:274] [INFO] >>> No bots to execute transactions
+[2025-04-13 06:11:22:274] [INFO] >>> Time taken to run store_block: 2
+[2025-04-13 06:11:22:274] [INFO] >>> Time taken to get game_metadata : 0
+[2025-04-13 06:11:22:274] [INFO] >>> Time taken to get bot_addresses : 0
+[2025-04-13 06:11:22:274] [INFO] >>> game total diamonds 1000
+[2025-04-13 06:11:22:274] [INFO] >>> game current diamonds mined 0
+[2025-04-13 06:11:22:274] [INFO] >>> bot addresses length || TPS 0
+[2025-04-13 06:11:22:274] [INFO] >>> current active bots length 0
+[2025-04-13 06:11:22:274] [INFO] >>> No bots to execute transactions
+[2025-04-13 06:11:22:518] [INFO] [ HTTP ] starknet_V0_8_0_getTransactionStatus 200 102 bytes - 114 ms
+[2025-04-13 06:11:22:520] [INFO] [ HTTP ] starknet_V0_8_0_getTransactionReceipt 200 1175 bytes - 74 ms
+[2025-04-13 06:11:23:274] [INFO] >>> Time taken to run store_block: 2
+[2025-04-13 06:11:23:274] [INFO] >>> Time taken to get game_metadata : 0
+[2025-04-13 06:11:23:274] [INFO] >>> Time taken to get bot_addresses : 0
+[2025-04-13 06:11:23:274] [INFO] >>> game total diamonds 1000
+[2025-04-13 06:11:23:274] [INFO] >>> game current diamonds mined 0
+[2025-04-13 06:11:23:274] [INFO] >>> bot addresses length || TPS 0
+[2025-04-13 06:11:23:274] [INFO] >>> current active bots length 0
+[2025-04-13 06:11:23:274] [INFO] >>> No bots to execute transactions
+[2025-04-13 06:11:24:275] [INFO] >>> Time taken to run store_block: 3
+[2025-04-13 06:11:24:275] [INFO] >>> Time taken to get game_metadata : 0
+[2025-04-13 06:11:24:275] [INFO] >>> Time taken to get bot_addresses : 0
+[2025-04-13 06:11:24:275] [INFO] >>> game total diamonds 1000
+[2025-04-13 06:11:24:275] [INFO] >>> game current diamonds mined 0
+[2025-04-13 06:11:24:275] [INFO] >>> bot addresses length || TPS 0
+[2025-04-13 06:11:24:275] [INFO] >>> current active bots length 0
+[2025-04-13 06:11:24:275] [INFO] >>> No bots to execute transactions
+[2025-04-13 06:11:25:275] [INFO] >>> Time taken to run store_block: 4
+[2025-04-13 06:11:25:276] [INFO] >>> Time taken to get game_metadata : 0
+[2025-04-13 06:11:25:276] [INFO] >>> Time taken to get bot_addresses : 0
+[2025-04-13 06:11:25:276] [INFO] >>> game total diamonds 1000
+[2025-04-13 06:11:25:276] [INFO] >>> game current diamonds mined 0
+[2025-04-13 06:11:25:276] [INFO] >>> bot addresses length || TPS 0
+[2025-04-13 06:11:25:276] [INFO] >>> current active bots length 0
+[2025-04-13 06:11:25:276] [INFO] >>> No bots to execute transactions
+[2025-04-13 06:11:26:274] [INFO] >>> Time taken to run store_block: 3
+[2025-04-13 06:11:26:274] [INFO] >>> Time taken to get game_metadata : 0
+[2025-04-13 06:11:26:274] [INFO] >>> Time taken to get bot_addresses : 0
+[2025-04-13 06:11:26:274] [INFO] >>> game total diamonds 1000
+[2025-04-13 06:11:26:274] [INFO] >>> game current diamonds mined 0
+[2025-04-13 06:11:26:274] [INFO] >>> bot addresses length || TPS 0
+[2025-04-13 06:11:26:274] [INFO] >>> current active bots length 0
+[2025-04-13 06:11:26:274] [INFO] >>> No bots to execute transactions
+[2025-04-13 06:11:27:274] [INFO] >>> Time taken to run store_block: 2
+[2025-04-13 06:11:27:274] [INFO] >>> Time taken to get game_metadata : 0
+[2025-04-13 06:11:27:274] [INFO] >>> Time taken to get bot_addresses : 0
+[2025-04-13 06:11:27:274] [INFO] >>> game total diamonds 1000
+[2025-04-13 06:11:27:274] [INFO] >>> game current diamonds mined 0
+[2025-04-13 06:11:27:274] [INFO] >>> bot addresses length || TPS 0
+[2025-04-13 06:11:27:274] [INFO] >>> current active bots length 0
+[2025-04-13 06:11:27:274] [INFO] >>> No bots to execute transactions
+[2025-04-13 06:11:27:535] [INFO] [ HTTP ] starknet_V0_8_0_getNonce 200 40 bytes - 121 ms
+[2025-04-13 06:11:27:559] [INFO] [ HTTP ] starknet_V0_8_0_addInvokeTransaction 200 123 bytes - 439 ms
+[2025-04-13 06:11:28:274] [INFO] 🧮 Executed and added 1 transaction(s) to the pending block at height 8 - 3.355791ms
+[2025-04-13 06:11:28:278] [INFO] >>> Time taken to run store_block: 3
+[2025-04-13 06:11:28:278] [INFO] >>> Time taken to get game_metadata : 0
+[2025-04-13 06:11:28:278] [INFO] >>> Time taken to get bot_addresses : 0
+[2025-04-13 06:11:28:278] [INFO] >>> game total diamonds 1000
+[2025-04-13 06:11:28:278] [INFO] >>> game current diamonds mined 0
+[2025-04-13 06:11:28:278] [INFO] >>> bot addresses length || TPS 0
+[2025-04-13 06:11:28:278] [INFO] >>> current active bots length 0
+[2025-04-13 06:11:28:278] [INFO] >>> No bots to execute transactions
+[2025-04-13 06:11:29:275] [INFO] >>> Time taken to run store_block: 3
+[2025-04-13 06:11:29:275] [INFO] >>> Time taken to get game_metadata : 0
+[2025-04-13 06:11:29:275] [INFO] >>> Time taken to get bot_addresses : 0
+[2025-04-13 06:11:29:275] [INFO] >>> game total diamonds 1000
+[2025-04-13 06:11:29:275] [INFO] >>> game current diamonds mined 0
+[2025-04-13 06:11:29:275] [INFO] >>> bot addresses length || TPS 0
+[2025-04-13 06:11:29:275] [INFO] >>> current active bots length 0
+[2025-04-13 06:11:29:275] [INFO] >>> No bots to execute transactions
+[2025-04-13 06:11:30:278] [INFO] >>> Time taken to run store_block: 6
+[2025-04-13 06:11:30:278] [INFO] >>> Time taken to get game_metadata : 0
+[2025-04-13 06:11:30:278] [INFO] >>> Time taken to get bot_addresses : 0
+[2025-04-13 06:11:30:278] [INFO] >>> game total diamonds 1000
+[2025-04-13 06:11:30:278] [INFO] >>> game current diamonds mined 0
+[2025-04-13 06:11:30:278] [INFO] >>> bot addresses length || TPS 0
+[2025-04-13 06:11:30:278] [INFO] >>> current active bots length 0
+[2025-04-13 06:11:30:278] [INFO] >>> No bots to execute transactions
+[2025-04-13 06:11:31:275] [INFO] >>> Time taken to run store_block: 3
+[2025-04-13 06:11:31:275] [INFO] >>> Time taken to get game_metadata : 0
+[2025-04-13 06:11:31:275] [INFO] >>> Time taken to get bot_addresses : 0
+[2025-04-13 06:11:31:275] [INFO] >>> game total diamonds 1000
+[2025-04-13 06:11:31:275] [INFO] >>> game current diamonds mined 0
+[2025-04-13 06:11:31:275] [INFO] >>> bot addresses length || TPS 0
+[2025-04-13 06:11:31:275] [INFO] >>> current active bots length 0
+[2025-04-13 06:11:31:275] [INFO] >>> No bots to execute transactions
+[2025-04-13 06:11:32:273] [INFO] >>> Time taken to run store_block: 2
+[2025-04-13 06:11:32:273] [INFO] >>> Time taken to get game_metadata : 0
+[2025-04-13 06:11:32:273] [INFO] >>> Time taken to get bot_addresses : 0
+[2025-04-13 06:11:32:273] [INFO] >>> game total diamonds 1000
+[2025-04-13 06:11:32:273] [INFO] >>> game current diamonds mined 0
+[2025-04-13 06:11:32:273] [INFO] >>> bot addresses length || TPS 0
+[2025-04-13 06:11:32:273] [INFO] >>> current active bots length 0
+[2025-04-13 06:11:32:273] [INFO] >>> No bots to execute transactions
+[2025-04-13 06:11:32:561] [INFO] [ HTTP ] starknet_V0_8_0_getTransactionStatus 200 102 bytes - 63 ms
+[2025-04-13 06:11:32:563] [INFO] [ HTTP ] starknet_V0_8_0_getTransactionReceipt 200 1175 bytes - 54 ms
+[2025-04-13 06:11:33:276] [INFO] >>> Time taken to run store_block: 4
+[2025-04-13 06:11:33:276] [INFO] >>> Time taken to get game_metadata : 0
+[2025-04-13 06:11:33:276] [INFO] >>> Time taken to get bot_addresses : 0
+[2025-04-13 06:11:33:276] [INFO] >>> game total diamonds 1000
+[2025-04-13 06:11:33:276] [INFO] >>> game current diamonds mined 0
+[2025-04-13 06:11:33:276] [INFO] >>> bot addresses length || TPS 0
+[2025-04-13 06:11:33:276] [INFO] >>> current active bots length 0
+[2025-04-13 06:11:33:276] [INFO] >>> No bots to execute transactions
+[2025-04-13 06:11:34:273] [INFO] >>> Time taken to run store_block: 2
+[2025-04-13 06:11:34:273] [INFO] >>> Time taken to get game_metadata : 0
+[2025-04-13 06:11:34:273] [INFO] >>> Time taken to get bot_addresses : 0
+[2025-04-13 06:11:34:273] [INFO] >>> game total diamonds 1000
+[2025-04-13 06:11:34:273] [INFO] >>> game current diamonds mined 0
+[2025-04-13 06:11:34:273] [INFO] >>> bot addresses length || TPS 0
+[2025-04-13 06:11:34:273] [INFO] >>> current active bots length 0
+[2025-04-13 06:11:34:273] [INFO] >>> No bots to execute transactions
+[2025-04-13 06:11:35:280] [INFO] ⛏️  Closed block #8 with 2 transactions - 9.631291ms
+[2025-04-13 06:11:37:275] [INFO] >>> Time taken to run store_block: 3
+[2025-04-13 06:11:37:275] [INFO] >>> Time taken to get game_metadata : 0
+[2025-04-13 06:11:37:275] [INFO] >>> Time taken to get bot_addresses : 0
+[2025-04-13 06:11:37:275] [INFO] >>> game total diamonds 1000
+[2025-04-13 06:11:37:275] [INFO] >>> game current diamonds mined 0
+[2025-04-13 06:11:37:275] [INFO] >>> bot addresses length || TPS 0
+[2025-04-13 06:11:37:275] [INFO] >>> current active bots length 0
+[2025-04-13 06:11:37:275] [INFO] >>> No bots to execute transactions
+[2025-04-13 06:11:37:584] [INFO] [ HTTP ] starknet_V0_8_0_getNonce 200 40 bytes - 133 ms
+[2025-04-13 06:11:37:613] [INFO] [ HTTP ] starknet_V0_8_0_addInvokeTransaction 200 123 bytes - 493 ms
+[2025-04-13 06:11:38:278] [INFO] 🧮 Executed and added 1 transaction(s) to the pending block at height 9 - 7.170833ms
+[2025-04-13 06:11:38:281] [INFO] >>> Time taken to run store_block: 2
+[2025-04-13 06:11:38:281] [INFO] >>> Time taken to get game_metadata : 0
+[2025-04-13 06:11:38:281] [INFO] >>> Time taken to get bot_addresses : 0
+[2025-04-13 06:11:38:281] [INFO] >>> game total diamonds 1000
+[2025-04-13 06:11:38:281] [INFO] >>> game current diamonds mined 0
+[2025-04-13 06:11:38:281] [INFO] >>> bot addresses length || TPS 0
+[2025-04-13 06:11:38:281] [INFO] >>> current active bots length 0
+[2025-04-13 06:11:38:281] [INFO] >>> No bots to execute transactions
+[2025-04-13 06:11:39:274] [INFO] >>> Time taken to run store_block: 2
+[2025-04-13 06:11:39:274] [INFO] >>> Time taken to get game_metadata : 0
+[2025-04-13 06:11:39:274] [INFO] >>> Time taken to get bot_addresses : 0
+[2025-04-13 06:11:39:274] [INFO] >>> game total diamonds 1000
+[2025-04-13 06:11:39:274] [INFO] >>> game current diamonds mined 0
+[2025-04-13 06:11:39:274] [INFO] >>> bot addresses length || TPS 0
+[2025-04-13 06:11:39:274] [INFO] >>> current active bots length 0
+[2025-04-13 06:11:39:274] [INFO] >>> No bots to execute transactions
+[2025-04-13 06:11:40:275] [INFO] >>> Time taken to run store_block: 3
+[2025-04-13 06:11:40:275] [INFO] >>> Time taken to get game_metadata : 0
+[2025-04-13 06:11:40:275] [INFO] >>> Time taken to get bot_addresses : 0
+[2025-04-13 06:11:40:275] [INFO] >>> game total diamonds 1000
+[2025-04-13 06:11:40:275] [INFO] >>> game current diamonds mined 0
+[2025-04-13 06:11:40:275] [INFO] >>> bot addresses length || TPS 0
+[2025-04-13 06:11:40:275] [INFO] >>> current active bots length 0
+[2025-04-13 06:11:40:275] [INFO] >>> No bots to execute transactions
+[2025-04-13 06:11:41:274] [INFO] >>> Time taken to run store_block: 2
+[2025-04-13 06:11:41:274] [INFO] >>> Time taken to get game_metadata : 0
+[2025-04-13 06:11:41:274] [INFO] >>> Time taken to get bot_addresses : 0
+[2025-04-13 06:11:41:274] [INFO] >>> game total diamonds 1000
+[2025-04-13 06:11:41:275] [INFO] >>> game current diamonds mined 0
+[2025-04-13 06:11:41:275] [INFO] >>> bot addresses length || TPS 0
+[2025-04-13 06:11:41:275] [INFO] >>> current active bots length 0
+[2025-04-13 06:11:41:275] [INFO] >>> No bots to execute transactions
+[2025-04-13 06:11:42:280] [INFO] >>> Time taken to run store_block: 7
+[2025-04-13 06:11:42:280] [INFO] >>> Time taken to get game_metadata : 0
+[2025-04-13 06:11:42:280] [INFO] >>> Time taken to get bot_addresses : 0
+[2025-04-13 06:11:42:280] [INFO] >>> game total diamonds 1000
+[2025-04-13 06:11:42:280] [INFO] >>> game current diamonds mined 0
+[2025-04-13 06:11:42:280] [INFO] >>> bot addresses length || TPS 0
+[2025-04-13 06:11:42:280] [INFO] >>> current active bots length 0
+[2025-04-13 06:11:42:280] [INFO] >>> No bots to execute transactions
+[2025-04-13 06:11:42:619] [INFO] [ HTTP ] starknet_V0_8_0_getTransactionStatus 200 102 bytes - 200 ms
+[2025-04-13 06:11:42:622] [INFO] [ HTTP ] starknet_V0_8_0_getTransactionReceipt 200 1172 bytes - 124 ms
+[2025-04-13 06:11:43:280] [INFO] >>> Time taken to run store_block: 7
+[2025-04-13 06:11:43:280] [INFO] >>> Time taken to get game_metadata : 0
+[2025-04-13 06:11:43:280] [INFO] >>> Time taken to get bot_addresses : 0
+[2025-04-13 06:11:43:280] [INFO] >>> game total diamonds 1000
+[2025-04-13 06:11:43:280] [INFO] >>> game current diamonds mined 0
+[2025-04-13 06:11:43:280] [INFO] >>> bot addresses length || TPS 0
+[2025-04-13 06:11:43:280] [INFO] >>> current active bots length 0
+[2025-04-13 06:11:43:280] [INFO] >>> No bots to execute transactions
+[2025-04-13 06:11:44:279] [INFO] >>> Time taken to run store_block: 6
+[2025-04-13 06:11:44:279] [INFO] >>> Time taken to get game_metadata : 0
+[2025-04-13 06:11:44:279] [INFO] >>> Time taken to get bot_addresses : 0
+[2025-04-13 06:11:44:279] [INFO] >>> game total diamonds 1000
+[2025-04-13 06:11:44:279] [INFO] >>> game current diamonds mined 0
+[2025-04-13 06:11:44:279] [INFO] >>> bot addresses length || TPS 0
+[2025-04-13 06:11:44:279] [INFO] >>> current active bots length 0
+[2025-04-13 06:11:44:279] [INFO] >>> No bots to execute transactions
+[2025-04-13 06:11:45:279] [INFO] >>> Time taken to run store_block: 6
+[2025-04-13 06:11:45:279] [INFO] >>> Time taken to get game_metadata : 0
+[2025-04-13 06:11:45:279] [INFO] >>> Time taken to get bot_addresses : 0
+[2025-04-13 06:11:45:279] [INFO] >>> game total diamonds 1000
+[2025-04-13 06:11:45:279] [INFO] >>> game current diamonds mined 0
+[2025-04-13 06:11:45:279] [INFO] >>> bot addresses length || TPS 0
+[2025-04-13 06:11:45:279] [INFO] >>> current active bots length 0
+[2025-04-13 06:11:45:279] [INFO] >>> No bots to execute transactions
+[2025-04-13 06:11:46:278] [INFO] >>> Time taken to run store_block: 6
+[2025-04-13 06:11:46:278] [INFO] >>> Time taken to get game_metadata : 0
+[2025-04-13 06:11:46:278] [INFO] >>> Time taken to get bot_addresses : 0
+[2025-04-13 06:11:46:278] [INFO] >>> game total diamonds 1000
+[2025-04-13 06:11:46:278] [INFO] >>> game current diamonds mined 0
+[2025-04-13 06:11:46:278] [INFO] >>> bot addresses length || TPS 0
+[2025-04-13 06:11:46:278] [INFO] >>> current active bots length 0
+[2025-04-13 06:11:46:278] [INFO] >>> No bots to execute transactions
+[2025-04-13 06:11:47:279] [INFO] >>> Time taken to run store_block: 6
+[2025-04-13 06:11:47:279] [INFO] >>> Time taken to get game_metadata : 0
+[2025-04-13 06:11:47:279] [INFO] >>> Time taken to get bot_addresses : 0
+[2025-04-13 06:11:47:279] [INFO] >>> game total diamonds 1000
+[2025-04-13 06:11:47:279] [INFO] >>> game current diamonds mined 0
+[2025-04-13 06:11:47:279] [INFO] >>> bot addresses length || TPS 0
+[2025-04-13 06:11:47:279] [INFO] >>> current active bots length 0
+[2025-04-13 06:11:47:279] [INFO] >>> No bots to execute transactions
+[2025-04-13 06:11:47:653] [INFO] [ HTTP ] starknet_V0_8_0_getNonce 200 40 bytes - 148 ms
+[2025-04-13 06:11:47:684] [INFO] [ HTTP ] starknet_V0_8_0_addInvokeTransaction 200 123 bytes - 453 ms
+[2025-04-13 06:11:48:281] [INFO] 🧮 Executed and added 1 transaction(s) to the pending block at height 9 - 9.256792ms
+[2025-04-13 06:11:48:287] [INFO] >>> Time taken to run store_block: 6
+[2025-04-13 06:11:48:287] [INFO] >>> Time taken to get game_metadata : 0
+[2025-04-13 06:11:48:287] [INFO] >>> Time taken to get bot_addresses : 0
+[2025-04-13 06:11:48:287] [INFO] >>> game total diamonds 1000
+[2025-04-13 06:11:48:287] [INFO] >>> game current diamonds mined 0
+[2025-04-13 06:11:48:287] [INFO] >>> bot addresses length || TPS 0
+[2025-04-13 06:11:48:287] [INFO] >>> current active bots length 0
+[2025-04-13 06:11:48:287] [INFO] >>> No bots to execute transactions
+[2025-04-13 06:11:49:279] [INFO] >>> Time taken to run store_block: 6
+[2025-04-13 06:11:49:279] [INFO] >>> Time taken to get game_metadata : 0
+[2025-04-13 06:11:49:279] [INFO] >>> Time taken to get bot_addresses : 0
+[2025-04-13 06:11:49:279] [INFO] >>> game total diamonds 1000
+[2025-04-13 06:11:49:279] [INFO] >>> game current diamonds mined 0
+[2025-04-13 06:11:49:279] [INFO] >>> bot addresses length || TPS 0
+[2025-04-13 06:11:49:279] [INFO] >>> current active bots length 0
+[2025-04-13 06:11:49:279] [INFO] >>> No bots to execute transactions
+[2025-04-13 06:11:50:279] [INFO] >>> Time taken to run store_block: 6
+[2025-04-13 06:11:50:279] [INFO] >>> Time taken to get game_metadata : 0
+[2025-04-13 06:11:50:279] [INFO] >>> Time taken to get bot_addresses : 0
+[2025-04-13 06:11:50:279] [INFO] >>> game total diamonds 1000
+[2025-04-13 06:11:50:279] [INFO] >>> game current diamonds mined 0
+[2025-04-13 06:11:50:279] [INFO] >>> bot addresses length || TPS 0
+[2025-04-13 06:11:50:279] [INFO] >>> current active bots length 0
+[2025-04-13 06:11:50:279] [INFO] >>> No bots to execute transactions
+[2025-04-13 06:11:51:279] [INFO] >>> Time taken to run store_block: 6
+[2025-04-13 06:11:51:279] [INFO] >>> Time taken to get game_metadata : 0
+[2025-04-13 06:11:51:279] [INFO] >>> Time taken to get bot_addresses : 0
+[2025-04-13 06:11:51:279] [INFO] >>> game total diamonds 1000
+[2025-04-13 06:11:51:279] [INFO] >>> game current diamonds mined 0
+[2025-04-13 06:11:51:279] [INFO] >>> bot addresses length || TPS 0
+[2025-04-13 06:11:51:279] [INFO] >>> current active bots length 0
+[2025-04-13 06:11:51:279] [INFO] >>> No bots to execute transactions
+[2025-04-13 06:11:52:278] [INFO] >>> Time taken to run store_block: 6
+[2025-04-13 06:11:52:278] [INFO] >>> Time taken to get game_metadata : 0
+[2025-04-13 06:11:52:278] [INFO] >>> Time taken to get bot_addresses : 0
+[2025-04-13 06:11:52:278] [INFO] >>> game total diamonds 1000
+[2025-04-13 06:11:52:278] [INFO] >>> game current diamonds mined 0
+[2025-04-13 06:11:52:278] [INFO] >>> bot addresses length || TPS 0
+[2025-04-13 06:11:52:278] [INFO] >>> current active bots length 0
+[2025-04-13 06:11:52:278] [INFO] >>> No bots to execute transactions
+[2025-04-13 06:11:52:690] [INFO] [ HTTP ] starknet_V0_8_0_getTransactionStatus 200 102 bytes - 197 ms
+[2025-04-13 06:11:52:693] [INFO] [ HTTP ] starknet_V0_8_0_getTransactionReceipt 200 1175 bytes - 126 ms
+[2025-04-13 06:11:53:279] [INFO] >>> Time taken to run store_block: 6
+[2025-04-13 06:11:53:279] [INFO] >>> Time taken to get game_metadata : 0
+[2025-04-13 06:11:53:279] [INFO] >>> Time taken to get bot_addresses : 0
+[2025-04-13 06:11:53:279] [INFO] >>> game total diamonds 1000
+[2025-04-13 06:11:53:279] [INFO] >>> game current diamonds mined 0
+[2025-04-13 06:11:53:279] [INFO] >>> bot addresses length || TPS 0
+[2025-04-13 06:11:53:279] [INFO] >>> current active bots length 0
+[2025-04-13 06:11:53:279] [INFO] >>> No bots to execute transactions
+[2025-04-13 06:11:54:279] [INFO] >>> Time taken to run store_block: 6
+[2025-04-13 06:11:54:279] [INFO] >>> Time taken to get game_metadata : 0
+[2025-04-13 06:11:54:279] [INFO] >>> Time taken to get bot_addresses : 0
+[2025-04-13 06:11:54:279] [INFO] >>> game total diamonds 1000
+[2025-04-13 06:11:54:279] [INFO] >>> game current diamonds mined 0
+[2025-04-13 06:11:54:279] [INFO] >>> bot addresses length || TPS 0
+[2025-04-13 06:11:54:279] [INFO] >>> current active bots length 0
+[2025-04-13 06:11:54:279] [INFO] >>> No bots to execute transactions
+[2025-04-13 06:11:55:278] [INFO] >>> Time taken to run store_block: 6
+[2025-04-13 06:11:55:278] [INFO] >>> Time taken to get game_metadata : 0
+[2025-04-13 06:11:55:278] [INFO] >>> Time taken to get bot_addresses : 0
+[2025-04-13 06:11:55:278] [INFO] >>> game total diamonds 1000
+[2025-04-13 06:11:55:278] [INFO] >>> game current diamonds mined 0
+[2025-04-13 06:11:55:278] [INFO] >>> bot addresses length || TPS 0
+[2025-04-13 06:11:55:278] [INFO] >>> current active bots length 0
+[2025-04-13 06:11:55:278] [INFO] >>> No bots to execute transactions
+[2025-04-13 06:11:55:294] [INFO] ⛏️  Closed block #9 with 2 transactions - 15.256833ms
+[2025-04-13 06:11:57:279] [INFO] >>> Time taken to run store_block: 7
+[2025-04-13 06:11:57:279] [INFO] >>> Time taken to get game_metadata : 0
+[2025-04-13 06:11:57:279] [INFO] >>> Time taken to get bot_addresses : 0
+[2025-04-13 06:11:57:279] [INFO] >>> game total diamonds 1000
+[2025-04-13 06:11:57:279] [INFO] >>> game current diamonds mined 0
+[2025-04-13 06:11:57:279] [INFO] >>> bot addresses length || TPS 0
+[2025-04-13 06:11:57:279] [INFO] >>> current active bots length 0
+[2025-04-13 06:11:57:279] [INFO] >>> No bots to execute transactions
+[2025-04-13 06:11:57:725] [INFO] [ HTTP ] starknet_V0_8_0_getNonce 200 40 bytes - 151 ms
+[2025-04-13 06:11:57:756] [INFO] [ HTTP ] starknet_V0_8_0_addInvokeTransaction 200 123 bytes - 487 ms
+[2025-04-13 06:11:58:290] [INFO] 🧮 Executed and added 1 transaction(s) to the pending block at height 10 - 17.970791ms
+[2025-04-13 06:11:58:294] [INFO] >>> Time taken to run store_block: 4
+[2025-04-13 06:11:58:294] [INFO] >>> Time taken to get game_metadata : 0
+[2025-04-13 06:11:58:294] [INFO] >>> Time taken to get bot_addresses : 0
+[2025-04-13 06:11:58:294] [INFO] >>> game total diamonds 1000
+[2025-04-13 06:11:58:294] [INFO] >>> game current diamonds mined 0
+[2025-04-13 06:11:58:294] [INFO] >>> bot addresses length || TPS 0
+[2025-04-13 06:11:58:294] [INFO] >>> current active bots length 0
+[2025-04-13 06:11:58:294] [INFO] >>> No bots to execute transactions
+[2025-04-13 06:11:59:278] [INFO] >>> Time taken to run store_block: 6
+[2025-04-13 06:11:59:278] [INFO] >>> Time taken to get game_metadata : 0
+[2025-04-13 06:11:59:278] [INFO] >>> Time taken to get bot_addresses : 0
+[2025-04-13 06:11:59:278] [INFO] >>> game total diamonds 1000
+[2025-04-13 06:11:59:278] [INFO] >>> game current diamonds mined 0
+[2025-04-13 06:11:59:278] [INFO] >>> bot addresses length || TPS 0
+[2025-04-13 06:11:59:278] [INFO] >>> current active bots length 0
+[2025-04-13 06:11:59:278] [INFO] >>> No bots to execute transactions
+[2025-04-13 06:12:00:279] [INFO] >>> Time taken to run store_block: 7
+[2025-04-13 06:12:00:280] [INFO] >>> Time taken to get game_metadata : 0
+[2025-04-13 06:12:00:280] [INFO] >>> Time taken to get bot_addresses : 0
+[2025-04-13 06:12:00:280] [INFO] >>> game total diamonds 1000
+[2025-04-13 06:12:00:280] [INFO] >>> game current diamonds mined 0
+[2025-04-13 06:12:00:280] [INFO] >>> bot addresses length || TPS 0
+[2025-04-13 06:12:00:280] [INFO] >>> current active bots length 0
+[2025-04-13 06:12:00:280] [INFO] >>> No bots to execute transactions
+[2025-04-13 06:12:01:278] [INFO] >>> Time taken to run store_block: 6
+[2025-04-13 06:12:01:278] [INFO] >>> Time taken to get game_metadata : 0
+[2025-04-13 06:12:01:278] [INFO] >>> Time taken to get bot_addresses : 0
+[2025-04-13 06:12:01:278] [INFO] >>> game total diamonds 1000
+[2025-04-13 06:12:01:278] [INFO] >>> game current diamonds mined 0
+[2025-04-13 06:12:01:278] [INFO] >>> bot addresses length || TPS 0
+[2025-04-13 06:12:01:278] [INFO] >>> current active bots length 0
+[2025-04-13 06:12:01:278] [INFO] >>> No bots to execute transactions
+[2025-04-13 06:12:02:279] [INFO] >>> Time taken to run store_block: 6
+[2025-04-13 06:12:02:279] [INFO] >>> Time taken to get game_metadata : 0
+[2025-04-13 06:12:02:279] [INFO] >>> Time taken to get bot_addresses : 0
+[2025-04-13 06:12:02:279] [INFO] >>> game total diamonds 1000
+[2025-04-13 06:12:02:279] [INFO] >>> game current diamonds mined 0
+[2025-04-13 06:12:02:279] [INFO] >>> bot addresses length || TPS 0
+[2025-04-13 06:12:02:279] [INFO] >>> current active bots length 0
+[2025-04-13 06:12:02:279] [INFO] >>> No bots to execute transactions
+[2025-04-13 06:12:02:761] [INFO] [ HTTP ] starknet_V0_8_0_getTransactionStatus 200 102 bytes - 189 ms
+[2025-04-13 06:12:02:764] [INFO] [ HTTP ] starknet_V0_8_0_getTransactionReceipt 200 1174 bytes - 122 ms
+[2025-04-13 06:12:03:279] [INFO] >>> Time taken to run store_block: 6
+[2025-04-13 06:12:03:279] [INFO] >>> Time taken to get game_metadata : 0
+[2025-04-13 06:12:03:279] [INFO] >>> Time taken to get bot_addresses : 0
+[2025-04-13 06:12:03:279] [INFO] >>> game total diamonds 1000
+[2025-04-13 06:12:03:279] [INFO] >>> game current diamonds mined 0
+[2025-04-13 06:12:03:279] [INFO] >>> bot addresses length || TPS 0
+[2025-04-13 06:12:03:279] [INFO] >>> current active bots length 0
+[2025-04-13 06:12:03:279] [INFO] >>> No bots to execute transactions
+[2025-04-13 06:12:04:279] [INFO] >>> Time taken to run store_block: 6
+[2025-04-13 06:12:04:279] [INFO] >>> Time taken to get game_metadata : 0
+[2025-04-13 06:12:04:279] [INFO] >>> Time taken to get bot_addresses : 0
+[2025-04-13 06:12:04:279] [INFO] >>> game total diamonds 1000
+[2025-04-13 06:12:04:279] [INFO] >>> game current diamonds mined 0
+[2025-04-13 06:12:04:279] [INFO] >>> bot addresses length || TPS 0
+[2025-04-13 06:12:04:279] [INFO] >>> current active bots length 0
+[2025-04-13 06:12:04:279] [INFO] >>> No bots to execute transactions
+[2025-04-13 06:12:05:279] [INFO] >>> Time taken to run store_block: 7
+[2025-04-13 06:12:05:279] [INFO] >>> Time taken to get game_metadata : 0
+[2025-04-13 06:12:05:279] [INFO] >>> Time taken to get bot_addresses : 0
+[2025-04-13 06:12:05:279] [INFO] >>> game total diamonds 1000
+[2025-04-13 06:12:05:279] [INFO] >>> game current diamonds mined 0
+[2025-04-13 06:12:05:279] [INFO] >>> bot addresses length || TPS 0
+[2025-04-13 06:12:05:279] [INFO] >>> current active bots length 0
+[2025-04-13 06:12:05:279] [INFO] >>> No bots to execute transactions
+[2025-04-13 06:12:06:279] [INFO] >>> Time taken to run store_block: 7
+[2025-04-13 06:12:06:279] [INFO] >>> Time taken to get game_metadata : 0
+[2025-04-13 06:12:06:279] [INFO] >>> Time taken to get bot_addresses : 0
+[2025-04-13 06:12:06:279] [INFO] >>> game total diamonds 1000
+[2025-04-13 06:12:06:279] [INFO] >>> game current diamonds mined 0
+[2025-04-13 06:12:06:279] [INFO] >>> bot addresses length || TPS 0
+[2025-04-13 06:12:06:279] [INFO] >>> current active bots length 0
+[2025-04-13 06:12:06:279] [INFO] >>> No bots to execute transactions
+[2025-04-13 06:12:07:279] [INFO] >>> Time taken to run store_block: 7
+[2025-04-13 06:12:07:279] [INFO] >>> Time taken to get game_metadata : 0
+[2025-04-13 06:12:07:279] [INFO] >>> Time taken to get bot_addresses : 0
+[2025-04-13 06:12:07:279] [INFO] >>> game total diamonds 1000
+[2025-04-13 06:12:07:279] [INFO] >>> game current diamonds mined 0
+[2025-04-13 06:12:07:279] [INFO] >>> bot addresses length || TPS 0
+[2025-04-13 06:12:07:279] [INFO] >>> current active bots length 0
+[2025-04-13 06:12:07:279] [INFO] >>> No bots to execute transactions
+[2025-04-13 06:12:08:278] [INFO] >>> Time taken to run store_block: 6
+[2025-04-13 06:12:08:278] [INFO] >>> Time taken to get game_metadata : 0
+[2025-04-13 06:12:08:278] [INFO] >>> Time taken to get bot_addresses : 0
+[2025-04-13 06:12:08:278] [INFO] >>> game total diamonds 1000
+[2025-04-13 06:12:08:278] [INFO] >>> game current diamonds mined 0
+[2025-04-13 06:12:08:278] [INFO] >>> bot addresses length || TPS 0
+[2025-04-13 06:12:08:278] [INFO] >>> current active bots length 0
+[2025-04-13 06:12:08:279] [INFO] >>> No bots to execute transactions
+[2025-04-13 06:12:09:273] [INFO] >>> Time taken to run store_block: 2
+[2025-04-13 06:12:09:273] [INFO] >>> Time taken to get game_metadata : 0
+[2025-04-13 06:12:09:273] [INFO] >>> Time taken to get bot_addresses : 0
+[2025-04-13 06:12:09:273] [INFO] >>> game total diamonds 1000
+[2025-04-13 06:12:09:273] [INFO] >>> game current diamonds mined 0
+[2025-04-13 06:12:09:273] [INFO] >>> bot addresses length || TPS 0
+[2025-04-13 06:12:09:273] [INFO] >>> current active bots length 0
+[2025-04-13 06:12:09:273] [INFO] >>> No bots to execute transactions
+[2025-04-13 06:12:10:274] [INFO] >>> Time taken to run store_block: 3
+[2025-04-13 06:12:10:274] [INFO] >>> Time taken to get game_metadata : 0
+[2025-04-13 06:12:10:274] [INFO] >>> Time taken to get bot_addresses : 0
+[2025-04-13 06:12:10:274] [INFO] >>> game total diamonds 1000
+[2025-04-13 06:12:10:274] [INFO] >>> game current diamonds mined 0
+[2025-04-13 06:12:10:274] [INFO] >>> bot addresses length || TPS 0
+[2025-04-13 06:12:10:274] [INFO] >>> current active bots length 0
+[2025-04-13 06:12:10:274] [INFO] >>> No bots to execute transactions
+[2025-04-13 06:12:11:279] [INFO] >>> Time taken to run store_block: 6
+[2025-04-13 06:12:11:279] [INFO] >>> Time taken to get game_metadata : 0
+[2025-04-13 06:12:11:279] [INFO] >>> Time taken to get bot_addresses : 0
+[2025-04-13 06:12:11:279] [INFO] >>> game total diamonds 1000
+[2025-04-13 06:12:11:279] [INFO] >>> game current diamonds mined 0
+[2025-04-13 06:12:11:279] [INFO] >>> bot addresses length || TPS 0
+[2025-04-13 06:12:11:279] [INFO] >>> current active bots length 0
+[2025-04-13 06:12:11:279] [INFO] >>> No bots to execute transactions
+[2025-04-13 06:12:12:279] [INFO] >>> Time taken to run store_block: 7
+[2025-04-13 06:12:12:279] [INFO] >>> Time taken to get game_metadata : 0
+[2025-04-13 06:12:12:279] [INFO] >>> Time taken to get bot_addresses : 0
+[2025-04-13 06:12:12:279] [INFO] >>> game total diamonds 1000
+[2025-04-13 06:12:12:279] [INFO] >>> game current diamonds mined 0
+[2025-04-13 06:12:12:279] [INFO] >>> bot addresses length || TPS 0
+[2025-04-13 06:12:12:279] [INFO] >>> current active bots length 0
+[2025-04-13 06:12:12:279] [INFO] >>> No bots to execute transactions
+[2025-04-13 06:12:13:279] [INFO] >>> Time taken to run store_block: 7
+[2025-04-13 06:12:13:279] [INFO] >>> Time taken to get game_metadata : 0
+[2025-04-13 06:12:13:279] [INFO] >>> Time taken to get bot_addresses : 0
+[2025-04-13 06:12:13:279] [INFO] >>> game total diamonds 1000
+[2025-04-13 06:12:13:279] [INFO] >>> game current diamonds mined 0
+[2025-04-13 06:12:13:279] [INFO] >>> bot addresses length || TPS 0
+[2025-04-13 06:12:13:279] [INFO] >>> current active bots length 0
+[2025-04-13 06:12:13:279] [INFO] >>> No bots to execute transactions
+[2025-04-13 06:12:14:279] [INFO] >>> Time taken to run store_block: 6
+[2025-04-13 06:12:14:279] [INFO] >>> Time taken to get game_metadata : 0
+[2025-04-13 06:12:14:279] [INFO] >>> Time taken to get bot_addresses : 0
+[2025-04-13 06:12:14:279] [INFO] >>> game total diamonds 1000
+[2025-04-13 06:12:14:279] [INFO] >>> game current diamonds mined 0
+[2025-04-13 06:12:14:279] [INFO] >>> bot addresses length || TPS 0
+[2025-04-13 06:12:14:279] [INFO] >>> current active bots length 0
+[2025-04-13 06:12:14:279] [INFO] >>> No bots to execute transactions
+[2025-04-13 06:12:15:279] [INFO] >>> Time taken to run store_block: 6
+[2025-04-13 06:12:15:279] [INFO] >>> Time taken to get game_metadata : 0
+[2025-04-13 06:12:15:279] [INFO] >>> Time taken to get bot_addresses : 0
+[2025-04-13 06:12:15:279] [INFO] >>> game total diamonds 1000
+[2025-04-13 06:12:15:279] [INFO] >>> game current diamonds mined 0
+[2025-04-13 06:12:15:279] [INFO] >>> bot addresses length || TPS 0
+[2025-04-13 06:12:15:279] [INFO] >>> current active bots length 0
+[2025-04-13 06:12:15:279] [INFO] >>> No bots to execute transactions
+[2025-04-13 06:12:15:294] [INFO] ⛏️  Closed block #10 with 1 transactions - 13.759209ms
+[2025-04-13 06:12:17:289] [INFO] >>> Time taken to run store_block: 7
+[2025-04-13 06:12:17:289] [INFO] >>> Time taken to get game_metadata : 0
+[2025-04-13 06:12:17:289] [INFO] >>> Time taken to get bot_addresses : 0
+[2025-04-13 06:12:17:289] [INFO] >>> game total diamonds 1000
+[2025-04-13 06:12:17:289] [INFO] >>> game current diamonds mined 0
+[2025-04-13 06:12:17:289] [INFO] >>> bot addresses length || TPS 0
+[2025-04-13 06:12:17:289] [INFO] >>> current active bots length 0
+[2025-04-13 06:12:17:289] [INFO] >>> No bots to execute transactions
+[2025-04-13 06:12:18:289] [INFO] >>> Time taken to run store_block: 7
+[2025-04-13 06:12:18:289] [INFO] >>> Time taken to get game_metadata : 0
+[2025-04-13 06:12:18:289] [INFO] >>> Time taken to get bot_addresses : 0
+[2025-04-13 06:12:18:289] [INFO] >>> game total diamonds 1000
+[2025-04-13 06:12:18:289] [INFO] >>> game current diamonds mined 0
+[2025-04-13 06:12:18:289] [INFO] >>> bot addresses length || TPS 0
+[2025-04-13 06:12:18:289] [INFO] >>> current active bots length 0
+[2025-04-13 06:12:18:289] [INFO] >>> No bots to execute transactions
+[2025-04-13 06:12:19:289] [INFO] >>> Time taken to run store_block: 6
+[2025-04-13 06:12:19:289] [INFO] >>> Time taken to get game_metadata : 0
+[2025-04-13 06:12:19:289] [INFO] >>> Time taken to get bot_addresses : 0
+[2025-04-13 06:12:19:289] [INFO] >>> game total diamonds 1000
+[2025-04-13 06:12:19:289] [INFO] >>> game current diamonds mined 0
+[2025-04-13 06:12:19:289] [INFO] >>> bot addresses length || TPS 0
+[2025-04-13 06:12:19:289] [INFO] >>> current active bots length 0
+[2025-04-13 06:12:19:289] [INFO] >>> No bots to execute transactions
+[2025-04-13 06:12:20:289] [INFO] >>> Time taken to run store_block: 6
+[2025-04-13 06:12:20:289] [INFO] >>> Time taken to get game_metadata : 0
+[2025-04-13 06:12:20:289] [INFO] >>> Time taken to get bot_addresses : 0
+[2025-04-13 06:12:20:289] [INFO] >>> game total diamonds 1000
+[2025-04-13 06:12:20:289] [INFO] >>> game current diamonds mined 0
+[2025-04-13 06:12:20:289] [INFO] >>> bot addresses length || TPS 0
+[2025-04-13 06:12:20:289] [INFO] >>> current active bots length 0
+[2025-04-13 06:12:20:289] [INFO] >>> No bots to execute transactions
+[2025-04-13 06:12:21:291] [INFO] >>> Time taken to run store_block: 8
+[2025-04-13 06:12:21:291] [INFO] >>> Time taken to get game_metadata : 0
+[2025-04-13 06:12:21:291] [INFO] >>> Time taken to get bot_addresses : 0
+[2025-04-13 06:12:21:291] [INFO] >>> game total diamonds 1000
+[2025-04-13 06:12:21:291] [INFO] >>> game current diamonds mined 0
+[2025-04-13 06:12:21:291] [INFO] >>> bot addresses length || TPS 0
+[2025-04-13 06:12:21:291] [INFO] >>> current active bots length 0
+[2025-04-13 06:12:21:291] [INFO] >>> No bots to execute transactions
+[2025-04-13 06:12:22:289] [INFO] >>> Time taken to run store_block: 6
+[2025-04-13 06:12:22:289] [INFO] >>> Time taken to get game_metadata : 0
+[2025-04-13 06:12:22:289] [INFO] >>> Time taken to get bot_addresses : 0
+[2025-04-13 06:12:22:289] [INFO] >>> game total diamonds 1000
+[2025-04-13 06:12:22:289] [INFO] >>> game current diamonds mined 0
+[2025-04-13 06:12:22:289] [INFO] >>> bot addresses length || TPS 0
+[2025-04-13 06:12:22:289] [INFO] >>> current active bots length 0
+[2025-04-13 06:12:22:289] [INFO] >>> No bots to execute transactions
+[2025-04-13 06:12:23:284] [INFO] >>> Time taken to run store_block: 2
+[2025-04-13 06:12:23:284] [INFO] >>> Time taken to get game_metadata : 0
+[2025-04-13 06:12:23:284] [INFO] >>> Time taken to get bot_addresses : 0
+[2025-04-13 06:12:23:284] [INFO] >>> game total diamonds 1000
+[2025-04-13 06:12:23:284] [INFO] >>> game current diamonds mined 0
+[2025-04-13 06:12:23:284] [INFO] >>> bot addresses length || TPS 0
+[2025-04-13 06:12:23:284] [INFO] >>> current active bots length 0
+[2025-04-13 06:12:23:284] [INFO] >>> No bots to execute transactions
+[2025-04-13 06:12:24:284] [INFO] >>> Time taken to run store_block: 2
+[2025-04-13 06:12:24:284] [INFO] >>> Time taken to get game_metadata : 0
+[2025-04-13 06:12:24:284] [INFO] >>> Time taken to get bot_addresses : 0
+[2025-04-13 06:12:24:284] [INFO] >>> game total diamonds 1000
+[2025-04-13 06:12:24:284] [INFO] >>> game current diamonds mined 0
+[2025-04-13 06:12:24:284] [INFO] >>> bot addresses length || TPS 0
+[2025-04-13 06:12:24:284] [INFO] >>> current active bots length 0
+[2025-04-13 06:12:24:284] [INFO] >>> No bots to execute transactions
+[2025-04-13 06:12:25:285] [INFO] >>> Time taken to run store_block: 3
+[2025-04-13 06:12:25:285] [INFO] >>> Time taken to get game_metadata : 0
+[2025-04-13 06:12:25:285] [INFO] >>> Time taken to get bot_addresses : 0
+[2025-04-13 06:12:25:285] [INFO] >>> game total diamonds 1000
+[2025-04-13 06:12:25:285] [INFO] >>> game current diamonds mined 0
+[2025-04-13 06:12:25:285] [INFO] >>> bot addresses length || TPS 0
+[2025-04-13 06:12:25:285] [INFO] >>> current active bots length 0
+[2025-04-13 06:12:25:285] [INFO] >>> No bots to execute transactions
+[2025-04-13 06:12:26:288] [INFO] >>> Time taken to run store_block: 5
+[2025-04-13 06:12:26:288] [INFO] >>> Time taken to get game_metadata : 0
+[2025-04-13 06:12:26:288] [INFO] >>> Time taken to get bot_addresses : 0
+[2025-04-13 06:12:26:288] [INFO] >>> game total diamonds 1000
+[2025-04-13 06:12:26:288] [INFO] >>> game current diamonds mined 0
+[2025-04-13 06:12:26:288] [INFO] >>> bot addresses length || TPS 0
+[2025-04-13 06:12:26:288] [INFO] >>> current active bots length 0
+[2025-04-13 06:12:26:288] [INFO] >>> No bots to execute transactions
+[2025-04-13 06:12:27:289] [INFO] >>> Time taken to run store_block: 7
+[2025-04-13 06:12:27:289] [INFO] >>> Time taken to get game_metadata : 0
+[2025-04-13 06:12:27:289] [INFO] >>> Time taken to get bot_addresses : 0
+[2025-04-13 06:12:27:289] [INFO] >>> game total diamonds 1000
+[2025-04-13 06:12:27:289] [INFO] >>> game current diamonds mined 0
+[2025-04-13 06:12:27:289] [INFO] >>> bot addresses length || TPS 0
+[2025-04-13 06:12:27:289] [INFO] >>> current active bots length 0
+[2025-04-13 06:12:27:289] [INFO] >>> No bots to execute transactions
+[2025-04-13 06:12:28:284] [INFO] >>> Time taken to run store_block: 3
+[2025-04-13 06:12:28:284] [INFO] >>> Time taken to get game_metadata : 0
+[2025-04-13 06:12:28:284] [INFO] >>> Time taken to get bot_addresses : 0
+[2025-04-13 06:12:28:284] [INFO] >>> game total diamonds 1000
+[2025-04-13 06:12:28:284] [INFO] >>> game current diamonds mined 0
+[2025-04-13 06:12:28:284] [INFO] >>> bot addresses length || TPS 0
+[2025-04-13 06:12:28:284] [INFO] >>> current active bots length 0
+[2025-04-13 06:12:28:284] [INFO] >>> No bots to execute transactions
+[2025-04-13 06:12:29:289] [INFO] >>> Time taken to run store_block: 7
+[2025-04-13 06:12:29:289] [INFO] >>> Time taken to get game_metadata : 0
+[2025-04-13 06:12:29:289] [INFO] >>> Time taken to get bot_addresses : 0
+[2025-04-13 06:12:29:289] [INFO] >>> game total diamonds 1000
+[2025-04-13 06:12:29:289] [INFO] >>> game current diamonds mined 0
+[2025-04-13 06:12:29:289] [INFO] >>> bot addresses length || TPS 0
+[2025-04-13 06:12:29:289] [INFO] >>> current active bots length 0
+[2025-04-13 06:12:29:289] [INFO] >>> No bots to execute transactions
+[2025-04-13 06:12:30:285] [INFO] >>> Time taken to run store_block: 3
+[2025-04-13 06:12:30:285] [INFO] >>> Time taken to get game_metadata : 0
+[2025-04-13 06:12:30:285] [INFO] >>> Time taken to get bot_addresses : 0
+[2025-04-13 06:12:30:285] [INFO] >>> game total diamonds 1000
+[2025-04-13 06:12:30:285] [INFO] >>> game current diamonds mined 0
+[2025-04-13 06:12:30:285] [INFO] >>> bot addresses length || TPS 0
+[2025-04-13 06:12:30:285] [INFO] >>> current active bots length 0
+[2025-04-13 06:12:30:285] [INFO] >>> No bots to execute transactions
+[2025-04-13 06:12:31:285] [INFO] >>> Time taken to run store_block: 3
+[2025-04-13 06:12:31:285] [INFO] >>> Time taken to get game_metadata : 0
+[2025-04-13 06:12:31:285] [INFO] >>> Time taken to get bot_addresses : 0
+[2025-04-13 06:12:31:285] [INFO] >>> game total diamonds 1000
+[2025-04-13 06:12:31:285] [INFO] >>> game current diamonds mined 0
+[2025-04-13 06:12:31:285] [INFO] >>> bot addresses length || TPS 0
+[2025-04-13 06:12:31:285] [INFO] >>> current active bots length 0
+[2025-04-13 06:12:31:285] [INFO] >>> No bots to execute transactions
+[2025-04-13 06:12:32:285] [INFO] >>> Time taken to run store_block: 3
+[2025-04-13 06:12:32:285] [INFO] >>> Time taken to get game_metadata : 0
+[2025-04-13 06:12:32:285] [INFO] >>> Time taken to get bot_addresses : 0
+[2025-04-13 06:12:32:285] [INFO] >>> game total diamonds 1000
+[2025-04-13 06:12:32:285] [INFO] >>> game current diamonds mined 0
+[2025-04-13 06:12:32:285] [INFO] >>> bot addresses length || TPS 0
+[2025-04-13 06:12:32:285] [INFO] >>> current active bots length 0
+[2025-04-13 06:12:32:285] [INFO] >>> No bots to execute transactions
+[2025-04-13 06:12:33:284] [INFO] >>> Time taken to run store_block: 3
+[2025-04-13 06:12:33:284] [INFO] >>> Time taken to get game_metadata : 0
+[2025-04-13 06:12:33:284] [INFO] >>> Time taken to get bot_addresses : 0
+[2025-04-13 06:12:33:284] [INFO] >>> game total diamonds 1000
+[2025-04-13 06:12:33:284] [INFO] >>> game current diamonds mined 0
+[2025-04-13 06:12:33:284] [INFO] >>> bot addresses length || TPS 0
+[2025-04-13 06:12:33:284] [INFO] >>> current active bots length 0
+[2025-04-13 06:12:33:284] [INFO] >>> No bots to execute transactions
+[2025-04-13 06:12:34:283] [INFO] >>> Time taken to run store_block: 1
+[2025-04-13 06:12:34:283] [INFO] >>> Time taken to get game_metadata : 0
+[2025-04-13 06:12:34:284] [INFO] >>> Time taken to get bot_addresses : 0
+[2025-04-13 06:12:34:284] [INFO] >>> game total diamonds 1000
+[2025-04-13 06:12:34:284] [INFO] >>> game current diamonds mined 0
+[2025-04-13 06:12:34:284] [INFO] >>> bot addresses length || TPS 0
+[2025-04-13 06:12:34:284] [INFO] >>> current active bots length 0
+[2025-04-13 06:12:34:284] [INFO] >>> No bots to execute transactions
+[2025-04-13 06:12:35:289] [INFO] ⛏️  Closed block #11 with 0 transactions - 8.027625ms
+[2025-04-13 06:12:37:285] [INFO] >>> Time taken to run store_block: 3
+[2025-04-13 06:12:37:285] [INFO] >>> Time taken to get game_metadata : 0
+[2025-04-13 06:12:37:285] [INFO] >>> Time taken to get bot_addresses : 0
+[2025-04-13 06:12:37:285] [INFO] >>> game total diamonds 1000
+[2025-04-13 06:12:37:285] [INFO] >>> game current diamonds mined 0
+[2025-04-13 06:12:37:285] [INFO] >>> bot addresses length || TPS 0
+[2025-04-13 06:12:37:285] [INFO] >>> current active bots length 0
+[2025-04-13 06:12:37:285] [INFO] >>> No bots to execute transactions
+[2025-04-13 06:12:38:285] [INFO] >>> Time taken to run store_block: 4
+[2025-04-13 06:12:38:285] [INFO] >>> Time taken to get game_metadata : 0
+[2025-04-13 06:12:38:285] [INFO] >>> Time taken to get bot_addresses : 0
+[2025-04-13 06:12:38:285] [INFO] >>> game total diamonds 1000
+[2025-04-13 06:12:38:285] [INFO] >>> game current diamonds mined 0
+[2025-04-13 06:12:38:285] [INFO] >>> bot addresses length || TPS 0
+[2025-04-13 06:12:38:285] [INFO] >>> current active bots length 0
+[2025-04-13 06:12:38:285] [INFO] >>> No bots to execute transactions
+[2025-04-13 06:12:39:287] [INFO] >>> Time taken to run store_block: 4
+[2025-04-13 06:12:39:287] [INFO] >>> Time taken to get game_metadata : 0
+[2025-04-13 06:12:39:287] [INFO] >>> Time taken to get bot_addresses : 0
+[2025-04-13 06:12:39:287] [INFO] >>> game total diamonds 1000
+[2025-04-13 06:12:39:287] [INFO] >>> game current diamonds mined 0
+[2025-04-13 06:12:39:287] [INFO] >>> bot addresses length || TPS 0
+[2025-04-13 06:12:39:287] [INFO] >>> current active bots length 0
+[2025-04-13 06:12:39:287] [INFO] >>> No bots to execute transactions
+[2025-04-13 06:12:40:288] [INFO] >>> Time taken to run store_block: 6
+[2025-04-13 06:12:40:288] [INFO] >>> Time taken to get game_metadata : 0
+[2025-04-13 06:12:40:288] [INFO] >>> Time taken to get bot_addresses : 0
+[2025-04-13 06:12:40:288] [INFO] >>> game total diamonds 1000
+[2025-04-13 06:12:40:288] [INFO] >>> game current diamonds mined 0
+[2025-04-13 06:12:40:288] [INFO] >>> bot addresses length || TPS 0
+[2025-04-13 06:12:40:288] [INFO] >>> current active bots length 0
+[2025-04-13 06:12:40:288] [INFO] >>> No bots to execute transactions
+[2025-04-13 06:12:41:288] [INFO] >>> Time taken to run store_block: 6
+[2025-04-13 06:12:41:288] [INFO] >>> Time taken to get game_metadata : 0
+[2025-04-13 06:12:41:288] [INFO] >>> Time taken to get bot_addresses : 0
+[2025-04-13 06:12:41:288] [INFO] >>> game total diamonds 1000
+[2025-04-13 06:12:41:288] [INFO] >>> game current diamonds mined 0
+[2025-04-13 06:12:41:288] [INFO] >>> bot addresses length || TPS 0
+[2025-04-13 06:12:41:288] [INFO] >>> current active bots length 0
+[2025-04-13 06:12:41:288] [INFO] >>> No bots to execute transactions
+[2025-04-13 06:12:42:285] [INFO] >>> Time taken to run store_block: 3
+[2025-04-13 06:12:42:285] [INFO] >>> Time taken to get game_metadata : 0
+[2025-04-13 06:12:42:285] [INFO] >>> Time taken to get bot_addresses : 0
+[2025-04-13 06:12:42:285] [INFO] >>> game total diamonds 1000
+[2025-04-13 06:12:42:285] [INFO] >>> game current diamonds mined 0
+[2025-04-13 06:12:42:285] [INFO] >>> bot addresses length || TPS 0
+[2025-04-13 06:12:42:285] [INFO] >>> current active bots length 0
+[2025-04-13 06:12:42:285] [INFO] >>> No bots to execute transactions
+[2025-04-13 06:12:43:284] [INFO] >>> Time taken to run store_block: 3
+[2025-04-13 06:12:43:284] [INFO] >>> Time taken to get game_metadata : 0
+[2025-04-13 06:12:43:284] [INFO] >>> Time taken to get bot_addresses : 0
+[2025-04-13 06:12:43:284] [INFO] >>> game total diamonds 1000
+[2025-04-13 06:12:43:284] [INFO] >>> game current diamonds mined 0
+[2025-04-13 06:12:43:284] [INFO] >>> bot addresses length || TPS 0
+[2025-04-13 06:12:43:284] [INFO] >>> current active bots length 0
+[2025-04-13 06:12:43:284] [INFO] >>> No bots to execute transactions
+[2025-04-13 06:12:44:286] [INFO] >>> Time taken to run store_block: 4
+[2025-04-13 06:12:44:286] [INFO] >>> Time taken to get game_metadata : 0
+[2025-04-13 06:12:44:286] [INFO] >>> Time taken to get bot_addresses : 0
+[2025-04-13 06:12:44:286] [INFO] >>> game total diamonds 1000
+[2025-04-13 06:12:44:286] [INFO] >>> game current diamonds mined 0
+[2025-04-13 06:12:44:286] [INFO] >>> bot addresses length || TPS 0
+[2025-04-13 06:12:44:286] [INFO] >>> current active bots length 0
+[2025-04-13 06:12:44:286] [INFO] >>> No bots to execute transactions
+[2025-04-13 06:12:45:285] [INFO] >>> Time taken to run store_block: 3
+[2025-04-13 06:12:45:285] [INFO] >>> Time taken to get game_metadata : 0
+[2025-04-13 06:12:45:285] [INFO] >>> Time taken to get bot_addresses : 0
+[2025-04-13 06:12:45:285] [INFO] >>> game total diamonds 1000
+[2025-04-13 06:12:45:285] [INFO] >>> game current diamonds mined 0
+[2025-04-13 06:12:45:285] [INFO] >>> bot addresses length || TPS 0
+[2025-04-13 06:12:45:285] [INFO] >>> current active bots length 0
+[2025-04-13 06:12:45:285] [INFO] >>> No bots to execute transactions
+[2025-04-13 06:12:46:284] [INFO] >>> Time taken to run store_block: 3
+[2025-04-13 06:12:46:284] [INFO] >>> Time taken to get game_metadata : 0
+[2025-04-13 06:12:46:285] [INFO] >>> Time taken to get bot_addresses : 0
+[2025-04-13 06:12:46:285] [INFO] >>> game total diamonds 1000
+[2025-04-13 06:12:46:285] [INFO] >>> game current diamonds mined 0
+[2025-04-13 06:12:46:285] [INFO] >>> bot addresses length || TPS 0
+[2025-04-13 06:12:46:285] [INFO] >>> current active bots length 0
+[2025-04-13 06:12:46:285] [INFO] >>> No bots to execute transactions
+[2025-04-13 06:12:47:289] [INFO] >>> Time taken to run store_block: 7
+[2025-04-13 06:12:47:289] [INFO] >>> Time taken to get game_metadata : 0
+[2025-04-13 06:12:47:289] [INFO] >>> Time taken to get bot_addresses : 0
+[2025-04-13 06:12:47:289] [INFO] >>> game total diamonds 1000
+[2025-04-13 06:12:47:289] [INFO] >>> game current diamonds mined 0
+[2025-04-13 06:12:47:289] [INFO] >>> bot addresses length || TPS 0
+[2025-04-13 06:12:47:289] [INFO] >>> current active bots length 0
+[2025-04-13 06:12:47:289] [INFO] >>> No bots to execute transactions
+[2025-04-13 06:12:47:600] [INFO] [ HTTP ] starknet_V0_8_0_getClassAt 200 146871 bytes - 1539 ms
+[2025-04-13 06:12:48:283] [INFO] >>> Time taken to run store_block: 2
+[2025-04-13 06:12:48:283] [INFO] >>> Time taken to get game_metadata : 0
+[2025-04-13 06:12:48:283] [INFO] >>> Time taken to get bot_addresses : 0
+[2025-04-13 06:12:48:283] [INFO] >>> game total diamonds 1000
+[2025-04-13 06:12:48:283] [INFO] >>> game current diamonds mined 0
+[2025-04-13 06:12:48:283] [INFO] >>> bot addresses length || TPS 0
+[2025-04-13 06:12:48:283] [INFO] >>> current active bots length 0
+[2025-04-13 06:12:48:283] [INFO] >>> No bots to execute transactions
+[2025-04-13 06:12:49:289] [INFO] >>> Time taken to run store_block: 6
+[2025-04-13 06:12:49:289] [INFO] >>> Time taken to get game_metadata : 0
+[2025-04-13 06:12:49:289] [INFO] >>> Time taken to get bot_addresses : 0
+[2025-04-13 06:12:49:289] [INFO] >>> game total diamonds 1000
+[2025-04-13 06:12:49:289] [INFO] >>> game current diamonds mined 0
+[2025-04-13 06:12:49:289] [INFO] >>> bot addresses length || TPS 0
+[2025-04-13 06:12:49:289] [INFO] >>> current active bots length 0
+[2025-04-13 06:12:49:289] [INFO] >>> No bots to execute transactions
+[2025-04-13 06:12:50:283] [INFO] >>> Time taken to run store_block: 1
+[2025-04-13 06:12:50:283] [INFO] >>> Time taken to get game_metadata : 0
+[2025-04-13 06:12:50:283] [INFO] >>> Time taken to get bot_addresses : 0
+[2025-04-13 06:12:50:283] [INFO] >>> game total diamonds 1000
+[2025-04-13 06:12:50:283] [INFO] >>> game current diamonds mined 0
+[2025-04-13 06:12:50:283] [INFO] >>> bot addresses length || TPS 0
+[2025-04-13 06:12:50:283] [INFO] >>> current active bots length 0
+[2025-04-13 06:12:50:283] [INFO] >>> No bots to execute transactions
+[2025-04-13 06:12:51:288] [INFO] >>> Time taken to run store_block: 6
+[2025-04-13 06:12:51:288] [INFO] >>> Time taken to get game_metadata : 0
+[2025-04-13 06:12:51:288] [INFO] >>> Time taken to get bot_addresses : 0
+[2025-04-13 06:12:51:288] [INFO] >>> game total diamonds 1000
+[2025-04-13 06:12:51:288] [INFO] >>> game current diamonds mined 0
+[2025-04-13 06:12:51:288] [INFO] >>> bot addresses length || TPS 0
+[2025-04-13 06:12:51:288] [INFO] >>> current active bots length 0
+[2025-04-13 06:12:51:288] [INFO] >>> No bots to execute transactions
+[2025-04-13 06:12:52:286] [INFO] >>> Time taken to run store_block: 4
+[2025-04-13 06:12:52:286] [INFO] >>> Time taken to get game_metadata : 0
+[2025-04-13 06:12:52:286] [INFO] >>> Time taken to get bot_addresses : 0
+[2025-04-13 06:12:52:286] [INFO] >>> game total diamonds 1000
+[2025-04-13 06:12:52:286] [INFO] >>> game current diamonds mined 0
+[2025-04-13 06:12:52:286] [INFO] >>> bot addresses length || TPS 0
+[2025-04-13 06:12:52:286] [INFO] >>> current active bots length 0
+[2025-04-13 06:12:52:286] [INFO] >>> No bots to execute transactions
+[2025-04-13 06:12:53:285] [INFO] >>> Time taken to run store_block: 3
+[2025-04-13 06:12:53:285] [INFO] >>> Time taken to get game_metadata : 0
+[2025-04-13 06:12:53:285] [INFO] >>> Time taken to get bot_addresses : 0
+[2025-04-13 06:12:53:285] [INFO] >>> game total diamonds 1000
+[2025-04-13 06:12:53:285] [INFO] >>> game current diamonds mined 0
+[2025-04-13 06:12:53:285] [INFO] >>> bot addresses length || TPS 0
+[2025-04-13 06:12:53:285] [INFO] >>> current active bots length 0
+[2025-04-13 06:12:53:285] [INFO] >>> No bots to execute transactions
+[2025-04-13 06:12:54:285] [INFO] >>> Time taken to run store_block: 3
+[2025-04-13 06:12:54:285] [INFO] >>> Time taken to get game_metadata : 0
+[2025-04-13 06:12:54:285] [INFO] >>> Time taken to get bot_addresses : 0
+[2025-04-13 06:12:54:285] [INFO] >>> game total diamonds 1000
+[2025-04-13 06:12:54:285] [INFO] >>> game current diamonds mined 0
+[2025-04-13 06:12:54:285] [INFO] >>> bot addresses length || TPS 0
+[2025-04-13 06:12:54:285] [INFO] >>> current active bots length 0
+[2025-04-13 06:12:54:285] [INFO] >>> No bots to execute transactions
+[2025-04-13 06:12:55:289] [INFO] ⛏️  Closed block #12 with 0 transactions - 7.82975ms
+[2025-04-13 06:12:57:285] [INFO] >>> Time taken to run store_block: 3
+[2025-04-13 06:12:57:285] [INFO] >>> Time taken to get game_metadata : 0
+[2025-04-13 06:12:57:285] [INFO] >>> Time taken to get bot_addresses : 0
+[2025-04-13 06:12:57:285] [INFO] >>> game total diamonds 1000
+[2025-04-13 06:12:57:285] [INFO] >>> game current diamonds mined 0
+[2025-04-13 06:12:57:285] [INFO] >>> bot addresses length || TPS 0
+[2025-04-13 06:12:57:285] [INFO] >>> current active bots length 0
+[2025-04-13 06:12:57:285] [INFO] >>> No bots to execute transactions
