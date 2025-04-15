@@ -16,8 +16,8 @@ const CONFIG = {
   MULTICALL_SIZE: 500,
   // MADARA DEVNET ACCOUNT #1 (SEQUENCER)
   SEQUENCER: {
-    ADDRESS: "0x432b55bb8353e05b5e773318861f28450e0ff831d30fe72ccab78187c590e05",
-    PRIVATE_KEY: "0x03460d6ff1991cb61f6155b179a51bf7d9f4210262e846cee15c4fca0d6e9025"
+    ADDRESS: "0x12e8bd1bf5576d183c4ecf6428ef4743414c0f9df55e419ce9f7c503fda5d36",
+    PRIVATE_KEY: "0x0163b9968dbd7a17769cc085834efe2554d4d2bd053bf3a28d64adf33122e686"
   },
   L2_ACCOUNT: {
     ADDRESS: "0x0467C4Dc308a65C3247B0907a9A0ceE780704863Bbe38938EeBE3Ab3be783FbA",
@@ -919,7 +919,7 @@ class StarknetDeployer {
     return { transaction_hash, receipt };
   }
 
-  async withdrawGameCurrency(recipientAddress) {
+  async withdrawGameCurrency(recipientAddress, amount) {
     const gameContract = new Contract(
       this.contracts.game.sierra.abi,
       CONFIG.CONTRACT_ADDRESSES.GAME,
@@ -927,7 +927,7 @@ class StarknetDeployer {
     );
 
     const withdrawCall = gameContract.populate("withdraw_game_currency", [
-      10n ** 18n,
+      amount,
       recipientAddress
     ]);
 
@@ -1202,8 +1202,15 @@ class DeploymentCLI {
       });
     });
 
+    // Prompt for amount to withdraw
+    const amount = await new Promise((resolve) => {
+      this.rl.question('Enter amount to withdraw (or press Enter for default 10_000_000_000_000_000_000): ', (answer) => {
+        resolve(BigInt(answer.trim()) || BigInt("1000000000000000000"));
+      });
+    });
+
     console.log(`Withdrawing to address: ${recipientAddress}`);
-    const result = await this.deployer.withdrawGameCurrency(recipientAddress);
+    const result = await this.deployer.withdrawGameCurrency(recipientAddress, amount);
     console.log('✅ Game Currency withdrawal initiated successfully!');
     console.log('Transaction Hash:', result.transaction_hash);
   }
