@@ -843,18 +843,18 @@ Usage: node bridge_deploy.js <command_number>
 Available commands:
 0 - Declare Appchain Bridge
 1 - Deploy Appchain Bridge
-2 - Declare L3 Bridge
-3 - Deploy L3 Bridge
-4 - Declare L2 Bridge
-5 - Deploy L2 Bridge
-6 - Configure Appchain Bridge
-7 - Set L2 Bridge
-8 - Declare ERC20 L3
-9 - Set ERC20 L3
-10 - Declare ERC20 L2
-11 - Deploy ERC20 L2
-12 - Enroll Token L2
-13 - Activate Token L2
+2 - Declare L2 Bridge
+3 - Deploy L2 Bridge
+4 - Configure Appchain Bridge
+5 - Set L2 Bridge
+6 - Declare ERC20 L3
+7 - Set ERC20 L3
+8 - Declare ERC20 L2
+9 - Deploy ERC20 L2
+10 - Enroll Token L2
+11 - Activate Token L2
+12 - Get Appchain Token
+13 - Deploy Bots
     `);
     return;
   }

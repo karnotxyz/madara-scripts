@@ -943,7 +943,7 @@ class StarknetDeployer {
     return { transaction_hash, receipt };
   }
 
-  async withdrawGameCurrency(recipientAddress) {
+  async withdrawGameCurrency(recipientAddress, amount) {
     const gameContract = new Contract(
       this.contracts.game.sierra.abi,
       CONFIG.CONTRACT_ADDRESSES.GAME,
@@ -951,7 +951,7 @@ class StarknetDeployer {
     );
 
     const withdrawCall = gameContract.populate("withdraw_game_currency", [
-      10n ** 18n,
+      amount,
       recipientAddress
     ]);
 
@@ -1226,8 +1226,15 @@ class DeploymentCLI {
       });
     });
 
+    // Prompt for amount to withdraw
+    const amount = await new Promise((resolve) => {
+      this.rl.question('Enter amount to withdraw (or press Enter for default 10_000_000_000_000_000_000): ', (answer) => {
+        resolve(BigInt(answer.trim()) || BigInt("1000000000000000000"));
+      });
+    });
+
     console.log(`Withdrawing to address: ${recipientAddress}`);
-    const result = await this.deployer.withdrawGameCurrency(recipientAddress);
+    const result = await this.deployer.withdrawGameCurrency(recipientAddress, amount);
     console.log('✅ Game Currency withdrawal initiated successfully!');
     console.log('Transaction Hash:', result.transaction_hash);
   }
