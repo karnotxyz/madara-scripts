@@ -1,33 +1,4 @@
-(node:70716) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/dexterhv/Work/gridy/chain_2/madara-scripts/l3_scripts/2_appchain/deploy_appchain.js is not specified and it doesn't parse as CommonJS.
-Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
-To eliminate this warning, add "type": "module" to /Users/dexterhv/Work/gridy/chain_2/madara-scripts/package.json.
-(Use `node --trace-warnings ...` to show where the warning was created)
-Inside main
-Deploying contract...
-Using class hash: 0x047a950b027b9cff4d6641f70bd4e0189ad3626735ada75a5660fd9f1012a853
-Constructor args: [
-  '0x0452C6B094c93ca24e4624be31de0B96abf8FEAE145592c7368ef0Fe2EE6b408',
-  '0x0',
-  '0x0',
-  '0x0'
-]
-(node:70716) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
-[2025-04-13T10:23:15.076Z] WARN: You are using a deprecated transaction version (V0,V1,V2)!
-Update to the latest V3 transactions!
-{
-  "version": "0x100000000000000000000000000000001",
-  "type": "INVOKE_FUNCTION"
-}
-[2025-04-13T10:23:16.000Z] WARN: You are using a deprecated transaction version (V0,V1,V2)!
-Update to the latest V3 transactions!
-{
-  "version": "0x1",
-  "type": "INVOKE"
-}
-Deploying contract...
-Contract deployed at address: [ '0x415e28b83f812224f6c815c94388b5de6fe9a5f5cba1ae0e1d2c9c9bc0361d7' ]
-Appchain Piltover deployed at:  [ '0x415e28b83f812224f6c815c94388b5de6fe9a5f5cba1ae0e1d2c9c9bc0361d7' ]
-(node:72940) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/dexterhv/Work/gridy/chain_2/madara-scripts/l3_scripts/2_appchain/deploy_appchain.js is not specified and it doesn't parse as CommonJS.
+(node:39544) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/dexterhv/Work/gridy/chain_2/madara-scripts/l3_scripts/2_appchain/deploy_appchain.js is not specified and it doesn't parse as CommonJS.
 Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
 To eliminate this warning, add "type": "module" to /Users/dexterhv/Work/gridy/chain_2/madara-scripts/package.json.
 (Use `node --trace-warnings ...` to show where the warning was created)
@@ -37,63 +8,71 @@ Using class hash: 0x047a950b027b9cff4d6641f70bd4e0189ad3626735ada75a5660fd9f1012
 Constructor args: [
   '0x04f59E35F2d130Fe6ef478b6A8b65B5fbb272BB7D67c047A0Dd7a2Dd9b320A30',
   '0x0',
-  '0x0',
+  '0x800000000000011000000000000000000000000000000000000000000000000',
   '0x0'
 ]
-(node:72940) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
-[2025-04-13T10:31:03.294Z] WARN: You are using a deprecated transaction version (V0,V1,V2)!
+(node:39544) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+[2025-04-15T14:05:28.137Z] WARN: You are using a deprecated transaction version (V0,V1,V2)!
 Update to the latest V3 transactions!
 {
   "version": "0x100000000000000000000000000000001",
   "type": "INVOKE_FUNCTION"
 }
-[2025-04-13T10:31:04.144Z] WARN: You are using a deprecated transaction version (V0,V1,V2)!
+[2025-04-15T14:05:28.665Z] WARN: You are using a deprecated transaction version (V0,V1,V2)!
 Update to the latest V3 transactions!
 {
   "version": "0x1",
   "type": "INVOKE"
 }
 Deploying contract...
-Contract deployed at address: [ '0x302eb2ef81027749d17d322f9654d8c83dbd5fa5d11fe29077082a6018c3240' ]
-Appchain Piltover deployed at:  [ '0x302eb2ef81027749d17d322f9654d8c83dbd5fa5d11fe29077082a6018c3240' ]
-(node:73083) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/dexterhv/Work/gridy/chain_2/madara-scripts/l3_scripts/2_appchain/deploy_appchain.js is not specified and it doesn't parse as CommonJS.
+Contract deployed at address: [ '0x4819571c0df89d557eeb5bb85ed9f277a4d46ba6e1275fe22b875f3cd46e102' ]
+Appchain Piltover deployed at:  [ '0x4819571c0df89d557eeb5bb85ed9f277a4d46ba6e1275fe22b875f3cd46e102' ]
+(node:40186) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/dexterhv/Work/gridy/chain_2/madara-scripts/l3_scripts/2_appchain/deploy_appchain.js is not specified and it doesn't parse as CommonJS.
 Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
 To eliminate this warning, add "type": "module" to /Users/dexterhv/Work/gridy/chain_2/madara-scripts/package.json.
 (Use `node --trace-warnings ...` to show where the warning was created)
 Inside main
-Setting program info for contract: 0x302eb2ef81027749d17d322f9654d8c83dbd5fa5d11fe29077082a6018c3240
+Setting program info for contract: 
 Program info calldata:
-(node:73083) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
-[2025-04-13T10:31:31.924Z] WARN: You are using a deprecated transaction version (V0,V1,V2)!
-Update to the latest V3 transactions!
-{
-  "version": "0x100000000000000000000000000000001",
-  "type": "INVOKE_FUNCTION"
-}
-[2025-04-13T10:31:32.476Z] WARN: You are using a deprecated transaction version (V0,V1,V2)!
-Update to the latest V3 transactions!
-{
-  "version": "0x1",
-  "type": "INVOKE"
-}
-Program info set successfully. Transaction hash: 0x354517b402e15119c1750b87af7c8791e586570e0d6ec430ec277400d8416bc
-(node:73204) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/dexterhv/Work/gridy/chain_2/madara-scripts/l3_scripts/2_appchain/deploy_appchain.js is not specified and it doesn't parse as CommonJS.
+(node:40186) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(node:40287) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/dexterhv/Work/gridy/chain_2/madara-scripts/l3_scripts/2_appchain/deploy_appchain.js is not specified and it doesn't parse as CommonJS.
 Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
 To eliminate this warning, add "type": "module" to /Users/dexterhv/Work/gridy/chain_2/madara-scripts/package.json.
 (Use `node --trace-warnings ...` to show where the warning was created)
 Inside main
-Setting facts registry for contract: 0x302eb2ef81027749d17d322f9654d8c83dbd5fa5d11fe29077082a6018c3240
-(node:73204) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
-[2025-04-13T10:31:57.049Z] WARN: You are using a deprecated transaction version (V0,V1,V2)!
+Setting program info for contract: 0x4819571c0df89d557eeb5bb85ed9f277a4d46ba6e1275fe22b875f3cd46e102
+Program info calldata:
+(node:40287) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+[2025-04-15T14:07:44.827Z] WARN: You are using a deprecated transaction version (V0,V1,V2)!
 Update to the latest V3 transactions!
 {
   "version": "0x100000000000000000000000000000001",
   "type": "INVOKE_FUNCTION"
 }
-[2025-04-13T10:31:57.422Z] WARN: You are using a deprecated transaction version (V0,V1,V2)!
+[2025-04-15T14:07:45.243Z] WARN: You are using a deprecated transaction version (V0,V1,V2)!
 Update to the latest V3 transactions!
 {
   "version": "0x1",
   "type": "INVOKE"
 }
-Facts registry set successfully. Transaction hash: 0x6f896c9a5ee5b9251b1fdcd718888cb06fe00f70ec6cb5b48a6f706bd51fc4a
+Program info set successfully. Transaction hash: 0x3272994e09a340191a6155130c9de13493c8b3f0860f27dcbc2637dd3d8c23f
+(node:40574) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/dexterhv/Work/gridy/chain_2/madara-scripts/l3_scripts/2_appchain/deploy_appchain.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /Users/dexterhv/Work/gridy/chain_2/madara-scripts/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+Inside main
+Setting facts registry for contract: 0x4819571c0df89d557eeb5bb85ed9f277a4d46ba6e1275fe22b875f3cd46e102
+(node:40574) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+[2025-04-15T14:08:35.888Z] WARN: You are using a deprecated transaction version (V0,V1,V2)!
+Update to the latest V3 transactions!
+{
+  "version": "0x100000000000000000000000000000001",
+  "type": "INVOKE_FUNCTION"
+}
+[2025-04-15T14:08:36.330Z] WARN: You are using a deprecated transaction version (V0,V1,V2)!
+Update to the latest V3 transactions!
+{
+  "version": "0x1",
+  "type": "INVOKE"
+}
+Facts registry set successfully. Transaction hash: 0x8dbe80f0cb6743375a0d9411db11aebb7b28acc0cc5e51374f9549fb970645

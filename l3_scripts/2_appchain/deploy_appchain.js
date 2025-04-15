@@ -7,7 +7,7 @@ import fs from "fs";
 // Configuration object with all hardcoded values
 const CONFIG = {
   // Default contract address if already declared/deployed
-  defaultContractAddress: "0x302eb2ef81027749d17d322f9654d8c83dbd5fa5d11fe29077082a6018c3240",
+  defaultContractAddress: "0x4819571c0df89d557eeb5bb85ed9f277a4d46ba6e1275fe22b875f3cd46e102",
   defaultClassHash: "0x047a950b027b9cff4d6641f70bd4e0189ad3626735ada75a5660fd9f1012a853",
 
   // Provider configs
@@ -31,7 +31,7 @@ const CONFIG = {
   constructorArgs: [
     "0x04f59E35F2d130Fe6ef478b6A8b65B5fbb272BB7D67c047A0Dd7a2Dd9b320A30", // owner
     "0x0", // previous state_root
-    "0x0", // block_number
+    "0x800000000000011000000000000000000000000000000000000000000000000", // block_number
     "0x0" // block_hash
   ],
 
@@ -56,7 +56,7 @@ const CONFIG = {
     // snos_output
     snos_config_hash: "0x3ebcaa0cab0f8640a41ef3296b83af23086a4d215ea7bf26652181fb0ad24c3", // snos_config_hash
     // herman
-    snos_program_hash: "0x01e324682835e60c4779a683b32713504aed894fd73842f7d05b18e7bd29cd70", // snos_program_hash
+    snos_program_hash: "0x54d3603ed14fb897d0925c48f26330ea9950bd4ca95746dad4f7f09febffe0d", // snos_program_hash
     // https://docs.herodotus.cloud/atlantic/dynamic#double-verification-for-integrity-compatibility
     layout_bridge_program_hash: "0x193641eb151b0f41674641089952e60bc3aded26e3cf42793655c562b8c3aa0" // layout_bridge_program_hash
   },

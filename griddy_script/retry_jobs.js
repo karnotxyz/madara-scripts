@@ -4,7 +4,7 @@ const { MongoClient } = require('mongodb');
 
 // MongoDB connection string - replace with your actual connection string
 const uri = 'mongodb+srv://heemank:GVyh8eWjV6GvyyPU@cluster0.fnbwa.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
-const dbName = 'stress_test_proving';
+const dbName = 'mainnet_test_v1';
 const collectionName = 'jobs'; // Assuming the collection name is 'jobs'
 
 // Function to fetch jobs and trigger verification
@@ -21,13 +21,13 @@ async function verifyPendingJobs() {
 
     // Query to find all jobs with specified job_type and status
     const query = {
-      job_type: 'ProofCreation',
-      status: 'PendingVerification'
+      job_type: 'ProofRegistration',
+      status: 'Failed'
     };
 
     // Find matching jobs
     const jobs = await collection.find(query).toArray();
-    console.log(`Found ${jobs.length} jobs to verify`);
+    console.log(`Found ${jobs.length} jobs to retry`);
 
     // Process each job
     for (const job of jobs) {
@@ -37,8 +37,8 @@ async function verifyPendingJobs() {
 
       try {
         // Call the verification endpoint using fetch
-        const verificationUrl = `http://localhost:3003/jobs/${jobId}/verify`;
-        console.log(`Verifying job ${jobId} at ${verificationUrl}`);
+        const verificationUrl = `http://localhost:3003/jobs/${jobId}/retry`;
+        console.log(`Retrying job ${jobId} at ${verificationUrl}`);
 
         const response = await fetch(verificationUrl, {
           method: 'GET',
