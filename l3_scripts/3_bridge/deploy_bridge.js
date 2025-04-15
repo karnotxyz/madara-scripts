@@ -862,7 +862,7 @@ Available commands:
   try {
     switch (commandIndex) {
       case 0:
-        await declareAppchainBridge();
+        await declareAppchainBridge();x
         break;
       case 1:
         await deployAppchainBridge();
@@ -885,12 +885,14 @@ Available commands:
       case 7:
         await setERC20AppChain();
         break;
+      // break here
       case 8:
         await declareERC20L2();
         break;
       case 9:
         await deployERC20L2();
         break;
+      // only enroll starknet mainnnet usdc
       case 10:
         await enrollTokenL2();
         break;

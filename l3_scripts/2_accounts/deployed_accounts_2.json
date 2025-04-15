@@ -1,0 +1,75 @@
+[
+  {
+    "privateKey": "0x063a9e4f86453cb15ec2e7b0921b6ab3038dc15963253bab78b4178c5474e43f",
+    "actualAddress": "0x209b353360b8c5f231412c49ba4204456dec70f38d42d1e6456da217113d350",
+    "transactionHash": "0x20d15d8f230859c08cd02aba7097896f471bee9739039e4eb355b353b462e4",
+    "accountIndex": 1,
+    "deployedAt": "2025-04-10T06:51:32.131Z"
+  },
+  {
+    "privateKey": "0x025c04669bac1171002aa1fa31dcf3315e2130ad59808e6c645e1ccb4746a18d",
+    "actualAddress": "0x7e435c8291d07cae95d08e355aba4457e51e70c0f426b1fe79a9efa95d09cd5",
+    "transactionHash": "0xf205903e31336febae98af57afdb59278337669bf0b8054ad279d428b6113b",
+    "accountIndex": 2,
+    "deployedAt": "2025-04-10T06:51:32.133Z"
+  },
+  {
+    "privateKey": "0x025c052a2af4c1b635ee15f655ae62633649c736283d8440221caf85032259e6",
+    "actualAddress": "0x52f3e57d34955d75559bc420f1244eac10f1f1259efa8325ef7d5a5dec712a4",
+    "transactionHash": "0x357ef5a06966bf0330bc0c425ab8c9877595ca558f864ee295ff02998aed27c",
+    "accountIndex": 3,
+    "deployedAt": "2025-04-10T06:51:32.133Z"
+  },
+  {
+    "privateKey": "0x014f79b14be4524495bc89c4d4477b946275e2d14004664d83711c9a42d5ae26",
+    "actualAddress": "0x638d542e31e3aa9eb77a9dd42154eaa260090b1c2f5e554fb9da121f16db02d",
+    "transactionHash": "0x5166f4e077f4a198dcb1365eafe57a6dfadf507b35a26ee93eacf24cd100377",
+    "accountIndex": 4,
+    "deployedAt": "2025-04-10T06:51:32.133Z"
+  },
+  {
+    "privateKey": "0x01820820248e4df607aee8c4ee3cbdbe4248ba432a1d765b463c4cb97daee06c",
+    "actualAddress": "0x50a834ecf8eca94e471a4982ab67178dfaf75478d4c00d808fc50a354463e26",
+    "transactionHash": "0x162effb07ad2417db10442f6e03ba9167e639174b2028d58fba907f848b00a1",
+    "accountIndex": 5,
+    "deployedAt": "2025-04-10T06:51:32.133Z"
+  },
+  {
+    "privateKey": "0x05b7901bda38e52bedcb4a296fb1fd34cc86dd4837d52b6eb9b77e65d807ed96",
+    "actualAddress": "0x1a3cb33a33cb8bbe24428f673bd91b4e69cd64d217cb43044ff9471f354e9de",
+    "transactionHash": "0x7a3be1f426badf01f2debe518cfd2d119ed5d265b43282def97224be2992fa5",
+    "accountIndex": 6,
+    "deployedAt": "2025-04-10T06:51:32.133Z"
+  },
+  {
+    "privateKey": "0x05670f40925537f2974f1eee25d415e4c274a1a8be8845b2f2a997132d985bcb",
+    "actualAddress": "0x76864660511524b60fb0b6e1c8f63ff5b7a441309107b4464bb2223cd7eb369",
+    "transactionHash": "0x671b96e34b2cd1e9f9564dc6242ebb4d14b1c4f68202f9e84ad8f52b8f1611",
+    "accountIndex": 7,
+    "deployedAt": "2025-04-10T06:51:32.133Z"
+  }
+]
+
+
+Diamond Locations:  [
+  [ 1, 6 ], [ 3, 7 ],
+  [ 6, 9 ], [ 2, 5 ],
+  [ 3, 8 ], [ 5, 8 ],
+  [ 7, 8 ], [ 5, 2 ],
+  [ 8, 9 ], [ 0, 0 ]
+]
+Bomb Locations:  [
+  [ 0, 7 ], [ 9, 1 ], [ 1, 0 ],
+  [ 7, 2 ], [ 9, 3 ], [ 0, 4 ],
+  [ 1, 1 ], [ 9, 4 ], [ 7, 0 ],
+  [ 4, 0 ], [ 1, 7 ], [ 1, 4 ],
+  [ 9, 9 ], [ 3, 0 ], [ 2, 0 ],
+  [ 3, 2 ], [ 6, 5 ], [ 5, 7 ],
+  [ 3, 1 ], [ 4, 5 ]
+]
+Lengths:   10 20
+Diamonds slice  0 to  500  updated! with transaction hash:  0x3f897242272a7d1e4153b577c6411ddd1ccf08777a485d9603498c2e8a7f9a7
+Bomb slice  0 to  500  updated! with transaction hash:  0x1f9a85eb21f53bc51377c7530852d97ea1b6e12ba0ea181631219533dc5b07d
+✅ Added Block Points successfully!
+
+Magic Diamond : [ 8, 9 ]

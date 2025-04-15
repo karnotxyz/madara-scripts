@@ -25,19 +25,19 @@ const CONFIG = {
   },
   // MADARA DEVNET ACCOUNT #2 (EXECUTOR / OWNER)
   EXECUTOR: {
-    ADDRESS: "0x405e9a036e38f3101237c3a6c65b33426ca1e567fd760fd0e3f9ce5377b2f30",
-    PRIVATE_KEY: "0x028b60407d6311f3eaf82e73e5a7e049e84b74aac2a67d5fcd452ddafcb06492"
+    ADDRESS: "0x12e8bd1bf5576d183c4ecf6428ef4743414c0f9df55e419ce9f7c503fda5d36",
+    PRIVATE_KEY: "0x0163b9968dbd7a17769cc085834efe2554d4d2bd053bf3a28d64adf33122e686"
   },
   GAME: {
-    WIDTH: 1728,
-    HEIGHT: 10000,
-    // NUM_DIAMONDS: 1000,
+    WIDTH: 10,
+    HEIGHT: 10,
+    // NUM_DIAMONDS: 10,
     NUM_DIAMONDS: 1,
-    // NUM_BOMBS: 4800,
+    // NUM_BOMBS: 20,
     NUM_BOMBS: 0,
     MINING_POINTS: 0,
+    DIAMOND_VALUE: 200,
     // DIAMOND_VALUE: 1,
-    DIAMOND_VALUE: 300,
     BOMB_VALUE: 666,
     BOOT_AMOUNT: 10n ** 15n,
     // my game token l3 address
@@ -46,7 +46,7 @@ const CONFIG = {
   ASSETS_PATH: "./assets/",
   CONTRACT_ADDRESSES: {
     L2_BRIDGE: "0x422dd5fe05931e677c0dcbb74ea057874ba4035c5d5784ea626200b7cfc702",
-    GAME: "0x1aadf1cedc9965cb2126f3c8945a6a388538f087dd21174aa61a302f94522f5",
+    GAME: "0x64f1161aa2e77141f04824ce1b2b2dea1a24aac19678d065a043f3e50b31928",
     L3_REGISTRY: "0x522e05107498977d25355b696157b8a91ff32f782f40512bded82f9140d4565",
     APPCHAIN_BRIDGE: "0x8ff0d8c01af0b9e5ab904f0299e6ae3a94b28c680b821ab02b978447d2da67",
     SPAWNERS: [
@@ -140,10 +140,9 @@ function generateGamePoints(width, height, diamondsCount, bombCount) {
     // const x = getRandomInt(0, width - 1);
     // const y = getRandomInt(0, height - 1);
 
-
-    // [ 1096, 6498 ], [ 933, 4972 ],  [ 755, 6993 ]
-    const x = 755;
-    const y = 6993;
+    // Magic Diamonds: [ 569, 7433 ],  [ 700, 7554 ],  [ 222, 1723 ]
+    const x = 4;
+    const y = 4;
     const pointStr = pointToString([x, y]);
 
     // Only add point if it hasn't been used yet
@@ -429,7 +428,7 @@ class StarknetDeployer {
     const gameCalldata = await this.prepareGameConstructorCalldata();
     const gameClassHash = await this.getGameClassHash();
     console.log("Game Class Hash in declareAndDeployGameContract: ", gameClassHash);
-    const declareAndDeployResponse = await this.l3_account.deploy(
+    const declareAndDeployResponse = await this.l3_account.declareAndDeploy(
       {
         classHash: gameClassHash,
         constructorCalldata: gameCalldata,
@@ -503,7 +502,22 @@ class StarknetDeployer {
     const deployResponse = await this.l3_account.deploy({
       classHash: await this.getGameClassHash(),
       constructorCalldata: gameCalldata,
-    });
+    },
+    {
+      maxFee: 0,
+      resourceBounds: {
+        l1_gas: {
+          max_amount: "0x0",
+          max_price_per_unit: "0x0"
+        },
+        l2_gas: {
+          max_amount: "0x0",
+          max_price_per_unit: "0x0"
+        }
+      }
+    }
+
+    );
     const receipt = await this.l3_account.waitForTransaction(deployResponse.transaction_hash);
     console.log('Game Contract Address:', deployResponse.contract_address[0]);
     return deployResponse;
@@ -761,7 +775,17 @@ class StarknetDeployer {
       disableCall,
       undefined,
       {
-        maxFee: 0n
+        maxFee: 0n,
+        resourceBounds: {
+          l1_gas: {
+            max_amount: "0x0",
+            max_price_per_unit: "0x0"
+          },
+          l2_gas: {
+            max_amount: "0x0",
+            max_price_per_unit: "0x0"
+          }
+        }
       }
     );
 
