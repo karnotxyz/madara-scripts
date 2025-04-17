@@ -9,46 +9,46 @@ const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 // Configuration constants
 const CONFIG = {
   RPC: {
-    NODE_L3_URL: "https://madara-l2-l3.karnot.xyz",
-    NODE_L2_URL: "https://starknet-sepolia.g.alchemy.com/v2/yUgd-DT4wZ1xtr46xo5yj4FpJEa47r9T"
+    NODE_L3_URL: "https://madara-gridy.karnot.xyz",
+    NODE_L2_URL: "https://starknet-mainnet.g.alchemy.com/starknet/version/rpc/v0_7/yUgd-DT4wZ1xtr46xo5yj4FpJEa47r9T"
   },
   DEPLOYMENT_PER_SPAWNER: 1,
   MULTICALL_SIZE: 500,
   // MADARA DEVNET ACCOUNT #1 (SEQUENCER)
   SEQUENCER: {
-    ADDRESS: "0x12e8bd1bf5576d183c4ecf6428ef4743414c0f9df55e419ce9f7c503fda5d36",
-    PRIVATE_KEY: "0x0163b9968dbd7a17769cc085834efe2554d4d2bd053bf3a28d64adf33122e686"
+    ADDRESS: "0x2e992834e8152c5751ba3059a7705eccc55320e778bb8680943af508de3557b",
+    PRIVATE_KEY: "0x0182c8ba524c664100eaf0be5e619ed6f29e9e1abc1fc27b7f02112a3748a9de"
   },
   L2_ACCOUNT: {
-    ADDRESS: "0x0467C4Dc308a65C3247B0907a9A0ceE780704863Bbe38938EeBE3Ab3be783FbA",
-    PRIVATE_KEY: "0x02d7c1cdf03eaf767dd920b478b90067320c52bcd450f6c77a1057740486f4db",
+    ADDRESS: "0x04f59E35F2d130Fe6ef478b6A8b65B5fbb272BB7D67c047A0Dd7a2Dd9b320A30",
+    PRIVATE_KEY: "0x03abf75df64564deadc4d82892a6ab91008faadbe567c5dddba5d1bd3961744d",
   },
   // MADARA DEVNET ACCOUNT #2 (EXECUTOR / OWNER)
   EXECUTOR: {
-    ADDRESS: "0x12e8bd1bf5576d183c4ecf6428ef4743414c0f9df55e419ce9f7c503fda5d36",
-    PRIVATE_KEY: "0x0163b9968dbd7a17769cc085834efe2554d4d2bd053bf3a28d64adf33122e686"
+    ADDRESS: "0x2e992834e8152c5751ba3059a7705eccc55320e778bb8680943af508de3557b",
+    PRIVATE_KEY: "0x0182c8ba524c664100eaf0be5e619ed6f29e9e1abc1fc27b7f02112a3748a9de"
   },
   GAME: {
-    WIDTH: 10,
-    HEIGHT: 10,
-    // NUM_DIAMONDS: 10,
+    WIDTH: 100,
+    HEIGHT: 100,
     NUM_DIAMONDS: 1,
-    // NUM_BOMBS: 20,
+    // NUM_DIAMONDS: 500,
     NUM_BOMBS: 0,
+    // NUM_BOMBS: 100,
     MINING_POINTS: 0,
-    DIAMOND_VALUE: 200,
+    DIAMOND_VALUE: 500,
     // DIAMOND_VALUE: 1,
     BOMB_VALUE: 666,
-    BOOT_AMOUNT: 10n ** 15n,
+    BOOT_AMOUNT: 10n ** 5n,
     // my game token l3 address
-    CURRENCY: "0x5127cd69701df1736ccd883e9216b54e4ade825f28c8943d2fc9244ddf4175",
+    CURRENCY: "0x070e75d8be1e44d0a28da6bcfc29c4443699fba1132fe539dd7fcb27ddb8cf50",
   },
   ASSETS_PATH: "./assets/",
   CONTRACT_ADDRESSES: {
-    L2_BRIDGE: "0x422dd5fe05931e677c0dcbb74ea057874ba4035c5d5784ea626200b7cfc702",
-    GAME: "0x64f1161aa2e77141f04824ce1b2b2dea1a24aac19678d065a043f3e50b31928",
-    L3_REGISTRY: "0x522e05107498977d25355b696157b8a91ff32f782f40512bded82f9140d4565",
-    APPCHAIN_BRIDGE: "0x8ff0d8c01af0b9e5ab904f0299e6ae3a94b28c680b821ab02b978447d2da67",
+    L2_BRIDGE: "0x7097daccd81703fda310085861e6d55f6c7625329b11aafacc3bb52916cac2a",
+    GAME: "0x1807b313bc474b068199ac7a1c38f396616dcc26a5818a2561dd239f2a07705",
+    L3_REGISTRY: "0x2a8ddd89e0a963fc691642ed524155fbfd7378b6b0d8186c8710ffbce456ec2",
+    APPCHAIN_BRIDGE: "0x4090b89b476da6dccd66e8e27db5bc814bfaee95dc3eb84ec00a7a64af03600",
     SPAWNERS: [
       "0x61bcf2cfcbf3893eb4d82c51b26881377d24a24e2ef16dada6979f227955701",
       "0x2aaa7d3608724da993ee4876628c88286efdc82a6066feaf3ffb39a2fb5460c",
@@ -137,12 +137,12 @@ function generateGamePoints(width, height, diamondsCount, bombCount) {
   const diamondLocations = [];
   while (diamondLocations.length < diamondsCount) {
     // Generate random x and y coordinates (0-based)
-    // const x = getRandomInt(0, width - 1);
-    // const y = getRandomInt(0, height - 1);
+    const x = getRandomInt(0, width - 1);
+    const y = getRandomInt(0, height - 1);
 
-    // Magic Diamonds: [ 569, 7433 ],  [ 700, 7554 ],  [ 222, 1723 ]
-    const x = 4;
-    const y = 4;
+    // Magic Diamonds: [ 71, 56 ], [ 4, 18 ],  [ 72, 86 ]
+    // const x = 72;
+    // const y = 86;
     const pointStr = pointToString([x, y]);
 
     // Only add point if it hasn't been used yet
@@ -943,6 +943,38 @@ class StarknetDeployer {
     return { transaction_hash, receipt };
   }
 
+  async upgradeBootAmount() {
+    const gameContract = new Contract(
+      this.contracts.game.sierra.abi,
+      CONFIG.CONTRACT_ADDRESSES.GAME,
+      this.provider
+    );
+
+    const setBridgeCall = gameContract.populate("update_boot_amount", [
+      CONFIG.GAME.BOOT_AMOUNT
+    ]);
+
+    const { transaction_hash } = await this.l3_account.execute(
+      setBridgeCall,
+      {
+        maxFee: 0,
+        resourceBounds: {
+          l1_gas: {
+            max_amount: "0x0",
+            max_price_per_unit: "0x0"
+          },
+          l2_gas: {
+            max_amount: "0x0",
+            max_price_per_unit: "0x0"
+          }
+        }
+      }
+    );
+
+    const receipt = await this.l3_account.waitForTransaction(transaction_hash);
+    return { transaction_hash, receipt };
+  }
+
   async withdrawGameCurrency(recipientAddress, amount) {
     const gameContract = new Contract(
       this.contracts.game.sierra.abi,
@@ -1041,7 +1073,8 @@ class DeploymentCLI {
     console.log('15. Get Class Hash');
     console.log('16. Disable Game');
     console.log('17. Call Is Bot Alive');
-    console.log('18. Exit');
+    console.log('18. Update Boot Amount');
+    console.log('19. Exit');
 
   }
 
@@ -1106,6 +1139,9 @@ class DeploymentCLI {
           await this.callIsBotAlive();
           break;
         case '18':
+          await this.upgradeBootAmount();
+          break;
+        case '19':
           console.log('\nExiting...');
           this.rl.close();
           process.exit(0);
@@ -1213,6 +1249,13 @@ class DeploymentCLI {
     console.log('\n🔓 Setting Appchain Bridge...');
     const result = await this.deployer.setAppchainBridge();
     console.log('✅ Appchain Bridge set successfully!');
+    console.log('Transaction Hash:', result.transaction_hash);
+  }
+
+  async upgradeBootAmount() {
+    console.log('\n🔓 Upgrading Boot Amount...');
+    const result = await this.deployer.upgradeBootAmount();
+    console.log('✅ Boot Amount upgraded successfully!');
     console.log('Transaction Hash:', result.transaction_hash);
   }
 

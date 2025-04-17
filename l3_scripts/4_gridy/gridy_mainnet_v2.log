@@ -1,0 +1,148 @@
+(node:82668) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/dexterhv/Work/gridy/chain_2/madara-scripts/l3_scripts/4_gridy/deploy_gridy_l3.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /Users/dexterhv/Work/gridy/chain_2/madara-scripts/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+Welcome to Starknet Deployment CLI
+=================================
+
+
+🚀 Starknet Deployment Menu
+
+-2. Declare Game Contract
+-1. Deploy Game Contract
+1. Declare and Deploy Game Contract
+2. Declare and Deploy L3 Registry Contract
+3. Declare and Deploy L2 Registry Contract
+4. Update Block Points
+5. Set Game Currency
+6. Enable Game
+7. Update Game Address on L3 Registry
+8. Upgrade L3 Registry
+9. Declare Bot
+10. Upgrade Game Contract
+11. Set Appchain Bridge
+12. Withdraw Game Currency
+13. Deploy Multiple Bots
+14. Call Mine
+15. Get Class Hash
+16. Disable Game
+17. Call Is Bot Alive
+18. Update Boot Amount
+19. Exit
+(node:82668) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+
+📦 Deploying Game Contract...
+Game Class Hash:  0xf20afbc82add63c6377aaaadb924dcedf8cd1eed6434c651b7c7710fadf264
+
+❌ Operation failed: Error: Unexpected token '<', "<html>
+<h"... is not valid JSON
+    at RpcChannel2.errorHandler (file:///Users/dexterhv/Work/gridy/chain_2/madara-scripts/node_modules/starknet/dist/index.mjs:4725:13)
+    at RpcChannel2.fetchEndpoint (file:///Users/dexterhv/Work/gridy/chain_2/madara-scripts/node_modules/starknet/dist/index.mjs:4744:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async Account.execute (file:///Users/dexterhv/Work/gridy/chain_2/madara-scripts/node_modules/starknet/dist/index.mjs:8147:45)
+    at async Account.deploy (file:///Users/dexterhv/Work/gridy/chain_2/madara-scripts/node_modules/starknet/dist/index.mjs:8239:28)
+    at async StarknetDeployer.deployGameContract (file:///Users/dexterhv/Work/gridy/chain_2/madara-scripts/l3_scripts/4_gridy/deploy_gridy_l3.js:502:28)
+    at async DeploymentCLI.deployGame (file:///Users/dexterhv/Work/gridy/chain_2/madara-scripts/l3_scripts/4_gridy/deploy_gridy_l3.js:1176:20)
+    at async DeploymentCLI.handleUserInput (file:///Users/dexterhv/Work/gridy/chain_2/madara-scripts/l3_scripts/4_gridy/deploy_gridy_l3.js:1088:11)
+    at async file:///Users/dexterhv/Work/gridy/chain_2/madara-scripts/l3_scripts/4_gridy/deploy_gridy_l3.js:1340:7
+
+Press Enter to continue...(node:83308) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/dexterhv/Work/gridy/chain_2/madara-scripts/l3_scripts/4_gridy/deploy_gridy_l3.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /Users/dexterhv/Work/gridy/chain_2/madara-scripts/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+Welcome to Starknet Deployment CLI
+=================================
+
+
+🚀 Starknet Deployment Menu
+
+-2. Declare Game Contract
+-1. Deploy Game Contract
+1. Declare and Deploy Game Contract
+2. Declare and Deploy L3 Registry Contract
+3. Declare and Deploy L2 Registry Contract
+4. Update Block Points
+5. Set Game Currency
+6. Enable Game
+7. Update Game Address on L3 Registry
+8. Upgrade L3 Registry
+9. Declare Bot
+10. Upgrade Game Contract
+11. Set Appchain Bridge
+12. Withdraw Game Currency
+13. Deploy Multiple Bots
+14. Call Mine
+15. Get Class Hash
+16. Disable Game
+17. Call Is Bot Alive
+18. Update Boot Amount
+19. Exit
+(node:83308) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+
+📦 Declaring and Deploying Game Contract...
+Game Class Hash:  0xf20afbc82add63c6377aaaadb924dcedf8cd1eed6434c651b7c7710fadf264
+Game Class Hash in declareAndDeployGameContract:  0xf20afbc82add63c6377aaaadb924dcedf8cd1eed6434c651b7c7710fadf264
+
+❌ Operation failed: TypeError: Cannot use 'in' operator to search for 'sierra_program' in undefined
+    at isSierra (file:///Users/dexterhv/Work/gridy/chain_2/madara-scripts/node_modules/starknet/dist/index.mjs:3563:27)
+    at extractContractHashes (file:///Users/dexterhv/Work/gridy/chain_2/madara-scripts/node_modules/starknet/dist/index.mjs:3567:7)
+    at Account.declareIfNot (file:///Users/dexterhv/Work/gridy/chain_2/madara-scripts/node_modules/starknet/dist/index.mjs:8192:36)
+    at Account.declareAndDeploy (file:///Users/dexterhv/Work/gridy/chain_2/madara-scripts/node_modules/starknet/dist/index.mjs:8252:30)
+    at StarknetDeployer.declareAndDeployGameContract (file:///Users/dexterhv/Work/gridy/chain_2/madara-scripts/l3_scripts/4_gridy/deploy_gridy_l3.js:431:60)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async DeploymentCLI.declareAndDeployGameContract (file:///Users/dexterhv/Work/gridy/chain_2/madara-scripts/l3_scripts/4_gridy/deploy_gridy_l3.js:1162:20)
+    at async DeploymentCLI.handleUserInput (file:///Users/dexterhv/Work/gridy/chain_2/madara-scripts/l3_scripts/4_gridy/deploy_gridy_l3.js:1091:11)
+    at async file:///Users/dexterhv/Work/gridy/chain_2/madara-scripts/l3_scripts/4_gridy/deploy_gridy_l3.js:1340:7
+
+Press Enter to continue...(node:83327) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/dexterhv/Work/gridy/chain_2/madara-scripts/l3_scripts/4_gridy/deploy_gridy_l3.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /Users/dexterhv/Work/gridy/chain_2/madara-scripts/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+Welcome to Starknet Deployment CLI
+=================================
+
+
+🚀 Starknet Deployment Menu
+
+-2. Declare Game Contract
+-1. Deploy Game Contract
+1. Declare and Deploy Game Contract
+2. Declare and Deploy L3 Registry Contract
+3. Declare and Deploy L2 Registry Contract
+4. Update Block Points
+5. Set Game Currency
+6. Enable Game
+7. Update Game Address on L3 Registry
+8. Upgrade L3 Registry
+9. Declare Bot
+10. Upgrade Game Contract
+11. Set Appchain Bridge
+12. Withdraw Game Currency
+13. Deploy Multiple Bots
+14. Call Mine
+15. Get Class Hash
+16. Disable Game
+17. Call Is Bot Alive
+18. Update Boot Amount
+19. Exit
+(node:83327) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+
+📦 Deploying Game Contract...
+Game Class Hash:  0xf20afbc82add63c6377aaaadb924dcedf8cd1eed6434c651b7c7710fadf264
+
+❌ Operation failed: Error: Unexpected token '<', "<html>
+<h"... is not valid JSON
+    at RpcChannel2.errorHandler (file:///Users/dexterhv/Work/gridy/chain_2/madara-scripts/node_modules/starknet/dist/index.mjs:4725:13)
+    at RpcChannel2.fetchEndpoint (file:///Users/dexterhv/Work/gridy/chain_2/madara-scripts/node_modules/starknet/dist/index.mjs:4744:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async Account.execute (file:///Users/dexterhv/Work/gridy/chain_2/madara-scripts/node_modules/starknet/dist/index.mjs:8147:45)
+    at async Account.deploy (file:///Users/dexterhv/Work/gridy/chain_2/madara-scripts/node_modules/starknet/dist/index.mjs:8239:28)
+    at async StarknetDeployer.deployGameContract (file:///Users/dexterhv/Work/gridy/chain_2/madara-scripts/l3_scripts/4_gridy/deploy_gridy_l3.js:502:28)
+    at async DeploymentCLI.deployGame (file:///Users/dexterhv/Work/gridy/chain_2/madara-scripts/l3_scripts/4_gridy/deploy_gridy_l3.js:1176:20)
+    at async DeploymentCLI.handleUserInput (file:///Users/dexterhv/Work/gridy/chain_2/madara-scripts/l3_scripts/4_gridy/deploy_gridy_l3.js:1088:11)
+    at async file:///Users/dexterhv/Work/gridy/chain_2/madara-scripts/l3_scripts/4_gridy/deploy_gridy_l3.js:1340:7
+
+Press Enter to continue...

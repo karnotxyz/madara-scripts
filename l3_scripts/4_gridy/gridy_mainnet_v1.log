@@ -1,0 +1,895 @@
+(node:12478) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/dexterhv/Work/gridy/chain_2/madara-scripts/l3_scripts/4_gridy/deploy_gridy_l3.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /Users/dexterhv/Work/gridy/chain_2/madara-scripts/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+Welcome to Starknet Deployment CLI
+=================================
+
+
+🚀 Starknet Deployment Menu
+
+-2. Declare Game Contract
+-1. Deploy Game Contract
+1. Declare and Deploy Game Contract
+2. Declare and Deploy L3 Registry Contract
+3. Declare and Deploy L2 Registry Contract
+4. Update Block Points
+5. Set Game Currency
+6. Enable Game
+7. Update Game Address on L3 Registry
+8. Upgrade L3 Registry
+9. Declare Bot
+10. Upgrade Game Contract
+11. Set Appchain Bridge
+12. Withdraw Game Currency
+13. Deploy Multiple Bots
+14. Call Mine
+15. Get Class Hash
+16. Disable Game
+17. Call Is Bot Alive
+18. Exit
+(node:12478) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+
+📦 Declaring and Deploying Game Contract...
+Game Class Hash:  0xf20afbc82add63c6377aaaadb924dcedf8cd1eed6434c651b7c7710fadf264
+Game Class Hash in declareAndDeployGameContract:  0xf20afbc82add63c6377aaaadb924dcedf8cd1eed6434c651b7c7710fadf264
+
+❌ Operation failed: TypeError: Cannot use 'in' operator to search for 'sierra_program' in undefined
+    at isSierra (file:///Users/dexterhv/Work/gridy/chain_2/madara-scripts/node_modules/starknet/dist/index.mjs:3563:27)
+    at extractContractHashes (file:///Users/dexterhv/Work/gridy/chain_2/madara-scripts/node_modules/starknet/dist/index.mjs:3567:7)
+    at Account.declareIfNot (file:///Users/dexterhv/Work/gridy/chain_2/madara-scripts/node_modules/starknet/dist/index.mjs:8192:36)
+    at Account.declareAndDeploy (file:///Users/dexterhv/Work/gridy/chain_2/madara-scripts/node_modules/starknet/dist/index.mjs:8252:30)
+    at StarknetDeployer.declareAndDeployGameContract (file:///Users/dexterhv/Work/gridy/chain_2/madara-scripts/l3_scripts/4_gridy/deploy_gridy_l3.js:431:60)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async DeploymentCLI.declareAndDeployGameContract (file:///Users/dexterhv/Work/gridy/chain_2/madara-scripts/l3_scripts/4_gridy/deploy_gridy_l3.js:1126:20)
+    at async DeploymentCLI.handleUserInput (file:///Users/dexterhv/Work/gridy/chain_2/madara-scripts/l3_scripts/4_gridy/deploy_gridy_l3.js:1058:11)
+    at async file:///Users/dexterhv/Work/gridy/chain_2/madara-scripts/l3_scripts/4_gridy/deploy_gridy_l3.js:1297:7
+
+Press Enter to continue...(node:13149) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/dexterhv/Work/gridy/chain_2/madara-scripts/l3_scripts/4_gridy/deploy_gridy_l3.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /Users/dexterhv/Work/gridy/chain_2/madara-scripts/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+Welcome to Starknet Deployment CLI
+=================================
+
+
+🚀 Starknet Deployment Menu
+
+-2. Declare Game Contract
+-1. Deploy Game Contract
+1. Declare and Deploy Game Contract
+2. Declare and Deploy L3 Registry Contract
+3. Declare and Deploy L2 Registry Contract
+4. Update Block Points
+5. Set Game Currency
+6. Enable Game
+7. Update Game Address on L3 Registry
+8. Upgrade L3 Registry
+9. Declare Bot
+10. Upgrade Game Contract
+11. Set Appchain Bridge
+12. Withdraw Game Currency
+13. Deploy Multiple Bots
+14. Call Mine
+15. Get Class Hash
+16. Disable Game
+17. Call Is Bot Alive
+18. Exit
+(node:13149) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+
+📦 Declaring Game Contract...
+Contract declared with classHash = 0xf20afbc82add63c6377aaaadb924dcedf8cd1eed6434c651b7c7710fadf264
+Class Hash: 0xf20afbc82add63c6377aaaadb924dcedf8cd1eed6434c651b7c7710fadf264
+Transaction Hash: 0x2e7c6008d212edcb9c3fd2ac55bdb9dffbf345c7ab8abb290e116e4f1d70dc9
+✅ Game Contract declared successfully!
+
+Press Enter to continue...
+🚀 Starknet Deployment Menu
+
+-2. Declare Game Contract
+-1. Deploy Game Contract
+1. Declare and Deploy Game Contract
+2. Declare and Deploy L3 Registry Contract
+3. Declare and Deploy L2 Registry Contract
+4. Update Block Points
+5. Set Game Currency
+6. Enable Game
+7. Update Game Address on L3 Registry
+8. Upgrade L3 Registry
+9. Declare Bot
+10. Upgrade Game Contract
+11. Set Appchain Bridge
+12. Withdraw Game Currency
+13. Deploy Multiple Bots
+14. Call Mine
+15. Get Class Hash
+16. Disable Game
+17. Call Is Bot Alive
+18. Exit
+
+📦 Deploying Game Contract...
+Game Class Hash:  0xf20afbc82add63c6377aaaadb924dcedf8cd1eed6434c651b7c7710fadf264
+Game Contract Address: 0x1807b313bc474b068199ac7a1c38f396616dcc26a5818a2561dd239f2a07705
+✅ Game Contract deployed successfully!
+
+Press Enter to continue...(node:13341) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/dexterhv/Work/gridy/chain_2/madara-scripts/l3_scripts/4_gridy/deploy_gridy_l3.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /Users/dexterhv/Work/gridy/chain_2/madara-scripts/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+Welcome to Starknet Deployment CLI
+=================================
+
+
+🚀 Starknet Deployment Menu
+
+-2. Declare Game Contract
+-1. Deploy Game Contract
+1. Declare and Deploy Game Contract
+2. Declare and Deploy L3 Registry Contract
+3. Declare and Deploy L2 Registry Contract
+4. Update Block Points
+5. Set Game Currency
+6. Enable Game
+7. Update Game Address on L3 Registry
+8. Upgrade L3 Registry
+9. Declare Bot
+10. Upgrade Game Contract
+11. Set Appchain Bridge
+12. Withdraw Game Currency
+13. Deploy Multiple Bots
+14. Call Mine
+15. Get Class Hash
+16. Disable Game
+17. Call Is Bot Alive
+18. Exit
+(node:13341) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+
+📦 Declaring and Deploying L3 Registry Contract...
+Transaction Hash: 0x14c09f13c47e9f3e26314eeae4b5700bf1497ce96ae336363ec3e3cf5c0de89
+Contract Address: 0x2a8ddd89e0a963fc691642ed524155fbfd7378b6b0d8186c8710ffbce456ec2
+✅ L3 Registry Contract declared and deployed successfully!
+
+Press Enter to continue...(node:13397) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/dexterhv/Work/gridy/chain_2/madara-scripts/l3_scripts/4_gridy/deploy_gridy_l3.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /Users/dexterhv/Work/gridy/chain_2/madara-scripts/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+Welcome to Starknet Deployment CLI
+=================================
+
+
+🚀 Starknet Deployment Menu
+
+-2. Declare Game Contract
+-1. Deploy Game Contract
+1. Declare and Deploy Game Contract
+2. Declare and Deploy L3 Registry Contract
+3. Declare and Deploy L2 Registry Contract
+4. Update Block Points
+5. Set Game Currency
+6. Enable Game
+7. Update Game Address on L3 Registry
+8. Upgrade L3 Registry
+9. Declare Bot
+10. Upgrade Game Contract
+11. Set Appchain Bridge
+12. Withdraw Game Currency
+13. Deploy Multiple Bots
+14. Call Mine
+15. Get Class Hash
+16. Disable Game
+17. Call Is Bot Alive
+18. Exit
+(node:13397) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+
+📦 Declaring and Deploying L3 Registry Contract...
+(node:13463) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/dexterhv/Work/gridy/chain_2/madara-scripts/l3_scripts/4_gridy/deploy_gridy_l3.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /Users/dexterhv/Work/gridy/chain_2/madara-scripts/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+Welcome to Starknet Deployment CLI
+=================================
+
+
+🚀 Starknet Deployment Menu
+
+-2. Declare Game Contract
+-1. Deploy Game Contract
+1. Declare and Deploy Game Contract
+2. Declare and Deploy L3 Registry Contract
+3. Declare and Deploy L2 Registry Contract
+4. Update Block Points
+5. Set Game Currency
+6. Enable Game
+7. Update Game Address on L3 Registry
+8. Upgrade L3 Registry
+9. Declare Bot
+10. Upgrade Game Contract
+11. Set Appchain Bridge
+12. Withdraw Game Currency
+13. Deploy Multiple Bots
+14. Call Mine
+15. Get Class Hash
+16. Disable Game
+17. Call Is Bot Alive
+18. Exit
+(node:13463) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+
+📦 Declaring and Deploying L2 Registry Contract...
+Transaction Hash: 0x6107d7d9c652a14c0765433eabb6ce0cd151c144602b9202ba0f9b41a3aa310
+Contract Address: 0x58cc5283c9e44de545f23091a7b265ea31f926e8759c6ad1269ec7cae9c7a42
+✅ L2 Registry Contract declared and deployed successfully!
+
+Press Enter to continue...
+🚀 Starknet Deployment Menu
+
+-2. Declare Game Contract
+-1. Deploy Game Contract
+1. Declare and Deploy Game Contract
+2. Declare and Deploy L3 Registry Contract
+3. Declare and Deploy L2 Registry Contract
+4. Update Block Points
+5. Set Game Currency
+6. Enable Game
+7. Update Game Address on L3 Registry
+8. Upgrade L3 Registry
+9. Declare Bot
+10. Upgrade Game Contract
+11. Set Appchain Bridge
+12. Withdraw Game Currency
+13. Deploy Multiple Bots
+14. Call Mine
+15. Get Class Hash
+16. Disable Game
+17. Call Is Bot Alive
+18. Exit
+
+📦 Adding Block Points...
+Diamond Locations:  [
+  [ 9, 23 ],  [ 91, 34 ], [ 51, 99 ], [ 37, 63 ], [ 88, 91 ],
+  [ 69, 97 ], [ 23, 66 ], [ 75, 91 ], [ 22, 65 ], [ 52, 18 ],
+  [ 71, 56 ], [ 4, 18 ],  [ 72, 86 ], [ 43, 4 ],  [ 11, 87 ],
+  [ 47, 66 ], [ 82, 48 ], [ 44, 10 ], [ 63, 48 ], [ 26, 34 ],
+  [ 25, 76 ], [ 56, 25 ], [ 23, 98 ], [ 34, 30 ], [ 78, 42 ],
+  [ 94, 49 ], [ 58, 48 ], [ 95, 40 ], [ 83, 13 ], [ 81, 76 ],
+  [ 28, 0 ],  [ 98, 67 ], [ 63, 59 ], [ 24, 36 ], [ 34, 66 ],
+  [ 30, 86 ], [ 59, 45 ], [ 5, 66 ],  [ 33, 89 ], [ 93, 1 ],
+  [ 13, 61 ], [ 80, 75 ], [ 92, 47 ], [ 57, 47 ], [ 4, 28 ],
+  [ 17, 12 ], [ 78, 12 ], [ 93, 32 ], [ 18, 95 ], [ 72, 32 ],
+  [ 43, 21 ], [ 63, 81 ], [ 0, 68 ],  [ 18, 6 ],  [ 32, 69 ],
+  [ 34, 0 ],  [ 84, 47 ], [ 17, 61 ], [ 68, 6 ],  [ 31, 27 ],
+  [ 90, 19 ], [ 99, 82 ], [ 9, 5 ],   [ 29, 82 ], [ 65, 16 ],
+  [ 26, 41 ], [ 43, 66 ], [ 7, 87 ],  [ 46, 59 ], [ 76, 23 ],
+  [ 59, 16 ], [ 64, 11 ], [ 27, 59 ], [ 63, 94 ], [ 79, 65 ],
+  [ 44, 13 ], [ 29, 20 ], [ 3, 19 ],  [ 64, 85 ], [ 52, 14 ],
+  [ 43, 19 ], [ 32, 45 ], [ 84, 1 ],  [ 0, 93 ],  [ 39, 83 ],
+  [ 10, 81 ], [ 7, 28 ],  [ 83, 12 ], [ 69, 87 ], [ 47, 13 ],
+  [ 76, 35 ], [ 86, 34 ], [ 72, 4 ],  [ 23, 49 ], [ 42, 93 ],
+  [ 72, 7 ],  [ 8, 20 ],  [ 53, 48 ], [ 96, 28 ], [ 4, 12 ],
+  ... 400 more items
+]
+Bomb Locations:  [
+  [ 17, 1 ],  [ 46, 64 ], [ 23, 18 ], [ 89, 88 ], [ 81, 74 ],
+  [ 84, 32 ], [ 26, 37 ], [ 81, 98 ], [ 70, 37 ], [ 31, 38 ],
+  [ 49, 28 ], [ 16, 64 ], [ 80, 67 ], [ 50, 10 ], [ 74, 66 ],
+  [ 56, 75 ], [ 54, 98 ], [ 32, 61 ], [ 66, 33 ], [ 20, 44 ],
+  [ 28, 98 ], [ 10, 36 ], [ 9, 31 ],  [ 12, 54 ], [ 74, 39 ],
+  [ 44, 55 ], [ 41, 8 ],  [ 63, 72 ], [ 15, 70 ], [ 66, 79 ],
+  [ 38, 68 ], [ 29, 11 ], [ 99, 0 ],  [ 94, 62 ], [ 60, 56 ],
+  [ 48, 22 ], [ 64, 88 ], [ 10, 32 ], [ 75, 28 ], [ 23, 60 ],
+  [ 55, 34 ], [ 88, 42 ], [ 86, 79 ], [ 36, 34 ], [ 5, 53 ],
+  [ 21, 55 ], [ 90, 55 ], [ 94, 96 ], [ 84, 25 ], [ 70, 80 ],
+  [ 46, 88 ], [ 39, 39 ], [ 14, 7 ],  [ 90, 35 ], [ 64, 78 ],
+  [ 43, 70 ], [ 1, 56 ],  [ 55, 77 ], [ 78, 85 ], [ 2, 52 ],
+  [ 91, 52 ], [ 25, 47 ], [ 68, 35 ], [ 64, 37 ], [ 47, 0 ],
+  [ 27, 1 ],  [ 74, 31 ], [ 22, 49 ], [ 4, 84 ],  [ 86, 85 ],
+  [ 46, 70 ], [ 47, 54 ], [ 60, 35 ], [ 29, 37 ], [ 42, 62 ],
+  [ 67, 24 ], [ 76, 29 ], [ 40, 38 ], [ 75, 13 ], [ 71, 83 ],
+  [ 0, 66 ],  [ 26, 44 ], [ 92, 70 ], [ 64, 38 ], [ 25, 35 ],
+  [ 27, 92 ], [ 89, 80 ], [ 53, 2 ],  [ 26, 57 ], [ 91, 2 ],
+  [ 20, 16 ], [ 11, 28 ], [ 46, 25 ], [ 66, 81 ], [ 48, 57 ],
+  [ 19, 44 ], [ 42, 92 ], [ 9, 80 ],  [ 10, 88 ], [ 69, 26 ]
+]
+Lengths:   500 100
+Diamonds slice  0 to  500  updated! with transaction hash:  0x48a3ff3ad6a04ba55a6e403a75aebd32bdd1dee33ed824bbdc5c94bc19420a6
+Bomb slice  0 to  500  updated! with transaction hash:  0x93d5285222afb0461b629a988112ddb3e42ca47431b92c9c8d5f365b59db66
+✅ Added Block Points successfully!
+
+Press Enter to continue...
+🚀 Starknet Deployment Menu
+
+-2. Declare Game Contract
+-1. Deploy Game Contract
+1. Declare and Deploy Game Contract
+2. Declare and Deploy L3 Registry Contract
+3. Declare and Deploy L2 Registry Contract
+4. Update Block Points
+5. Set Game Currency
+6. Enable Game
+7. Update Game Address on L3 Registry
+8. Upgrade L3 Registry
+9. Declare Bot
+10. Upgrade Game Contract
+11. Set Appchain Bridge
+12. Withdraw Game Currency
+13. Deploy Multiple Bots
+14. Call Mine
+15. Get Class Hash
+16. Disable Game
+17. Call Is Bot Alive
+18. Exit
+(node:14088) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/dexterhv/Work/gridy/chain_2/madara-scripts/l3_scripts/4_gridy/deploy_gridy_l3.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /Users/dexterhv/Work/gridy/chain_2/madara-scripts/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+Welcome to Starknet Deployment CLI
+=================================
+
+
+🚀 Starknet Deployment Menu
+
+-2. Declare Game Contract
+-1. Deploy Game Contract
+1. Declare and Deploy Game Contract
+2. Declare and Deploy L3 Registry Contract
+3. Declare and Deploy L2 Registry Contract
+4. Update Block Points
+5. Set Game Currency
+6. Enable Game
+7. Update Game Address on L3 Registry
+8. Upgrade L3 Registry
+9. Declare Bot
+10. Upgrade Game Contract
+11. Set Appchain Bridge
+12. Withdraw Game Currency
+13. Deploy Multiple Bots
+14. Call Mine
+15. Get Class Hash
+16. Disable Game
+17. Call Is Bot Alive
+18. Exit
+(node:14088) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+
+📦 Adding Block Points...
+Diamond Locations:  [ [ 71, 56 ] ]
+Bomb Locations:  []
+Lengths:   1 0
+Diamonds slice  0 to  500  updated! with transaction hash:  0x116f7b900865e483288346480f352a925beb193c1bf0c5a4585db79c74dceab
+✅ Added Block Points successfully!
+
+Press Enter to continue...
+🚀 Starknet Deployment Menu
+
+-2. Declare Game Contract
+-1. Deploy Game Contract
+1. Declare and Deploy Game Contract
+2. Declare and Deploy L3 Registry Contract
+3. Declare and Deploy L2 Registry Contract
+4. Update Block Points
+5. Set Game Currency
+6. Enable Game
+7. Update Game Address on L3 Registry
+8. Upgrade L3 Registry
+9. Declare Bot
+10. Upgrade Game Contract
+11. Set Appchain Bridge
+12. Withdraw Game Currency
+13. Deploy Multiple Bots
+14. Call Mine
+15. Get Class Hash
+16. Disable Game
+17. Call Is Bot Alive
+18. Exit
+(node:14221) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/dexterhv/Work/gridy/chain_2/madara-scripts/l3_scripts/4_gridy/deploy_gridy_l3.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /Users/dexterhv/Work/gridy/chain_2/madara-scripts/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+Welcome to Starknet Deployment CLI
+=================================
+
+
+🚀 Starknet Deployment Menu
+
+-2. Declare Game Contract
+-1. Deploy Game Contract
+1. Declare and Deploy Game Contract
+2. Declare and Deploy L3 Registry Contract
+3. Declare and Deploy L2 Registry Contract
+4. Update Block Points
+5. Set Game Currency
+6. Enable Game
+7. Update Game Address on L3 Registry
+8. Upgrade L3 Registry
+9. Declare Bot
+10. Upgrade Game Contract
+11. Set Appchain Bridge
+12. Withdraw Game Currency
+13. Deploy Multiple Bots
+14. Call Mine
+15. Get Class Hash
+16. Disable Game
+17. Call Is Bot Alive
+18. Exit
+(node:14221) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+
+📦 Adding Block Points...
+Diamond Locations:  [ [ 4, 18 ] ]
+Bomb Locations:  []
+Lengths:   1 0
+Diamonds slice  0 to  500  updated! with transaction hash:  0x403f9704fc619523f9c06faa1ec0b394bd7f678479521dfd33e0b686274868e
+✅ Added Block Points successfully!
+
+Press Enter to continue...(node:14360) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/dexterhv/Work/gridy/chain_2/madara-scripts/l3_scripts/4_gridy/deploy_gridy_l3.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /Users/dexterhv/Work/gridy/chain_2/madara-scripts/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+Welcome to Starknet Deployment CLI
+=================================
+
+
+🚀 Starknet Deployment Menu
+
+-2. Declare Game Contract
+-1. Deploy Game Contract
+1. Declare and Deploy Game Contract
+2. Declare and Deploy L3 Registry Contract
+3. Declare and Deploy L2 Registry Contract
+4. Update Block Points
+5. Set Game Currency
+6. Enable Game
+7. Update Game Address on L3 Registry
+8. Upgrade L3 Registry
+9. Declare Bot
+10. Upgrade Game Contract
+11. Set Appchain Bridge
+12. Withdraw Game Currency
+13. Deploy Multiple Bots
+14. Call Mine
+15. Get Class Hash
+16. Disable Game
+17. Call Is Bot Alive
+18. Exit
+(node:14360) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(node:14455) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/dexterhv/Work/gridy/chain_2/madara-scripts/l3_scripts/4_gridy/deploy_gridy_l3.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /Users/dexterhv/Work/gridy/chain_2/madara-scripts/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+Welcome to Starknet Deployment CLI
+=================================
+
+
+🚀 Starknet Deployment Menu
+
+-2. Declare Game Contract
+-1. Deploy Game Contract
+1. Declare and Deploy Game Contract
+2. Declare and Deploy L3 Registry Contract
+3. Declare and Deploy L2 Registry Contract
+4. Update Block Points
+5. Set Game Currency
+6. Enable Game
+7. Update Game Address on L3 Registry
+8. Upgrade L3 Registry
+9. Declare Bot
+10. Upgrade Game Contract
+11. Set Appchain Bridge
+12. Withdraw Game Currency
+13. Deploy Multiple Bots
+14. Call Mine
+15. Get Class Hash
+16. Disable Game
+17. Call Is Bot Alive
+18. Exit
+(node:14455) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+
+📦 Adding Block Points...
+Diamond Locations:  [ [ 72, 86 ] ]
+Bomb Locations:  []
+Lengths:   1 0
+Diamonds slice  0 to  500  updated! with transaction hash:  0x47ef21df8597526ad8a6c35f044f405f3b28f3ebd5fe50073eee5dd1e9eea05
+✅ Added Block Points successfully!
+
+Press Enter to continue...(node:14518) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/dexterhv/Work/gridy/chain_2/madara-scripts/l3_scripts/4_gridy/deploy_gridy_l3.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /Users/dexterhv/Work/gridy/chain_2/madara-scripts/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+Welcome to Starknet Deployment CLI
+=================================
+
+
+🚀 Starknet Deployment Menu
+
+-2. Declare Game Contract
+-1. Deploy Game Contract
+1. Declare and Deploy Game Contract
+2. Declare and Deploy L3 Registry Contract
+3. Declare and Deploy L2 Registry Contract
+4. Update Block Points
+5. Set Game Currency
+6. Enable Game
+7. Update Game Address on L3 Registry
+8. Upgrade L3 Registry
+9. Declare Bot
+10. Upgrade Game Contract
+11. Set Appchain Bridge
+12. Withdraw Game Currency
+13. Deploy Multiple Bots
+14. Call Mine
+15. Get Class Hash
+16. Disable Game
+17. Call Is Bot Alive
+18. Exit
+(node:14518) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(node:15311) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/dexterhv/Work/gridy/chain_2/madara-scripts/l3_scripts/4_gridy/deploy_gridy_l3.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /Users/dexterhv/Work/gridy/chain_2/madara-scripts/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+Welcome to Starknet Deployment CLI
+=================================
+
+
+🚀 Starknet Deployment Menu
+
+-2. Declare Game Contract
+-1. Deploy Game Contract
+1. Declare and Deploy Game Contract
+2. Declare and Deploy L3 Registry Contract
+3. Declare and Deploy L2 Registry Contract
+4. Update Block Points
+5. Set Game Currency
+6. Enable Game
+7. Update Game Address on L3 Registry
+8. Upgrade L3 Registry
+9. Declare Bot
+10. Upgrade Game Contract
+11. Set Appchain Bridge
+12. Withdraw Game Currency
+13. Deploy Multiple Bots
+14. Call Mine
+15. Get Class Hash
+16. Disable Game
+17. Call Is Bot Alive
+18. Exit
+(node:15311) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+
+🔓 Setting Game Currency...
+✅ Game Currency set successfully!
+Transaction Hash: 0x7074d25c18b8591f3a73de2bdad553911515b2acaf39649ef36658b229ac945
+
+Press Enter to continue...
+🚀 Starknet Deployment Menu
+
+-2. Declare Game Contract
+-1. Deploy Game Contract
+1. Declare and Deploy Game Contract
+2. Declare and Deploy L3 Registry Contract
+3. Declare and Deploy L2 Registry Contract
+4. Update Block Points
+5. Set Game Currency
+6. Enable Game
+7. Update Game Address on L3 Registry
+8. Upgrade L3 Registry
+9. Declare Bot
+10. Upgrade Game Contract
+11. Set Appchain Bridge
+12. Withdraw Game Currency
+13. Deploy Multiple Bots
+14. Call Mine
+15. Get Class Hash
+16. Disable Game
+17. Call Is Bot Alive
+18. Exit
+
+🔓 Enabling Game Contract...
+✅ Game Contract enabled successfully!
+Transaction Hash: 0x675d14c11155173ad729fce5716413efca723d672f8f895257a0bb96e9d795f
+
+Press Enter to continue...(node:61659) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/dexterhv/Work/gridy/chain_2/madara-scripts/l3_scripts/4_gridy/deploy_gridy_l3.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /Users/dexterhv/Work/gridy/chain_2/madara-scripts/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+Welcome to Starknet Deployment CLI
+=================================
+
+
+🚀 Starknet Deployment Menu
+
+-2. Declare Game Contract
+-1. Deploy Game Contract
+1. Declare and Deploy Game Contract
+2. Declare and Deploy L3 Registry Contract
+3. Declare and Deploy L2 Registry Contract
+4. Update Block Points
+5. Set Game Currency
+6. Enable Game
+7. Update Game Address on L3 Registry
+8. Upgrade L3 Registry
+9. Declare Bot
+10. Upgrade Game Contract
+11. Set Appchain Bridge
+12. Withdraw Game Currency
+13. Deploy Multiple Bots
+14. Call Mine
+15. Get Class Hash
+16. Disable Game
+17. Call Is Bot Alive
+18. Exit
+(node:61659) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+
+🔓 Setting Appchain Bridge...
+✅ Appchain Bridge set successfully!
+Transaction Hash: 0x53edfc19afc50c15e0491564454dfd43ae921606c108a84b74859f7be3936f5
+
+Press Enter to continue...(node:62763) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/dexterhv/Work/gridy/chain_2/madara-scripts/l3_scripts/4_gridy/deploy_gridy_l3.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /Users/dexterhv/Work/gridy/chain_2/madara-scripts/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+Welcome to Starknet Deployment CLI
+=================================
+
+
+🚀 Starknet Deployment Menu
+
+-2. Declare Game Contract
+-1. Deploy Game Contract
+1. Declare and Deploy Game Contract
+2. Declare and Deploy L3 Registry Contract
+3. Declare and Deploy L2 Registry Contract
+4. Update Block Points
+5. Set Game Currency
+6. Enable Game
+7. Update Game Address on L3 Registry
+8. Upgrade L3 Registry
+9. Declare Bot
+10. Upgrade Game Contract
+11. Set Appchain Bridge
+12. Withdraw Game Currency
+13. Deploy Multiple Bots
+14. Call Mine
+15. Get Class Hash
+16. Disable Game
+17. Call Is Bot Alive
+18. Exit
+(node:62763) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(node:63488) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/dexterhv/Work/gridy/chain_2/madara-scripts/l3_scripts/4_gridy/deploy_gridy_l3.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /Users/dexterhv/Work/gridy/chain_2/madara-scripts/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+Welcome to Starknet Deployment CLI
+=================================
+
+
+🚀 Starknet Deployment Menu
+
+-2. Declare Game Contract
+-1. Deploy Game Contract
+1. Declare and Deploy Game Contract
+2. Declare and Deploy L3 Registry Contract
+3. Declare and Deploy L2 Registry Contract
+4. Update Block Points
+5. Set Game Currency
+6. Enable Game
+7. Update Game Address on L3 Registry
+8. Upgrade L3 Registry
+9. Declare Bot
+10. Upgrade Game Contract
+11. Set Appchain Bridge
+12. Withdraw Game Currency
+13. Deploy Multiple Bots
+14. Call Mine
+15. Get Class Hash
+16. Disable Game
+17. Call Is Bot Alive
+18. Exit
+(node:63488) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(node:63727) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/dexterhv/Work/gridy/chain_2/madara-scripts/l3_scripts/4_gridy/deploy_gridy_l3.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /Users/dexterhv/Work/gridy/chain_2/madara-scripts/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+Welcome to Starknet Deployment CLI
+=================================
+
+
+🚀 Starknet Deployment Menu
+
+-2. Declare Game Contract
+-1. Deploy Game Contract
+1. Declare and Deploy Game Contract
+2. Declare and Deploy L3 Registry Contract
+3. Declare and Deploy L2 Registry Contract
+4. Update Block Points
+5. Set Game Currency
+6. Enable Game
+7. Update Game Address on L3 Registry
+8. Upgrade L3 Registry
+9. Declare Bot
+10. Upgrade Game Contract
+11. Set Appchain Bridge
+12. Withdraw Game Currency
+13. Deploy Multiple Bots
+14. Call Mine
+15. Get Class Hash
+16. Disable Game
+17. Call Is Bot Alive
+18. Update Boot Amount
+19. Exit
+(node:63727) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+
+🔓 Upgrading Boot Amount...
+
+❌ Operation failed: TypeError: Cannot read properties of undefined (reading 'BOOT_AMOUNT')
+    at StarknetDeployer.upgradeBootAmount (file:///Users/dexterhv/Work/gridy/chain_2/madara-scripts/l3_scripts/4_gridy/deploy_gridy_l3.js:954:21)
+    at DeploymentCLI.upgradeBootAmount (file:///Users/dexterhv/Work/gridy/chain_2/madara-scripts/l3_scripts/4_gridy/deploy_gridy_l3.js:1257:40)
+    at DeploymentCLI.handleUserInput (file:///Users/dexterhv/Work/gridy/chain_2/madara-scripts/l3_scripts/4_gridy/deploy_gridy_l3.js:1142:22)
+    at file:///Users/dexterhv/Work/gridy/chain_2/madara-scripts/l3_scripts/4_gridy/deploy_gridy_l3.js:1340:18
+    at [_onLine] [as _onLine] (node:internal/readline/interface:414:7)
+    at [_normalWrite] [as _normalWrite] (node:internal/readline/interface:610:22)
+    at ReadStream.ondata (node:internal/readline/interface:243:23)
+    at ReadStream.emit (node:events:507:28)
+    at addChunk (node:internal/streams/readable:559:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:510:3)
+
+Press Enter to continue...(node:63799) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/dexterhv/Work/gridy/chain_2/madara-scripts/l3_scripts/4_gridy/deploy_gridy_l3.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /Users/dexterhv/Work/gridy/chain_2/madara-scripts/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+Welcome to Starknet Deployment CLI
+=================================
+
+
+🚀 Starknet Deployment Menu
+
+-2. Declare Game Contract
+-1. Deploy Game Contract
+1. Declare and Deploy Game Contract
+2. Declare and Deploy L3 Registry Contract
+3. Declare and Deploy L2 Registry Contract
+4. Update Block Points
+5. Set Game Currency
+6. Enable Game
+7. Update Game Address on L3 Registry
+8. Upgrade L3 Registry
+9. Declare Bot
+10. Upgrade Game Contract
+11. Set Appchain Bridge
+12. Withdraw Game Currency
+13. Deploy Multiple Bots
+14. Call Mine
+15. Get Class Hash
+16. Disable Game
+17. Call Is Bot Alive
+18. Update Boot Amount
+19. Exit
+(node:63799) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+
+Exiting...
+(node:63807) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/dexterhv/Work/gridy/chain_2/madara-scripts/l3_scripts/4_gridy/deploy_gridy_l3.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /Users/dexterhv/Work/gridy/chain_2/madara-scripts/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+Welcome to Starknet Deployment CLI
+=================================
+
+
+🚀 Starknet Deployment Menu
+
+-2. Declare Game Contract
+-1. Deploy Game Contract
+1. Declare and Deploy Game Contract
+2. Declare and Deploy L3 Registry Contract
+3. Declare and Deploy L2 Registry Contract
+4. Update Block Points
+5. Set Game Currency
+6. Enable Game
+7. Update Game Address on L3 Registry
+8. Upgrade L3 Registry
+9. Declare Bot
+10. Upgrade Game Contract
+11. Set Appchain Bridge
+12. Withdraw Game Currency
+13. Deploy Multiple Bots
+14. Call Mine
+15. Get Class Hash
+16. Disable Game
+17. Call Is Bot Alive
+18. Update Boot Amount
+19. Exit
+(node:63807) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+
+🔓 Upgrading Boot Amount...
+✅ Boot Amount upgraded successfully!
+Transaction Hash: 0x4f3b12ca1bc65fffc67559cd23597b5aff5d67a47bfa1074d800037e8a1454d
+
+Press Enter to continue...(node:73803) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/dexterhv/Work/gridy/chain_2/madara-scripts/l3_scripts/4_gridy/deploy_gridy_l3.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /Users/dexterhv/Work/gridy/chain_2/madara-scripts/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+Welcome to Starknet Deployment CLI
+=================================
+
+
+🚀 Starknet Deployment Menu
+
+-2. Declare Game Contract
+-1. Deploy Game Contract
+1. Declare and Deploy Game Contract
+2. Declare and Deploy L3 Registry Contract
+3. Declare and Deploy L2 Registry Contract
+4. Update Block Points
+5. Set Game Currency
+6. Enable Game
+7. Update Game Address on L3 Registry
+8. Upgrade L3 Registry
+9. Declare Bot
+10. Upgrade Game Contract
+11. Set Appchain Bridge
+12. Withdraw Game Currency
+13. Deploy Multiple Bots
+14. Call Mine
+15. Get Class Hash
+16. Disable Game
+17. Call Is Bot Alive
+18. Update Boot Amount
+19. Exit
+(node:73803) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+Bot Class Hash:  0x65c0c25e69ce189afff74294b6b80866b5da87176353cc4896d28fecdabf0c4
+Game Class Hash:  0xf20afbc82add63c6377aaaadb924dcedf8cd1eed6434c651b7c7710fadf264
+
+Press Enter to continue...(node:73820) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/dexterhv/Work/gridy/chain_2/madara-scripts/l3_scripts/4_gridy/deploy_gridy_l3.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /Users/dexterhv/Work/gridy/chain_2/madara-scripts/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+Welcome to Starknet Deployment CLI
+=================================
+
+
+🚀 Starknet Deployment Menu
+
+-2. Declare Game Contract
+-1. Deploy Game Contract
+1. Declare and Deploy Game Contract
+2. Declare and Deploy L3 Registry Contract
+3. Declare and Deploy L2 Registry Contract
+4. Update Block Points
+5. Set Game Currency
+6. Enable Game
+7. Update Game Address on L3 Registry
+8. Upgrade L3 Registry
+9. Declare Bot
+10. Upgrade Game Contract
+11. Set Appchain Bridge
+12. Withdraw Game Currency
+13. Deploy Multiple Bots
+14. Call Mine
+15. Get Class Hash
+16. Disable Game
+17. Call Is Bot Alive
+18. Update Boot Amount
+19. Exit
+(node:73820) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+
+📝 Declaring Bot Contract...
+Contract declared with classHash = 0x65c0c25e69ce189afff74294b6b80866b5da87176353cc4896d28fecdabf0c4
+Class Hash: 0x65c0c25e69ce189afff74294b6b80866b5da87176353cc4896d28fecdabf0c4
+Transaction Hash: 0x587235d8040f56cf4aa6f6b3d6c068d3cca5d49bc98832a302b23bfb9dade0a
+✅ Bot Contract declared successfully!
+
+Press Enter to continue...
